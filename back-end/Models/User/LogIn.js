@@ -1,9 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const connection = require("../db");
+const connection = require("../../db");
 const signIn = async (req, res) => {
   const user = req.body;
-  console.log(user);
   isItEmail = user[Object.keys(user)[0]];
   if (isItEmail.search("@") !== -1) {
     query = `SELECT * FROM User WHERE email = ?`;
@@ -14,15 +13,14 @@ const signIn = async (req, res) => {
   }
   connection.query(query, data, async (err, result) => {
     if (err) {
-      throw err;
+      throw err.sqlMessage;
     } else {
-      console.log(result);
       if (result.length) {
-        const role = `SELECT * FROM Role WHERE idRole = ?`;
+        const role = `SELECT * FROM Role WHERE role_id = ?`;
         if (await bcrypt.compare(user.password, result[0].password)) {
-          connection.query(role, result[0].Role_idRole, (err, permissions) => {
+          connection.query(role, result[0].Role_role_id, (err, permissions) => {
             if (err) {
-              throw err;
+              throw err.sqlMessage;
             } else {
               payloads = {
                 email: result[0].email,

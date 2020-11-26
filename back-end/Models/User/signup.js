@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const connection = require("../db");
+const connection = require("../../db");
 const passwordChecking = (password) => {
   let passStrength = 0;
   const [upperLetter, lowerLetter, symbol, number] = [
@@ -62,7 +62,6 @@ const passwordChecking = (password) => {
 };
 const signUp = async (req, res) => {
   let user = req.body;
-  console.log(user);
   if (user.password.length < 8) {
     res.json("Password must be greater than 8");
   }
@@ -74,24 +73,24 @@ const signUp = async (req, res) => {
   if (user.phone.length < 10) res.json("Invalid Phone Number");
   if (passwordChecking(user.password)) {
     user.password = await bcrypt.hash(user.password, Number(process.env.SALT));
-    user.Role_idRole = 2;
+    user.Role_role_id = 2;
     user.id = null;
     const query = `INSERT INTO User
-    (id,
+    (user_id,
     username, 
     email, 
     password,  
     phone,
-    Role_idRole)
+    Role_role_id)
     VALUES
     (?, ?, ?, ?, ?, ?)`;
     const data = [
-      user.id,
+      user.user_id,
       user.username,
       user.email,
       user.password,
       user.phone,
-      user.Role_idRole,
+      user.Role_role_id,
     ];
     connection.query(query, data, (err, results) => {
       if (err) throw err.sqlMessage;
