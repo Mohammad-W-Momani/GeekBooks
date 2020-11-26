@@ -6,39 +6,29 @@ const signIn = (req, res) => {
   let [query, data] = [,];
   const { username, email, phone } = req.body;
   if (email !== undefined) {
-    query = `SELECT * FROM User WHERE email = ?`;
+    query = `SELECT User.email, User.password, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where email = ?`;
     data = email;
   } else if (username !== undefined) {
-    query = `SELECT * FROM User WHERE username = ?`;
+    query = `SELECT User.username,User.email, User.password, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where username = ?`;
     data = username;
   } else {
-    query = `SELECT * FROM User WHERE phone = ?`;
+    query = `SELECT  User.email, User.password,User.phone, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where phone = ?`;
     data = phone;
   }
   connection.query(query, data, (err, result) => {
     if (err) throw err.sqlMessage;
     else {
       if (result.length) {
-        const role = `SELECT * FROM Role WHERE role_id = ?`;
         bcrypt.compare(user.password, result[0].password, (err, output) => {
           if (output) {
-            connection.query(
-              role,
-              result[0].Role_role_id,
-              (err, permissions) => {
-                if (err) throw err.sqlMessage;
-                else {
-                  payloads = {
-                    email: result[0].email,
-                    permissions: permissions[0].type,
-                  };
-                  options = {
-                    expiresIn: process.env.TOKEN_EXPIRATION,
-                  };
-                  res.json(jwt.sign(payloads, process.env.SECRET, options));
-                }
-              }
-            );
+            payloads = {
+              email: result[0].email,
+              permissions: result[0].type,
+            };
+            options = {
+              expiresIn: process.env.TOKEN_EXPIRATION,
+            };
+            res.json(jwt.sign(payloads, process.env.SECRET, options));
           } else res.json("password is incorrect");
         });
       } else res.json("Invalid login");
