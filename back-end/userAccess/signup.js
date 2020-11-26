@@ -95,7 +95,6 @@ const signUp = async (req, res) => {
     ];
     connection.query(query, data, (err, results) => {
       if (err) throw err.sqlMessage;
-      console.log(results);
       res.json("User Has Been Created Successfully ");
     });
   }
