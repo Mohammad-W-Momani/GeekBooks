@@ -1,5 +1,5 @@
-const signIn = require("../userAccess/LogIn");
-const signUp = require("../userAccess/signup");
+const signIn = require("../Models/User/LogIn");
+const signUp = require("../Models/User/signup");
 // sign up
 const register = signUp;
 //Login
