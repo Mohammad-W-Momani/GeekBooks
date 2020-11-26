@@ -4,11 +4,11 @@ const signUp = require("../Models/User/signup");
 const register = signUp;
 //Login
 const logIn = signIn;
-const Home = (req, res) => {
+const home = (req, res) => {
   res.json("Welcome To Your Place");
 };
 module.exports = {
   logIn,
   register,
-  Home,
+  home,
 };

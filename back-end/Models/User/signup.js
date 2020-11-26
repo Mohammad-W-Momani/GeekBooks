@@ -46,9 +46,9 @@ const passwordChecking = (password) => {
   } else {
     passStrength += 1;
   }
-  let passWord = password.split("");
-
-  const userPassword = passWord.filter((pass) => pass === " ");
+  const userPassword = password
+    .split("")
+    .filter((whiteSpace) => whiteSpace === " ");
   if (!userPassword.length) {
     passStrength += 1;
   } else {
@@ -61,15 +61,14 @@ const passwordChecking = (password) => {
   }
 };
 const signUp = async (req, res) => {
-  let user = req.body;
-  if (user.password.length < 8) {
-    res.json("Password must be greater than 8");
-  }
+  const user = req.body;
+  if (user.password.length < 8) res.json("Password must be greater than 8");
   if (!passwordChecking(user.password)) {
     res.json(
       "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
     );
   }
+
   if (user.phone.length < 10) res.json("Invalid Phone Number");
   if (passwordChecking(user.password)) {
     user.password = await bcrypt.hash(user.password, Number(process.env.SALT));
