@@ -5,7 +5,7 @@ const register = signUp;
 //Login
 const logIn = signIn;
 const Home = (req, res) => {
-  res.json("Welcome To Your Market");
+  res.json("Welcome To Your Place");
 };
 module.exports = {
   logIn,
