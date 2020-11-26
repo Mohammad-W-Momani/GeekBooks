@@ -113,9 +113,9 @@ CREATE TABLE IF NOT EXISTS Post (
     CONSTRAINT fk_Post_User1 FOREIGN KEY (User_user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Comments
+-- Table Comment
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Comments (
+CREATE TABLE IF NOT EXISTS Comment (
     comment VARCHAR(255) NOT NULL,
     thumbs_up INT NULL,
     comment_id INT NOT NULL AUTO_INCREMENT,
@@ -123,22 +123,22 @@ CREATE TABLE IF NOT EXISTS Comments (
     Post_post_id INT NOT NULL,
     PRIMARY KEY (comment_id),
     UNIQUE INDEX Comment_id_UNIQUE (comment_id ASC),
-    INDEX fk_Comments_User1_idx (User_user_id ASC),
-    INDEX fk_Comments_Post1_idx (Post_post_id ASC),
-    CONSTRAINT fk_Comments_User1 FOREIGN KEY (User_user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Comments_Post1 FOREIGN KEY (Post_post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    INDEX fk_Comment_User1_idx (User_user_id ASC),
+    INDEX fk_Comment_Post1_idx (Post_post_id ASC),
+    CONSTRAINT fk_Comment_User1 FOREIGN KEY (User_user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Comment_Post1 FOREIGN KEY (Post_post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Followers
+-- Table Follower
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Followers (
-    followers_id INT NOT NULL AUTO_INCREMENT,
-    followers_counter INT NULL,
+CREATE TABLE IF NOT EXISTS Follower (
+    follower_id INT NOT NULL AUTO_INCREMENT,
+    follower_counter INT NULL,
     User_user_id INT UNIQUE NOT NULL,
-    PRIMARY KEY (followers_id),
-    UNIQUE INDEX follower_id_UNIQUE (followers_id ASC),
-    INDEX fk_Followers_User1_idx (User_user_id ASC),
-    CONSTRAINT fk_Followers_User1 FOREIGN KEY (User_user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    PRIMARY KEY (follower_id),
+    UNIQUE INDEX follower_id_UNIQUE (follower_id ASC),
+    INDEX fk_Follower_User1_idx (User_user_id ASC),
+    CONSTRAINT fk_Follower_User1 FOREIGN KEY (User_user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Following
