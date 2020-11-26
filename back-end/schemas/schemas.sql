@@ -88,12 +88,12 @@ CREATE TABLE IF NOT EXISTS Book (
 -- Table Quote
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Quote (
-    Quote_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    Quote VARCHAR(255) NOT NULL,
+    quote_id INT NOT NULL AUTO_INCREMENT,
+    quote VARCHAR(255) NOT NULL,
     Author_author_id INT NOT NULL,
     User_List_user_list_id INT NOT NULL,
-    PRIMARY KEY (Quote_id),
-    UNIQUE INDEX idQuote_UNIQUE (Quote_id ASC),
+    PRIMARY KEY (quote_id),
+    UNIQUE INDEX quote_id_UNIQUE (quote_id ASC),
     INDEX fk_Quote_Author1_idx (Author_author_id ASC),
     INDEX fk_Quote_User_List1_idx (User_List_user_list_id ASC),
     CONSTRAINT fk_Quote_Author1 FOREIGN KEY (Author_author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS Quote (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Post (
     post_id INT NOT NULL AUTO_INCREMENT,
-    post VARCHAR(45) NULL,
+    post VARCHAR(255) NULL,
     thumbs_up INT NULL,
     User_user_id INT UNIQUE NOT NULL,
     PRIMARY KEY (post_id),
