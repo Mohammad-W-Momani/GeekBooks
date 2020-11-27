@@ -3,16 +3,16 @@ const jwt = require("jsonwebtoken");
 const connection = require("../../db");
 const signIn = (req, res) => {
   const user = req.body;
-  let [query, data] = [,];
+  let query, data = [,];
   const { username, email, phone } = req.body;
-  if (email !== undefined) {
-    query = `SELECT User.email, User.password, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where email = ?`;
+  if (email) {
+    query = `SELECT User.email, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where email = ?`;
     data = email;
-  } else if (username !== undefined) {
-    query = `SELECT User.username,User.email, User.password, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where username = ?`;
+  } else if (username) {
+    query = `SELECT User.username,User.email, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where username = ?`;
     data = username;
   } else {
-    query = `SELECT  User.email, User.password,User.phone, Role.type FROM User Join Role on User.Role_role_id =Role.role_id where phone = ?`;
+    query = `SELECT  User.email, User.password,User.phone, Role.type FROM User Join Role on User.role_id =Role.role_id where phone = ?`;
     data = phone;
   }
   connection.query(query, data, (err, result) => {

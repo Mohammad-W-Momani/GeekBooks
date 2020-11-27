@@ -72,24 +72,17 @@ const signUp = async (req, res) => {
   if (user.phone.length < 10) res.json("Invalid Phone Number");
   if (passwordChecking(user.password)) {
     user.password = await bcrypt.hash(user.password, Number(process.env.SALT));
-    user.Role_role_id = 2;
+    user.role_id = 2;
     user.id = null;
     const query = `INSERT INTO User
-    (user_id,
-    username, 
-    email, 
-    password,  
-    phone,
-    Role_role_id)
-    VALUES
-    (?, ?, ?, ?, ?, ?)`;
+    (user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
     const data = [
       user.user_id,
       user.username,
       user.email,
       user.password,
       user.phone,
-      user.Role_role_id,
+      user.role_id,
     ];
     connection.query(query, data, (err, results) => {
       if (err) throw err.sqlMessage;
