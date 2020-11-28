@@ -1,4 +1,4 @@
--- please read the following before you edit anything on the code.
+-- please read the following before you edit anything in the code.
 -- INDEX: (can be used to efficiently find all rows matching some column in your query and then walk
 -- through only that subset of the table to find exact matches.)
 -- ASC: (command is used to sort the data returned in ascending order)
@@ -8,127 +8,153 @@
 -- The UNIQUE" constraint ensures that all values in a column are different
 -- ON DELETE NO ACTION :NO ACTION means that nothing will happen when you delete from your Subject table to the Topic table.
 -- ON UPDATE NO ACTION: the same of ON DELETE NO ACTION
+-- -----------------------------------------------------
+-- create database
+-- -----------------------------------------------------
+CREATE DATABASE IF NOT EXISTS GeekBooks;
+-- -----------------------------------------------------
+-- use database
+-- -----------------------------------------------------
 USE GeekBooks;
 -- -----------------------------------------------------
 -- Table Role
 -- -----------------------------------------------------
-CREATE TABLE Role (
-    idRole INT NOT NULL,
+CREATE TABLE IF NOT EXISTS Role (
+    role_id INT NOT NULL,
     type VARCHAR(255) NOT NULL,
-    PRIMARY KEY (idRole)
+    PRIMARY KEY (role_id)
 );
 -- -----------------------------------------------------
 -- Table User
 -- -----------------------------------------------------
-CREATE TABLE User (
-    id INT UNIQUE NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS User (
+    user_id INT UNIQUE NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(60) NOT NULL,
     phone VARCHAR(255) UNIQUE NOT NULL,
-    Role_idRole INT NOT NULL,
-    PRIMARY KEY (id),
+    role_id INT NOT NULL,
+    PRIMARY KEY (user_id),
     UNIQUE INDEX email_UNIQUE (email ASC),
     UNIQUE INDEX phone_UNIQUE (phone ASC),
-    INDEX fk_User_Role_idx (Role_idRole ASC),
-    CONSTRAINT fk_User_Role FOREIGN KEY (Role_idRole) REFERENCES Role (idRole) ON DELETE NO ACTION ON UPDATE NO ACTION
+    INDEX fk_User_Role1_idx (role_id ASC),
+    UNIQUE INDEX user_id_UNIQUE (user_id ASC),
+    CONSTRAINT fk_User_Role1 FOREIGN KEY (role_id) REFERENCES Role (role_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Author
 -- -----------------------------------------------------
-CREATE TABLE Author (
-    id INT NOT NULL AUTO_INCREMENT,
-    AutherName VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS Author (
+    author_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     specialties VARCHAR(255) NOT NULL,
-    UNIQUE INDEX id_UNIQUE (id ASC),
-    PRIMARY KEY (id)
-);
--- -----------------------------------------------------
--- Table Book
--- -----------------------------------------------------
-CREATE TABLE Book (
-    Author_id INT NOT NULL,
-    Book_id INT NOT NULL AUTO_INCREMENT,
-    Title VARCHAR(255) NOT NULL,
-    Reviews VARCHAR(255) NULL,
-    Book_Description VARCHAR(255) NULL,
-    Topic VARCHAR(255) NOT NULL,
-    Rating INT NULL,
-    INDEX fk_Book_Author1_idx (Author_id ASC),
-    PRIMARY KEY (Book_id),
-    CONSTRAINT fk_Book_Author1 FOREIGN KEY (Author_id) REFERENCES Author (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
--- -----------------------------------------------------
--- Table Quote
--- -----------------------------------------------------
-CREATE TABLE Quote (
-    idQuote INT NOT NULL AUTO_INCREMENT,
-    Quote VARCHAR(255) NOT NULL,
-    Author_id INT NOT NULL,
-    PRIMARY KEY (idQuote),
-    UNIQUE INDEX idQuote_UNIQUE (idQuote ASC),
-    INDEX fk_Quote_Author1_idx (Author_id ASC),
-    CONSTRAINT fk_Quote_Author1 FOREIGN KEY (Author_id) REFERENCES Author (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
--- -----------------------------------------------------
--- Table Post
--- -----------------------------------------------------
-CREATE TABLE Post (
-    User_id INT UNIQUE NOT NULL,
-    Post_id INT NOT NULL AUTO_INCREMENT,
-    Post VARCHAR(45) NULL,
-    thumbs_up INT NULL,
-    INDEX fk_Post_User1_idx (User_id ASC),
-    PRIMARY KEY (Post_id),
-    UNIQUE INDEX Post_id_UNIQUE (Post_id ASC),
-    CONSTRAINT fk_Post_User1 FOREIGN KEY (User_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
--- -----------------------------------------------------
--- Table Comments
--- -----------------------------------------------------
-CREATE TABLE Comments (
-    User_id INT UNIQUE NOT NULL,
-    Post_Post_id INT NOT NULL,
-    Comment VARCHAR(255) NOT NULL,
-    thumbs_up INT NULL,
-    INDEX fk_Comments_User1_idx (User_id ASC),
-    INDEX fk_Comments_Post1_idx (Post_Post_id ASC),
-    CONSTRAINT fk_Comments_User1 FOREIGN KEY (User_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Comments_Post1 FOREIGN KEY (Post_Post_id) REFERENCES Post (Post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    UNIQUE INDEX id_UNIQUE (author_id ASC),
+    PRIMARY KEY (author_id)
 );
 -- -----------------------------------------------------
 -- Table User_List
 -- -----------------------------------------------------
-CREATE TABLE User_List (
-    idUser_List INT NOT NULL AUTO_INCREMENT,
-    haveRead VARCHAR(255) NULL,
+CREATE TABLE IF NOT EXISTS User_List (
+    user_list_id INT NOT NULL AUTO_INCREMENT,
+    have_read VARCHAR(255) NULL,
     reading VARCHAR(255) NULL,
     to_read VARCHAR(255) NULL,
-    User_id INT UNIQUE NOT NULL,
-    PRIMARY KEY (idUser_List),
-    UNIQUE INDEX idUser_List_UNIQUE (idUser_List ASC),
-    INDEX fk_User_List_User1_idx (User_id ASC),
-    CONSTRAINT fk_User_List_User1 FOREIGN KEY (User_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    favorite_quotes VARCHAR(255) NULL,
+    user_id INT UNIQUE NOT NULL,
+    PRIMARY KEY (user_list_id, user_id),
+    UNIQUE INDEX userList_id_UNIQUE (user_list_id ASC),
+    INDEX fk_User_List_User1_idx (user_id ASC),
+    CONSTRAINT fk_User_List_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Followers
+-- Table Book
 -- -----------------------------------------------------
-CREATE TABLE Followers (
-    User_id INT UNIQUE NOT NULL,
-    Followers_id INT NOT NULL AUTO_INCREMENT,
-    INDEX fk_Followers_User1_idx (User_id ASC),
-    PRIMARY KEY (Followers_id),
-    UNIQUE INDEX Followers_id_UNIQUE (Followers_id ASC),
-    CONSTRAINT fk_Followers_User1 FOREIGN KEY (User_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS Book (
+    book_id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    reviews VARCHAR(255) NULL,
+    description VARCHAR(255) NULL,
+    topic VARCHAR(255) NOT NULL,
+    rating INT NULL,
+    author_id INT NOT NULL,
+    user_list_id INT NOT NULL,
+    PRIMARY KEY (book_id),
+    INDEX fk_Book_Author1_idx (author_id ASC),
+    INDEX fk_Book_User_List1_idx (user_list_id ASC),
+    CONSTRAINT fk_Book_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Book_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+) DEFAULT CHARACTER SET = ascii;
+-- -----------------------------------------------------
+-- Table Quote
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Quote (
+    quote_id INT NOT NULL AUTO_INCREMENT,
+    quote VARCHAR(255) NOT NULL,
+    author_id INT NOT NULL,
+    user_list_id INT NOT NULL,
+    PRIMARY KEY (quote_id),
+    UNIQUE INDEX quote_id_UNIQUE (quote_id ASC),
+    INDEX fk_Quote_Author1_idx (author_id ASC),
+    INDEX fk_Quote_User_List1_idx (user_list_id ASC),
+    CONSTRAINT fk_Quote_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Quote_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table Post
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Post (
+    post_id INT NOT NULL AUTO_INCREMENT,
+    post VARCHAR(255) NULL,
+    thumbs_up INT NULL,
+    user_id INT UNIQUE NOT NULL,
+    PRIMARY KEY (post_id),
+    UNIQUE INDEX Post_id_UNIQUE (post_id ASC),
+    INDEX fk_Post_User1_idx (user_id ASC),
+    CONSTRAINT fk_Post_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table Comment
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Comment (
+    comment VARCHAR(255) NOT NULL,
+    thumbs_up INT NULL,
+    comment_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT UNIQUE NOT NULL,
+    post_id INT NOT NULL,
+    PRIMARY KEY (comment_id),
+    UNIQUE INDEX Comment_id_UNIQUE (comment_id ASC),
+    INDEX fk_Comment_User1_idx (user_id ASC),
+    INDEX fk_Comment_Post1_idx (post_id ASC),
+    CONSTRAINT fk_Comment_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Comment_Post1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table Follower
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Follower (
+    follower_id INT NOT NULL AUTO_INCREMENT,
+    follower_counter INT NULL,
+    user_id INT UNIQUE NOT NULL,
+    PRIMARY KEY (follower_id),
+    UNIQUE INDEX follower_id_UNIQUE (follower_id ASC),
+    INDEX fk_Follower_User1_idx (user_id ASC),
+    CONSTRAINT fk_Follower_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Following
 -- -----------------------------------------------------
-CREATE TABLE Following (
-    User_id INT UNIQUE NOT NULL,
-    Following_id INT NOT NULL AUTO_INCREMENT,
-    INDEX fk_Following_User1_idx (User_id ASC),
-    PRIMARY KEY (Following_id),
-    UNIQUE INDEX Following_id_UNIQUE (Following_id ASC),
-    CONSTRAINT fk_Following_User1 FOREIGN KEY (User_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS Following (
+    following_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT UNIQUE NOT NULL,
+    following_counter INT NULL,
+    PRIMARY KEY (following_id),
+    UNIQUE INDEX Following_id_UNIQUE (following_id ASC),
+    INDEX fk_Following_User1_idx (user_id ASC),
+    CONSTRAINT fk_Following_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+INSERT INTO Role (role_id, type)
+VALUES ('1', 'Admin');
+INSERT INTO Role (role_id, type)
+VALUES ('2', 'User');
+INSERT INTO Role (role_id, type)
+VALUES ('3', 'Author');
