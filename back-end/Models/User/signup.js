@@ -65,21 +65,23 @@ const signUp = async (req, res) => {
   bcrypt.hash(user.password, Number(process.env.SALT), (err, hash) => {
     if (err) throw err;
     user.password = hash;
-  });
-  user.role_id = 2;
-  user.id = null;
-  const query = `INSERT INTO User(user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
-  const data = [
-    user.user_id,
-    user.username,
-    user.email,
-    user.password,
-    user.phone,
-    user.role_id,
-  ];
-  connection.query(query, data, (err, results) => {
-    if (err) throw err.sqlMessage;
-    res.json("User Has Been Created Successfully ");
+    console.log(hash, user.password);
+
+    user.role_id = 2;
+    user.id = null;
+    const query = `INSERT INTO User(user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
+    const data = [
+      user.user_id,
+      user.username,
+      user.email,
+      user.password,
+      user.phone,
+      user.role_id,
+    ];
+    connection.query(query, data, (err, results) => {
+      if (err) throw err.sqlMessage;
+      res.json("User Has Been Created Successfully ");
+    });
   });
 };
 module.exports = signUp;
