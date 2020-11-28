@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const connection = require("../../db");
 const signIn = (req, res) => {
   const user = req.body;
-  let query, data = [,];
+  let query, data 
   const { username, email, phone } = req.body;
   if (email) {
     query = `SELECT User.email, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where email = ?`;
@@ -19,7 +19,7 @@ const signIn = (req, res) => {
     if (err) throw err.sqlMessage;
     else {
       if (result.length) {
-        bcrypt.compare(user.password, result[0].password, (err, output) => {
+        bcrypt.compare(user.password , result[0].password, (err, output) => {
           if (output) {
             payloads = {
               email: result[0].email,

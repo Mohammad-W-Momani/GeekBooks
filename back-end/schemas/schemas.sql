@@ -76,12 +76,12 @@ CREATE TABLE IF NOT EXISTS Book (
     description VARCHAR(255) NULL,
     topic VARCHAR(255) NOT NULL,
     rating INT NULL,
-    Author_author_id INT NOT NULL,
+    author_id INT NOT NULL,
     user_list_id INT NOT NULL,
     PRIMARY KEY (book_id),
-    INDEX fk_Book_Author1_idx (Author_author_id ASC),
+    INDEX fk_Book_Author1_idx (author_id ASC),
     INDEX fk_Book_User_List1_idx (user_list_id ASC),
-    CONSTRAINT fk_Book_Author1 FOREIGN KEY (Author_author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Book_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Book_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) DEFAULT CHARACTER SET = ascii;
 -- -----------------------------------------------------
@@ -90,13 +90,13 @@ CREATE TABLE IF NOT EXISTS Book (
 CREATE TABLE IF NOT EXISTS Quote (
     quote_id INT NOT NULL AUTO_INCREMENT,
     quote VARCHAR(255) NOT NULL,
-    Author_author_id INT NOT NULL,
+    author_id INT NOT NULL,
     user_list_id INT NOT NULL,
     PRIMARY KEY (quote_id),
     UNIQUE INDEX quote_id_UNIQUE (quote_id ASC),
-    INDEX fk_Quote_Author1_idx (Author_author_id ASC),
+    INDEX fk_Quote_Author1_idx (author_id ASC),
     INDEX fk_Quote_User_List1_idx (user_list_id ASC),
-    CONSTRAINT fk_Quote_Author1 FOREIGN KEY (Author_author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Quote_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Quote_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------

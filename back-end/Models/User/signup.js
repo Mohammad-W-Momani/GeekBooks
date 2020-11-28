@@ -74,8 +74,7 @@ const signUp = async (req, res) => {
     user.password = await bcrypt.hash(user.password, Number(process.env.SALT));
     user.role_id = 2;
     user.id = null;
-    const query = `INSERT INTO User
-    (user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO User(user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
     const data = [
       user.user_id,
       user.username,
