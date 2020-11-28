@@ -3,10 +3,10 @@ const connection = require("../../db");
 const passwordChecking = (password) => {
   let passStrength = 0;
   const [upperLetter, lowerLetter, symbol, number] = [
-    /[A-Z]/,
-    /[a-z]/,
-    /[.,!,@,#,$,%,^,&,*,?,_,~,-,(,)]/,
-    /[0-9]/,
+    /[A-Z]/g,
+    /[a-z]/g,
+    /[.,!,@,#,$,%,^,&,*,?,_,~,-,(,), ]/g,
+    /[0-9]/g,
   ];
   const [
     upperLetterChecker,
@@ -19,7 +19,6 @@ const passwordChecking = (password) => {
     password.match(symbol),
     password.match(number),
   ];
-
   if (password.length >= 8) {
     passStrength += 1;
   } else {
@@ -38,21 +37,15 @@ const passwordChecking = (password) => {
   } else {
     passStrength += 1;
   }
-  if (symbolChecker === null) {
+  if (symbolChecker !== null) {
+    return false;
+  } else {
+    passStrength += 1;
   }
-  passStrength += 1;
   if (numberChecker === null) {
     return false;
   } else {
     passStrength += 1;
-  }
-  const userPassword = password
-    .split("")
-    .filter((whiteSpace) => whiteSpace === " ");
-  if (!userPassword.length) {
-    passStrength += 1;
-  } else {
-    return false;
   }
   if (passStrength >= 5) {
     return true;
@@ -63,30 +56,30 @@ const passwordChecking = (password) => {
 const signUp = async (req, res) => {
   const user = req.body;
   if (user.password.length < 8) res.json("Password must be greater than 8");
+  if (user.phone.length < 10) res.json("Invalid Phone Number");
   if (!passwordChecking(user.password)) {
     res.json(
       "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
     );
   }
-
-  if (user.phone.length < 10) res.json("Invalid Phone Number");
-  if (passwordChecking(user.password)) {
-    user.password = await bcrypt.hash(user.password, Number(process.env.SALT));
-    user.role_id = 2;
-    user.id = null;
-    const query = `INSERT INTO User(user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
-    const data = [
-      user.user_id,
-      user.username,
-      user.email,
-      user.password,
-      user.phone,
-      user.role_id,
-    ];
-    connection.query(query, data, (err, results) => {
-      if (err) throw err.sqlMessage;
-      res.json("User Has Been Created Successfully ");
-    });
-  }
+  bcrypt.hash(user.password, Number(process.env.SALT), (err, hash) => {
+    if (err) throw err;
+    user.password = hash;
+  });
+  user.role_id = 2;
+  user.id = null;
+  const query = `INSERT INTO User(user_id,username,email,password,phone,role_id) VALUES (?, ?, ?, ?, ?, ?)`;
+  const data = [
+    user.user_id,
+    user.username,
+    user.email,
+    user.password,
+    user.phone,
+    user.role_id,
+  ];
+  connection.query(query, data, (err, results) => {
+    if (err) throw err.sqlMessage;
+    res.json("User Has Been Created Successfully ");
+  });
 };
 module.exports = signUp;
