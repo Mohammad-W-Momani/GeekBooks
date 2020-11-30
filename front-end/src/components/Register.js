@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const Register = () => {
+const Register = (props) => {
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+    phone: "",
+  });
+
+  const handleChange = (e) => {
+    console.log(e);
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    console.log("Values", values);
+
+    e.preventDefault();
+    // setErrors(validate(values));
+    axios
+      // Bath from BE
+      .post("http://localhost:5000/register", values)
+      .then((result) => {
+        // console.log("result : ",result);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log("ERR : ", err);
+      });
+  };
+
   return (
     <form onSubmit={handleSubmit} className="form">
       <h1>Register User</h1>
@@ -8,12 +42,12 @@ const Register = () => {
         <label>Username</label>
         <input
           type="text"
-          name="Fullname"
-          placeholder="enter your Fullname"
-          value={values.Fullname}
+          name="username"
+          placeholder="enter your username"
+          value={values.username}
           onChange={handleChange}
         ></input>
-        {errors.Fullname && <p className="input-error"> {errors.Fullname} </p>}
+        {/* {errors.username && <p className="input-error"> {errors.username} </p>} */}
       </section>
       <section>
         <label>Email </label>
@@ -24,7 +58,7 @@ const Register = () => {
           value={values.email}
           onChange={handleChange}
         ></input>
-        {errors.email && <p className="input-error"> {errors.email} </p>}
+        {/* {errors.email && <p className="input-error"> {errors.email} </p>} */}
       </section>
 
       <section>
@@ -36,7 +70,7 @@ const Register = () => {
           value={values.password}
           onChange={handleChange}
         ></input>
-        {errors.password && <p className="input-error"> {errors.password} </p>}
+        {/* {errors.password && <p className="input-error"> {errors.password} </p>} */}
       </section>
 
       <section>
@@ -48,18 +82,18 @@ const Register = () => {
           value={values.password2}
           onChange={handleChange}
         ></input>
-        {errors.password2 && (
-          <p className="input-error"> {errors.password2} </p>
-        )}
+        {/* {errors.password2 && (
+        //   <p className="input-error"> {errors.password2} </p>
+        // )} */}
       </section>
 
-      <section className="form-input">
-        <label>Date Of Birth </label>
+      <section>
+        <label>Phone Number </label>
 
         <input
           type="date"
-          name="dob"
-          value={values.dob}
+          name="phone"
+          value={values.phone}
           onChange={handleChange}
         ></input>
       </section>
