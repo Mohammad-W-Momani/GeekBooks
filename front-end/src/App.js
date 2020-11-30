@@ -1,29 +1,13 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Login from "./components/Login";
 
-// Class component
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <div>
-        <h1>HELLO WORLD</h1>
-      </div>
-    );
-  }
-}
-
-/* 
-// functional component
 const App = () => {
   return (
     <div>
-      <h1>HELLO WORLD</h1>
+      <h1>HEsLLO WORLD</h1>
+      <Login />
     </div>
   );
 };
 export default App;
-*/
