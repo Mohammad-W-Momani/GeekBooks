@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const Login = () => {
+const Login = (props) => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    console.log(e);
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    console.log("aaa", values);
+    e.preventDefault();
+    // setErrors(validate(values));
+    axios
+      // Bath from BE
+      .post("http://localhost:5000/login", values)
+      .then((result) => {
+        console.log(result);
+        if (!result.data.error) {
+          localStorage.setItem("token", result.data);
+        }
+        // else {
+        //   //   setErrors({ ...errors, validation: "Invalid Email or Password" });
+        // }
+      })
+      .catch((err) => {
+        console.log("ERR : ", err);
+      });
+  };
   return (
     <form onSubmit={handleSubmit}>
       <h1>Login</h1>
