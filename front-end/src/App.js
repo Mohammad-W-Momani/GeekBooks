@@ -5,7 +5,7 @@ import Login from "./components/Login";
 const App = () => {
   return (
     <div>
-      <h1>HEsLLO WORLD</h1>
+      <h1>HELLO WORLD</h1>
       <Login />
     </div>
   );
