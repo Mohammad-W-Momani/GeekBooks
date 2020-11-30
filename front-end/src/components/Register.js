@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import validate from "./handleErrorRegister";
 
 const Register = (props) => {
   const [values, setValues] = useState({
@@ -10,6 +11,8 @@ const Register = (props) => {
     phone: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     console.log(e);
     setValues({
@@ -19,20 +22,21 @@ const Register = (props) => {
   };
 
   const handleSubmit = (e) => {
-    console.log("Values", values);
+    // console.log("Values", values);
 
     e.preventDefault();
-    // setErrors(validate(values));
-    axios
-      // Bath from BE
-      .post("http://localhost:5000/register", values)
-      .then((result) => {
-        // console.log("result : ",result);
-        props.history.push("/");
-      })
-      .catch((err) => {
-        console.log("ERR : ", err);
-      });
+    setErrors(validate(values));
+    // console.log("ERR", errors);
+    if (Object.keys(errors).length) {
+      console.log("need more data");
+    } else {
+      axios
+        .post("http://localhost:5000/register", values)
+        .then((result) => {})
+        .catch((err) => {
+          console.log("ERR : ", err);
+        });
+    }
   };
 
   return (
@@ -47,7 +51,7 @@ const Register = (props) => {
           value={values.username}
           onChange={handleChange}
         ></input>
-        {/* {errors.username && <p className="input-error"> {errors.username} </p>} */}
+        {errors.username && <p className="input-error"> {errors.username} </p>}
       </section>
       <section>
         <label>Email </label>
@@ -58,7 +62,7 @@ const Register = (props) => {
           value={values.email}
           onChange={handleChange}
         ></input>
-        {/* {errors.email && <p className="input-error"> {errors.email} </p>} */}
+        {errors.email && <p className="input-error"> {errors.email} </p>}
       </section>
 
       <section>
@@ -70,7 +74,7 @@ const Register = (props) => {
           value={values.password}
           onChange={handleChange}
         ></input>
-        {/* {errors.password && <p className="input-error"> {errors.password} </p>} */}
+        {errors.password && <p className="input-error"> {errors.password} </p>}
       </section>
 
       <section>
@@ -82,20 +86,21 @@ const Register = (props) => {
           value={values.password2}
           onChange={handleChange}
         ></input>
-        {/* {errors.password2 && (
-        //   <p className="input-error"> {errors.password2} </p>
-        // )} */}
+        {errors.password2 && (
+          <p className="input-error"> {errors.password2} </p>
+        )}
       </section>
 
       <section>
         <label>Phone Number </label>
 
         <input
-          type="date"
+          type="text"
           name="phone"
           value={values.phone}
           onChange={handleChange}
         ></input>
+        {errors.phone && <p className="input-error"> {errors.phone} </p>}
       </section>
 
       <button type="submit" className="btn">
