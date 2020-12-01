@@ -113,6 +113,23 @@ CREATE TABLE IF NOT EXISTS Post (
     CONSTRAINT fk_Post_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
+-- Table Reader_Group
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Reader_Group (
+    group_id INT NOT NULL AUTO_INCREMENT,
+    group_name VARCHAR(255) NOT NULL,
+    members INT NULL,
+    description VARCHAR(255) NOT NULL,
+    user_id INT UNIQUE NOT NULL,
+    post_id INT UNIQUE NOT NULL,
+    PRIMARY KEY (group_id),
+    UNIQUE INDEX group_id_UNIQUE (group_id ASC),
+    INDEX fk_Group_User1_idx (user_id ASC),
+    INDEX fk_Group_Post1_idx (post_id ASC),
+    CONSTRAINT fk_Group_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Group_Post1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
 -- Table Comment
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Comment (
@@ -140,6 +157,7 @@ CREATE TABLE IF NOT EXISTS Follower (
     INDEX fk_Follower_User1_idx (user_id ASC),
     CONSTRAINT fk_Follower_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
 -- -----------------------------------------------------
 -- Table Following
 -- -----------------------------------------------------
