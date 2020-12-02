@@ -79,7 +79,7 @@ const deletePostById = (req, res) => {
 
 module.exports = {
   getAllPosts,
-  getPostByID,
+  getPostByID, 
   updatePostsById,
   deletePostById,
   addPost,

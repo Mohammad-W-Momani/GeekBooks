@@ -41,8 +41,8 @@ const updateGroupById = (req, res) => {
   const group = req.body;
   const groupID = req.params.group_id;
   if (token_user_id === user_id) {
-    const query = `UPDATE reader_group SET group_name=?, description=?, members=? WHERE group_id=?`;
-    const data = [group.group_name, group.description, group.members];
+    const query = `UPDATE reader_group SET group_name=?, description=? WHERE group_id=?`;
+    const data = [group.group_name, group.description];
     connection.query(query, data, groupID, (err, results) => {
       if (err) throw err;
       res.json(results);

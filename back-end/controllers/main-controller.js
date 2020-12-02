@@ -37,7 +37,7 @@ const updatePost = updatePostsById;
 // delete post
 const deletePost = deletePostById;
 // get All user Post
-const UserPost = getAllPosts;
+const allPosts = getAllPosts;
 // show one post
 const post = getPostByID;
 
@@ -67,7 +67,7 @@ module.exports = {
   home,
   updatePost,
   createPost,
-  UserPost,
+  allPosts,
   deletePost,
   post,
   createComment,

@@ -8,7 +8,7 @@ const {
   home,
   updatePost,
   createPost,
-  UserPost,
+  allPosts,
   deletePost,
   post,
   createComment, 
@@ -26,20 +26,20 @@ mainRouter.get("/", middleware, home);
 mainRouter.post("/register", register);
 mainRouter.post("/Login", logIn);
 
-mainRouter.get("/posts", middleware, UserPost);
+mainRouter.get("/posts", middleware, allPosts);
 mainRouter.get("/posts/:Post_id", post);
 mainRouter.post("/posts", middleware, createPost);
 mainRouter.put("/posts/:Post_id", middleware, updatePost);
 mainRouter.delete("/posts/:Post_id", middleware, deletePost);
 
-mainRouter.get("/groups", allGroup);
-mainRouter.get("/groups/:group_id", Group);
-mainRouter.post("/groups", createGroup);
-mainRouter.put("/groups/:group_id", updateGroup);
-mainRouter.delete("/groups/:group_id", deleteGroup);
+mainRouter.get("/groups", middleware, allGroup);
+mainRouter.get("/groups/:group_id", middleware, Group);
+mainRouter.post("/groups", middleware, createGroup);
+mainRouter.put("/groups/:group_id", middleware, updateGroup);
+mainRouter.delete("/groups/:group_id", middleware, deleteGroup); 
 
 mainRouter.post("/comments", middleware, createComment);
 mainRouter.put("/comments/:comment_id", middleware, updateComment);
 mainRouter.delete("/comments/:comment_id", middleware, deleteComment);
-
+$ git commit -m 'completed CRUD for reader_group a'
 module.exports = mainRouter;
