@@ -8,7 +8,6 @@ const Login = () => {
   });
 
   const handleChange = (e) => {
-    console.log(e);
     setValues({
       ...values,
       [e.target.name]: e.target.value,
@@ -33,7 +32,6 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log("Values:", values);
     e.preventDefault();
     setErrors(validate(values));
     console.log("errors:", errors);
@@ -41,16 +39,11 @@ const Login = () => {
       setErrors({ ...errors, validation: "Invalid Email or Password" });
     } else {
       axios
-        // Bath from BE
         .post("http://localhost:5000/login", values)
         .then((result) => {
-          console.log("Result: ", result);
           if (!result.data.error) {
             localStorage.setItem("token", result.data);
           }
-          //   else {
-          //     setErrors({ ...errors, validation: "Invalid Email or Password" });
-          //   }
         })
         .catch((err) => {
           console.log("ERR : ", err);
@@ -71,7 +64,6 @@ const Login = () => {
           value={values.email}
           onChange={handleChange}
         ></input>
-        {/* {errors.email && <p> {errors.email} </p>} */}
       </section>
       <br />
       <section>
@@ -84,7 +76,6 @@ const Login = () => {
           value={values.password}
           onChange={handleChange}
         ></input>
-        {/* {errors.password && <p> {errors.password} </p>} */}
       </section>
       <br />
       {errors.validation && <p> {errors.validation} </p>}
