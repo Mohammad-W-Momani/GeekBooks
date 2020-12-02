@@ -1,10 +1,9 @@
 const connection = require("../../db");
-require("dotenv").config();
 
 //Show all posts
 const getAllPosts = (req, res) => {
-  let sql = "SELECT * FROM post";
-  connection.query(sql, (err, results) => {
+  const query = "SELECT * FROM post";
+  connection.query(query, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
@@ -12,9 +11,9 @@ const getAllPosts = (req, res) => {
 
 //Show postsByID
 const getPostByID = (req, res) => {
-  let postID = req.params.post_id;
-  let sql = `SELECT * FROM post WHERE post_id=?`;
-  connection.query(sql, postID, (err, results) => {
+  const postID = req.params.post_id;
+  const query = `SELECT * FROM post WHERE post_id=?`;
+  connection.query(query, postID, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
@@ -22,34 +21,60 @@ const getPostByID = (req, res) => {
 
 //Update posts
 const updatePostsById = (req, res) => {
-  let post = req.body.post;
-  let postID = req.params.post_id;
-  let sql = `UPDATE post SET post=? WHERE post_id=?`;
-  connection.query(sql, post, postID, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
+  const token = req.headers.authorization.split(" ").pop();
+  const decoded = jwt_decode(token);
+  const token_user_id = decoded.user_id;
+  const user_id = post.user_id;
+  const post = req.body;
+  const postID = req.params.post_id;
+  if (token_user_id === user_id) {
+    const query = `UPDATE post SET post=? WHERE post_id=?`;
+    const data = [post.post, post.thumbs_up];
+    connection.query(query, data, postID, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } else {
+    return "You are not authorized";
+  }
 };
-
 
 //Add new posts
 const addPost = (req, res) => {
-  let sql = "INSERT INTO post SET ?";
-  let post = req.body.post;
-  connection.query(sql, post, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
+  const token = req.headers.authorization.split(" ").pop();
+  const decoded = jwt_decode(token);
+  const token_user_id = decoded.user_id;
+  const user_id = post.user_id;
+  const post = req.body;
+  if (token_user_id === user_id) {
+    const query = `INSERT INTO post (post, thumbs_up) VALUES (?, ?)`;
+    const data = [post.post, post.thumbs_up];
+    connection.query(query, data, postID, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  } else {
+    return "You are not authorized";
+  }
 };
 
 //Delete posts
 const deletePostById = (req, res) => {
-  let postID = req.params.post_id;
-  let sql = `DELETE FROM post WHERE post_id=?`;
-  connection.query(sql, postID, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
+  const token = req.headers.authorization.split(" ").pop();
+  const decoded = jwt_decode(token);
+  const token_user_id = decoded.user_id;
+  const user_id = post.user_id;
+  const post = req.body;
+  const postID = req.params.post_id;
+  if (token_user_id === user_id) {
+    const query = `DELETE FROM post WHERE post_id=?`;
+    connection.query(query, postID, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    }); 
+  } else {
+    return "You are not authorized";
+  }
 };
 
 module.exports = {
@@ -57,5 +82,5 @@ module.exports = {
   getPostByID,
   updatePostsById,
   deletePostById,
-  addPost
+  addPost,
 };

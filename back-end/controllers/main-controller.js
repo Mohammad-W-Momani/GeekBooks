@@ -13,6 +13,14 @@ const {
   updateCommentById,
   deleteCommentsById,
 } = require("../Models/comments/comment");
+
+const {
+  getAllGroup,
+  getGroupByID,
+  addGroup,
+  updateGroupById,
+  deleteGroupById,
+} = require("../Models/Readers_Groups/group");
 // sign up
 const register = signUp;
 //Login
@@ -20,6 +28,8 @@ const logIn = signIn;
 const home = (req, res) => {
   res.json("Welcome To Your Place");
 };
+
+//Posts
 // Create Post
 const createPost = addPost;
 // update post
@@ -31,13 +41,26 @@ const UserPost = getAllPosts;
 // show one post
 const post = getPostByID;
 
+//Comments
 // Create Comment
-const createComment = addComment
+const createComment = addComment;
 // update Comment
-const updateComment = updateCommentById
-
+const updateComment = updateCommentById;
 //delete Comment
-const deleteComment = deleteCommentsById
+const deleteComment = deleteCommentsById;
+
+//Groups
+// get All user Group
+const allGroup = getAllGroup;
+// show one Group
+const Group = getGroupByID;
+// Create Group
+const createGroup = addGroup;
+// update Group
+const updateGroup = updateGroupById;
+// delete Group
+const deleteGroup = deleteGroupById;
+
 module.exports = {
   logIn,
   register,
@@ -49,5 +72,10 @@ module.exports = {
   post,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  allGroup,
+  Group,
+  createGroup,
+  updateGroup,
+  deleteGroup,
 };

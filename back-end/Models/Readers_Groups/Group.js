@@ -1,55 +1,70 @@
 const connection = require("../../db");
-require("dotenv").config();
 
 //Show all Group
 const getAllGroup = (req, res) => {
-  let sql = "SELECT * FROM reader_group";
-  connection.query(sql, (err, results) => {
+  const query = "SELECT * FROM reader_group";
+  connection.query(query, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
 };
 
-//Show postsByID
+//Show GroupsByID
 const getGroupByID = (req, res) => {
-  let groupID = req.params.group_id;
-  let sql = `SELECT * FROM reader_group WHERE group_id=?`;
-  connection.query(sql, groupID, (err, results) => {
+  const groupID = req.params.group_id;
+  const query = `SELECT * FROM reader_group WHERE group_id=?`;
+  connection.query(query, groupID, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
 };
 
-//Update posts
-const updateGroupById = (req, res) => {
-  let post = req.body.post;
-  let groupID = req.params.group_id;
-  let sql = `UPDATE reader_group SET post=? WHERE group_id=?`;
-  connection.query(sql, post, groupID, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
-};
-
-
-//Add new posts
+//Add new Groups
 const addGroup = (req, res) => {
-  let sql = "INSERT INTO reader_group SET ?";
-  let post = req.body.post;
-  connection.query(sql, post, (err, results) => {
+  const group = req.body;
+  group.user_id = null;
+  group.post_id = null;
+  const query = `INSERT INTO reader_group (group_name, description, members) VALUES (?, ?, ?)`;
+  const data = [group.group_name, group.description, group.members];
+  connection.query(query, data, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
 };
 
-//Delete posts
+//Update Groups
+const updateGroupById = (req, res) => {
+  const token = req.headers.authorization.split(" ").pop();
+  const decoded = jwt_decode(token);
+  const token_user_id = decoded.user_id;
+  const user_id = group.user_id;
+  const group = req.body;
+  const groupID = req.params.group_id;
+  if (token_user_id === user_id) {
+    const query = `UPDATE reader_group SET group_name=?, description=?, members=? WHERE group_id=?`;
+    const data = [group.group_name, group.description, group.members];
+    connection.query(query, data, groupID, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  }
+};
+
+//Delete Groups
 const deleteGroupById = (req, res) => {
-  let groupID = req.params.group_id;
-  let sql = `DELETE FROM reader_group WHERE group_id=?`;
-  connection.query(sql, groupID, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
+  const token = req.headers.authorization.split(" ").pop();
+  const decoded = jwt_decode(token);
+  const token_user_id = decoded.user_id;
+  const user_id = group.user_id;
+  const group = req.body;
+  const groupID = req.params.group_id;
+  if (token_user_id === user_id) {
+    const query = `DELETE FROM reader_group WHERE group_id=?`;
+    connection.query(query, groupID, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  }
 };
 
 module.exports = {
@@ -57,5 +72,5 @@ module.exports = {
   getGroupByID,
   updateGroupById,
   addGroup,
-  deleteGroupById
+  deleteGroupById,
 };

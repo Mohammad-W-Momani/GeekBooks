@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS Post (
     CONSTRAINT fk_Post_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Reader_Group
+-- Table Group
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Reader_Group (
     group_id INT NOT NULL AUTO_INCREMENT,
