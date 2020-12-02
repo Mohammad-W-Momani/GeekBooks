@@ -15,19 +15,17 @@ const Library = () => {
   const searchBook = (e) => {
     e.preventDefault();
     const q = searchBox;
-    console.log(q);
     axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=${q}`)
       .then((data) => {
-        console.log(data);
         setbooks([...data.data.items]);
       });
   };
 
   return (
     <div>
-      <p>hello from library</p>
       <SearchInput handleSearch={handleSearch} searchBook={searchBook} />
+      <br />
       <BookList books={books} />
     </div>
   );

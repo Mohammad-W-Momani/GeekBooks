@@ -5,7 +5,6 @@ import Library from "./components/library/Library";
 const App = () => {
   return (
     <div>
-      <h1>HELLO WORLD</h1>
       <Library />
     </div>
   );
