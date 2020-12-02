@@ -14,7 +14,6 @@ const Register = (props) => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    console.log(e);
     setValues({
       ...values,
       [e.target.name]: e.target.value,
@@ -22,11 +21,8 @@ const Register = (props) => {
   };
 
   const handleSubmit = (e) => {
-    // console.log("Values", values);
-
     e.preventDefault();
     setErrors(validate(values));
-    // console.log("ERR", errors);
     if (Object.keys(errors).length) {
       console.log("need more data");
     } else {
@@ -53,6 +49,7 @@ const Register = (props) => {
         ></input>
         {errors.username && <p className="input-error"> {errors.username} </p>}
       </section>
+
       <section>
         <label>Email </label>
         <input
@@ -93,7 +90,6 @@ const Register = (props) => {
 
       <section>
         <label>Phone Number </label>
-
         <input
           type="text"
           name="phone"
