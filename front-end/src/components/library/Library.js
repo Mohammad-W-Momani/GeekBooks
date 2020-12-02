@@ -2,13 +2,13 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import SearchInput from "./SearchInput";
+import BookList from "./BookList";
 
 const Library = () => {
   const [books, setbooks] = useState([]);
   const [searchBox, setsearchBox] = useState("");
 
   const handleSearch = (e) => {
-    console.log(e.target.value);
     setsearchBox(e.target.value);
   };
 
@@ -20,6 +20,7 @@ const Library = () => {
       .get(`https://www.googleapis.com/books/v1/volumes?q=${q}`)
       .then((data) => {
         console.log(data);
+        setbooks([...data.data.items]);
       });
   };
 
@@ -27,6 +28,7 @@ const Library = () => {
     <div>
       <p>hello from library</p>
       <SearchInput handleSearch={handleSearch} searchBook={searchBook} />
+      <BookList books={books} />
     </div>
   );
 };
