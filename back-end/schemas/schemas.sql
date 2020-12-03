@@ -146,15 +146,26 @@ CREATE TABLE IF NOT EXISTS Follower_system (
     follows_id INT UNIQUE NOT NULL AUTO_INCREMENT,
     create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     updata_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (
-        follower_username,
-        following_username,
-        follows_id
-    ),
+    PRIMARY KEY (follower_username, following_username, follows_id),
     INDEX fk_Follower_system_User_idx (follows_id ASC),
     UNIQUE INDEX Follows_id_UNIQUE (follows_id ASC),
     CONSTRAINT fk_Follower_system_User FOREIGN KEY (follower_username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Follower_system_User1 FOREIGN KEY (following_username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Live Chat
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Live_Chat (
+    first_user VARCHAR(255) NOT NULL,
+    second_user VARCHAR(255) NOT NULL,
+    chat_id INT UNIQUE NOT NULL AUTO_INCREMENT,
+    create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updata_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (first_user, second_user, chat_id),
+    INDEX fk_Live_Chat_User_idx (chat_id ASC),
+    UNIQUE INDEX chat_id_UNIQUE (chat_id ASC),
+    CONSTRAINT fk_Live_Chat_User FOREIGN KEY (first_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Live_Chat_User1 FOREIGN KEY (second_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- INSERT DATA Role
