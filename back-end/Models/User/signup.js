@@ -77,7 +77,15 @@ const signUp = async (req, res) => {
       user.role_id,
     ];
     connection.query(query, data, (err, results) => {
-      if (err) throw err.sqlMessage;
+      if (err) {
+        if (err.sqlMessage.indexOf("User.email") !== -1) {
+          res.json("email is already used");
+        } else if (err.sqlMessage.indexOf("User.phone") !== -1) {
+          res.json("phone number is already used");
+        } else {
+          res.json("username is already used");
+        }
+      }
       res.json("User Has Been Created Successfully ");
     });
   });
