@@ -1,7 +1,7 @@
 const getUserByName = (req, res) => {
-  const userId = req.params.username;
+  const { username } = req.params;
   const query = `SELECT * FROM user WHERE username = ?`;
-  connection.query(query, userId, (err, result) => {
+  connection.query(query, username, (err, result) => {
     if (err) throw err;
     res.json(result);
   });
