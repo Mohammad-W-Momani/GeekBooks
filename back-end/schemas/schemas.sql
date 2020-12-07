@@ -29,13 +29,16 @@ CREATE TABLE IF NOT EXISTS Role (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS User (
     user_id INT UNIQUE NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(60) NOT NULL,
     phone VARCHAR(255) UNIQUE NOT NULL,
     role_id INT NOT NULL,
-    PRIMARY KEY (user_id),
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, username),
     UNIQUE INDEX email_UNIQUE (email ASC),
+    UNIQUE INDEX username_UNIQUE (username ASC),
     UNIQUE INDEX phone_UNIQUE (phone ASC),
     INDEX fk_User_Role1_idx (role_id ASC),
     UNIQUE INDEX user_id_UNIQUE (user_id ASC),
@@ -61,6 +64,8 @@ CREATE TABLE IF NOT EXISTS User_List (
     to_read VARCHAR(255) NULL,
     favorite_quotes VARCHAR(255) NULL,
     user_id INT UNIQUE NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_list_id, user_id),
     UNIQUE INDEX userList_id_UNIQUE (user_list_id ASC),
     INDEX fk_User_List_User1_idx (user_id ASC),
@@ -107,6 +112,8 @@ CREATE TABLE IF NOT EXISTS Post (
     post VARCHAR(255) NULL,
     thumbs_up INT NULL,
     user_id INT UNIQUE NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (post_id),
     UNIQUE INDEX Post_id_UNIQUE (post_id ASC),
     INDEX fk_Post_User1_idx (user_id ASC),
@@ -121,6 +128,8 @@ CREATE TABLE IF NOT EXISTS Comment (
     comment_id INT NOT NULL AUTO_INCREMENT,
     user_id INT UNIQUE NOT NULL,
     post_id INT NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (comment_id),
     UNIQUE INDEX Comment_id_UNIQUE (comment_id ASC),
     INDEX fk_Comment_User1_idx (user_id ASC),
@@ -129,29 +138,38 @@ CREATE TABLE IF NOT EXISTS Comment (
     CONSTRAINT fk_Comment_Post1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Follower
+-- Table Follower_system
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Follower (
-    follower_id INT NOT NULL AUTO_INCREMENT,
-    follower_counter INT NULL,
-    user_id INT UNIQUE NOT NULL,
-    PRIMARY KEY (follower_id),
-    UNIQUE INDEX follower_id_UNIQUE (follower_id ASC),
-    INDEX fk_Follower_User1_idx (user_id ASC),
-    CONSTRAINT fk_Follower_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS Follower_system (
+    follower_username VARCHAR(255) NOT NULL,
+    following_username VARCHAR(255) NOT NULL,
+    follows_id INT UNIQUE NOT NULL AUTO_INCREMENT,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (follower_username, following_username, follows_id),
+    INDEX fk_Follower_system_User_idx (follows_id ASC),
+    UNIQUE INDEX Follows_id_UNIQUE (follows_id ASC),
+    CONSTRAINT fk_Follower_system_User FOREIGN KEY (follower_username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Follower_system_User1 FOREIGN KEY (following_username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Following
+-- Live Chat
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Following (
-    following_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT UNIQUE NOT NULL,
-    following_counter INT NULL,
-    PRIMARY KEY (following_id),
-    UNIQUE INDEX Following_id_UNIQUE (following_id ASC),
-    INDEX fk_Following_User1_idx (user_id ASC),
-    CONSTRAINT fk_Following_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS Live_Chat (
+    first_user VARCHAR(255) NOT NULL,
+    second_user VARCHAR(255) NOT NULL,
+    chat_id INT UNIQUE NOT NULL AUTO_INCREMENT,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (first_user, second_user, chat_id),
+    INDEX fk_Live_Chat_User_idx (chat_id ASC),
+    UNIQUE INDEX chat_id_UNIQUE (chat_id ASC),
+    CONSTRAINT fk_Live_Chat_User FOREIGN KEY (first_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Live_Chat_User1 FOREIGN KEY (second_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+-- -----------------------------------------------------
+-- INSERT DATA Role
+-- -----------------------------------------------------
 INSERT INTO Role (role_id, type)
 VALUES ('1', 'Admin');
 INSERT INTO Role (role_id, type)
