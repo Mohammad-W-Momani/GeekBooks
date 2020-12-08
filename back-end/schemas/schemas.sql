@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS User_List (
     reading VARCHAR(255) NULL,
     to_read VARCHAR(255) NULL,
     favorite_quotes VARCHAR(255) NULL,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     PRIMARY KEY (user_list_id, user_id),
     UNIQUE INDEX userList_id_UNIQUE (user_list_id ASC),
     INDEX fk_User_List_User1_idx (user_id ASC),
@@ -106,11 +106,28 @@ CREATE TABLE IF NOT EXISTS Post (
     post_id INT NOT NULL AUTO_INCREMENT,
     post VARCHAR(255) NULL,
     thumbs_up INT NULL,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     PRIMARY KEY (post_id),
     UNIQUE INDEX Post_id_UNIQUE (post_id ASC),
     INDEX fk_Post_User1_idx (user_id ASC),
     CONSTRAINT fk_Post_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table Group
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Reader_Group (
+    group_id INT NOT NULL AUTO_INCREMENT,
+    group_name VARCHAR(255) NOT NULL,
+    members INT NULL,
+    description VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    PRIMARY KEY (group_id),
+    UNIQUE INDEX group_id_UNIQUE (group_id ASC),
+    INDEX fk_Group_User1_idx (user_id ASC),
+    INDEX fk_Group_Post1_idx (post_id ASC),
+    CONSTRAINT fk_Group_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Group_Post1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Comment
@@ -119,7 +136,7 @@ CREATE TABLE IF NOT EXISTS Comment (
     comment VARCHAR(255) NOT NULL,
     thumbs_up INT NULL,
     comment_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     post_id INT NOT NULL,
     PRIMARY KEY (comment_id),
     UNIQUE INDEX Comment_id_UNIQUE (comment_id ASC),
@@ -134,18 +151,19 @@ CREATE TABLE IF NOT EXISTS Comment (
 CREATE TABLE IF NOT EXISTS Follower (
     follower_id INT NOT NULL AUTO_INCREMENT,
     follower_counter INT NULL,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     PRIMARY KEY (follower_id),
     UNIQUE INDEX follower_id_UNIQUE (follower_id ASC),
     INDEX fk_Follower_User1_idx (user_id ASC),
     CONSTRAINT fk_Follower_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
 -- -----------------------------------------------------
 -- Table Following
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Following (
     following_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     following_counter INT NULL,
     PRIMARY KEY (following_id),
     UNIQUE INDEX Following_id_UNIQUE (following_id ASC),
