@@ -1,29 +1,16 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Groups from "./component/Groups/Groups";
+import Home from "./component/Home/Home";
+import "./App.css";
 
-// Class component
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <div>
-        <h1>HELLO WORLD</h1>
-      </div>
-    );
-  }
-}
-
-/* 
-// functional component
 const App = () => {
   return (
-    <div>
-      <h1>HELLO WORLD</h1>
-    </div>
+    <Router>
+      <Route path="/groups" exact component={Groups} />
+      <Route path="/" exact component={Home} />
+    </Router>
   );
 };
+
 export default App;
-*/
