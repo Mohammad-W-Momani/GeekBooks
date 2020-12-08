@@ -49,18 +49,6 @@ const updateComment = updateCommentById;
 //delete Comment
 const deleteComment = deleteCommentsById;
 
-//Groups
-// get All user Group
-const allGroup = getAllGroup;
-// show one Group
-const Group = getGroupByID;
-// Create Group
-const createGroup = addGroup;
-// update Group
-const updateGroup = updateGroupById;
-// delete Group
-const deleteGroup = deleteGroupById;
-
 module.exports = {
   logIn,
   register,
@@ -73,9 +61,4 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
-  allGroup,
-  Group,
-  createGroup,
-  updateGroup,
-  deleteGroup,
 };
