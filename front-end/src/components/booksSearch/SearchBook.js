@@ -24,11 +24,12 @@ const SearchBook = () => {
           } else if (book.volumeInfo.hasOwnProperty("imageLinks") === false) {
             book.volumeInfo["imageLinks"] = {
               thumbnail:
-                "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+                "https://storage.googleapis.com/stateless-muslimdc-asia/raudhah-grocer/2020/08/89c7e887-no_image_available.jpg",
             };
           }
           return book;
         });
+        console.log(checkedData);
         setbooks([...checkedData]);
       });
   };
