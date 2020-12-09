@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import Posts from "./Posts/Posts";
 import Quotes from "../Quotes/Quotes";
 import "./Body.css";
@@ -24,30 +25,36 @@ const Body = () => {
             </h6>
           </div>
           <div className="pt-4 pl-2">
+            <Link to="/mybooks" style={{ textDecoration: "none", color:"black" }}>
             <p
               className="p-2 border border-success"
               style={{ borderRadius: "20px", backgroundColor: "#ffffffc4" }}
             >
               My Books
             </p>
+            </Link>
+            
+            <Link to="/mygroups" style={{ textDecoration: "none", color:"black" }}>
             <p
               className="p-2 border border-success"
               style={{ borderRadius: "20px", backgroundColor: "#ffffffc4" }}
             >
               My Groups
-            </p>
+            </p></Link>
+            <Link to="/challenge" style={{ textDecoration: "none", color:"black" }}>
             <p
               className="p-2 border border-success"
               style={{ borderRadius: "20px", backgroundColor: "#ffffffc4" }}
             >
-              Groups
-            </p>
+               Reading challenge
+            </p></Link>
+            <Link to="/else" style={{ textDecoration: "none", color:"black" }}>
             <p
               className="p-2 border border-success"
               style={{ borderRadius: "20px", backgroundColor: "#ffffffc4" }}
             >
-              Groups
-            </p>
+               else
+            </p></Link>
           </div>
         </div>
         <div className="col-md-5 post-column columns ">
