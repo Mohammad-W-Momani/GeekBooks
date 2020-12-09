@@ -2,6 +2,7 @@ import React from "react";
 
 const BookCard = (props) => {
   const bookData = props.book.volumeInfo;
+  console.log(bookData);
   return (
     <div>
       <img src={bookData.imageLinks.thumbnail} />

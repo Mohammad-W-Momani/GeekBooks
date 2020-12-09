@@ -4,7 +4,7 @@ import axios from "axios";
 import SearchInput from "./SearchInput";
 import BookList from "./BookList";
 
-const Library = () => {
+const SearchBook = () => {
   const [books, setbooks] = useState([]);
   const [searchBox, setsearchBox] = useState("");
 
@@ -18,7 +18,18 @@ const Library = () => {
     axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=${q}`)
       .then((data) => {
-        setbooks([...data.data.items]);
+        const checkedData = data.data.items.map((book) => {
+          if (book.volumeInfo.hasOwnProperty("publishedDate") === false) {
+            book.volumeInfo["publishedDate"] = "0000";
+          } else if (book.volumeInfo.hasOwnProperty("imageLinks") === false) {
+            book.volumeInfo["imageLinks"] = {
+              thumbnail:
+                "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+            };
+          }
+          return book;
+        });
+        setbooks([...checkedData]);
       });
   };
 
@@ -31,4 +42,4 @@ const Library = () => {
   );
 };
 
-export default Library;
+export default SearchBook;
