@@ -19,14 +19,14 @@ const Navbar = () => {
         <h5 className="page-name pt-2">GeekBooks</h5>
       </div>
 
-      <form class="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
+      <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
         <input
-          class="form-control mr-sm-2 shadow-none pr-5"
+          className="form-control mr-sm-2 shadow-none pr-5"
           type="search"
           placeholder="Search"
           aria-label="Search"
         />
-        <button class={`${btOutLine} my-2 my-sm-0`} type="submit">
+        <button className={`${btOutLine} my-2 my-sm-0`} type="submit">
           Search
         </button>
       </form>
@@ -36,7 +36,7 @@ const Navbar = () => {
           width="3em"
           height="3em"
           viewBox="0 0 16 16"
-          class={` btn btn-${color} rounded`}
+          className={` btn btn-${color} rounded`}
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -66,8 +66,8 @@ const Navbar = () => {
           id="dropdown-basic dropdown "
         ></Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="groups">
-            <div className={`${btOutLine} nav-links `}>
+          <Dropdown.Item href="groups" >
+            <div className={`${btOutLine} nav-links`}>
               Sign out{" "}
               <svg
                 width="1em"

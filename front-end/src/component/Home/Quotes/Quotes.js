@@ -16,30 +16,10 @@ const Quotes = () => {
     let randomQuote = data[randomNum];
     setQuote(randomQuote.text);
     setAuthor(randomQuote.author);
-    setTimeout(getQuote.bind(), 30000);
+    setTimeout(getQuote.bind(), 60000);
   };
 
   return (
-//     <div class="container">
-//     <blockquote class="quote-box">
-//       <p class="quotation-mark">
-//         “
-//       </p>
-//       <p class="quote-text">
-//       {quote} 
-//       </p>
-//       <hr/>
-//       <div class="blog-post-actions">
-//         <p class="d-flex blog-post-bottom pull-left">
-//         {author}
-//         <p class="blog-post-bottom pull-right">
-//           <span class="badge quote-badge">896</span>  ❤
-//         </p>
-//         </p>
-        
-//       </div>
-//     </blockquote>
-// </div>
     <div className="quote-box">
       <div className="quote">
         <div className="text">
@@ -48,11 +28,6 @@ const Quotes = () => {
             <p>{author}</p>
           </div>
         </div>
-        {/* <div className="buttons">
-          <button className="new-quote">
-            New Quote
-          </button>
-        </div> */}
       </div>
     </div>
   );
