@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
-import SearchBook from "./components/library/SearchBook";
+import SearchBook from "./components/booksSearch/SearchBook";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Library from "./components/library/Library";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Login />
       <Register />
       <SearchBook />
+      <Library />
     </div>
   );
 };
