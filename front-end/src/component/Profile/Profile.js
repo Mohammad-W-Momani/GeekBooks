@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import "./Profile.css";
 const Profile = () => {
   return (
     <div>
-      <Navbar />
+      <Link to="/" style={{ textDecoration: "none" }}>
+        {" "}
+        <Navbar />
+      </Link>
+
       <div class="row py-5 px-4">
         <div class="col-md-5 mx-auto">
           <div class="bg-white shadow rounded overflow-hidden">
