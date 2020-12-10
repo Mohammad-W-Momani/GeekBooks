@@ -14,6 +14,11 @@ const {
   createComment,
   updateComment,
   deleteComment,
+  follow,
+  getUser,
+  getFollower,
+  getFollowing,
+  unfollowUser,
 } = require("../controllers/main-controller");
 // Welcome page
 mainRouter.get("/", middleware, home);
@@ -30,4 +35,14 @@ mainRouter.delete("/posts/:Post_id", middleware, deletePost);
 mainRouter.post("/comments", middleware, createComment);
 mainRouter.put("/comments/:comment_id", middleware, updateComment);
 mainRouter.delete("/comments/:comment_id", middleware, deleteComment);
+
+// Follow other user
+mainRouter.post("/:username/Follows", middleware, follow);
+// get user
+mainRouter.get("/:username", middleware, getUser);
+// get Follower list
+mainRouter.get("/:username/Followers", getFollower);
+mainRouter.get("/:username/Following", getFollowing);
+mainRouter.delete("/:username/unfollow", middleware, unfollowUser);
+
 module.exports = mainRouter;

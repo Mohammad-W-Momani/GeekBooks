@@ -1,5 +1,6 @@
 const signIn = require("../Models/User/LogIn");
 const signUp = require("../Models/User/signup");
+
 const {
   getAllPosts,
   getPostByID,
@@ -14,13 +15,12 @@ const {
   deleteCommentsById,
 } = require("../Models/comments/comment");
 
-const {
-  getAllGroup,
-  getGroupByID,
-  addGroup,
-  updateGroupById,
-  deleteGroupById,
-} = require("../Models/Readers_Groups/groups");
+const followUser = require("../Models/followSystem/Following");
+const getUserByName = require("../Models/User/getUser");
+const getFollowers = require("../Models/followSystem/getFollowers");
+const getUserFollowing = require("../Models/followSystem/getFollowing");
+const unFollows = require("../Models/followSystem/unfollows");
+
 // sign up
 const register = signUp;
 //Login
@@ -49,6 +49,12 @@ const updateComment = updateCommentById;
 //delete Comment
 const deleteComment = deleteCommentsById;
 
+const getUser = getUserByName;
+const follow = followUser;
+const getFollower = getFollowers;
+const getFollowing = getUserFollowing;
+const unfollowUser = unFollows;
+
 module.exports = {
   logIn,
   register,
@@ -61,4 +67,9 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
+  follow,
+  getUser,
+  getFollower,
+  getFollowing,
+  unfollowUser,
 };
