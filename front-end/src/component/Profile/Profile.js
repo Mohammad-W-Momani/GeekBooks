@@ -28,7 +28,7 @@ const Profile = () => {
                 </div>
                 <div class="media-body mb-5 text-white">
                   <h4 class="mt-0 mb-0">Mohammad Momani</h4>
-                  <p class="small mb-4">Ajlon</p>
+                  <p class="small mb-4">Ajloun</p>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@ const Profile = () => {
               <h5 class="mb-0">About</h5>
               <div class="py-4 rounded shadow-sm bg-light">
                 <p class="font-italic mb-0">Web Developer</p>
-                <p class="font-italic mb-0">Lives in Ajlon</p>
+                <p class="font-italic mb-0">Lives in Ajloun</p>
                 <p class="font-italic mb-0">20yr</p>
               </div>
             </div>
