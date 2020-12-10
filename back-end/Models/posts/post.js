@@ -21,13 +21,12 @@ const getPostByID = (req, res) => {
 
 //Update posts
 const updatePostsById = (req, res) => {
-  const token_user_id = res.token.user_id;
-  const user_id = post.user_id;
-  const post = req.body;
+  const token_user_id = req.token.user_id;
+  const {user_id, post, thumbs_up} = req.body;
   const postID = req.params.post_id;
   if (token_user_id === user_id) {
     const query = `UPDATE post SET post=? WHERE post_id=?`;
-    const data = [post.post, post.thumbs_up];
+    const data = [post, thumbs_up];
     connection.query(query, data, postID, (err, results) => {
       if (err) throw err;
       res.json(results);
@@ -39,10 +38,10 @@ const updatePostsById = (req, res) => {
 
 //Add new posts
 const addPost = (req, res) => {
+  const {post, thumbs_up} = req.body;
   post.user_id = null;
-  const post = req.body;
   const query = `INSERT INTO post (post, thumbs_up) VALUES (?, ?)`;
-  const data = [post.post, post.thumbs_up];
+  const data = [post, thumbs_up];
   connection.query(query, data, (err, results) => {
     if (err) throw err;
     res.json(results);
@@ -51,9 +50,8 @@ const addPost = (req, res) => {
 
 //Delete posts
 const deletePostById = (req, res) => {
-  const token_user_id = res.token.user_id;
-  const user_id = post.user_id;
-  const post = req.body;
+  const token_user_id = req.token.user_id;
+  const user_id = req.body;
   const postID = req.params.post_id;
   if (token_user_id === user_id) {
     const query = `DELETE FROM post WHERE post_id=?`;
