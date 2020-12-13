@@ -32,6 +32,19 @@ const updateComments = require("../Models/Comments/update-comment");
 const { getComment, PostComments } = require("../Models/Comments/get-comment");
 const likeComments = require("../Models/Comments/like");
 const dislikeComments = require("../Models/Comments/dislike");
+// user List section
+// read section
+const readBook = require("../Models/UserList/read/add-book");
+const removeReadBook = require("../Models/UserList/read/remove-book");
+const getReadList = require("../Models/UserList/read/get-list");
+// reading section
+const reading = require("../Models/UserList/reading/add-book");
+const removeReadingBook = require("../Models/UserList/reading/remove-book");
+const getReadingList = require("../Models/UserList/reading/get-list");
+// want to read section
+const wantToRead = require("../Models/UserList/want-to-read/add-book");
+const removeToReadBook = require("../Models/UserList/want-to-read/remove-book");
+const getToReadList = require("../Models/UserList/want-to-read/get-list");
 // sign up
 const register = signUp;
 //Login
@@ -73,6 +86,19 @@ const removeComment = deleteComment;
 const updateComment = updateComments;
 const likeComment = likeComments;
 const createComment = addComment;
+// user List section
+// read section
+const readList = readBook;
+const removeReadList = removeReadBook;
+const getRead = getReadList;
+// reading section
+const readingList = reading;
+const removeReadingList = removeReadingBook;
+const getReading = getReadingList;
+// want to read section
+const ToReadList = wantToRead;
+const removeToReadList = removeToReadBook;
+const getToRead = getToReadList
 module.exports = {
   login,
   register,
@@ -106,4 +132,13 @@ module.exports = {
   updateComment,
   likeComment,
   createComment,
+  readList,
+  removeReadList,
+  readingList,
+  removeReadingList,
+  ToReadList,
+  removeToReadList,
+  getRead,
+  getReading,
+  getToRead,
 };

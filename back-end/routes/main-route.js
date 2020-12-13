@@ -35,6 +35,15 @@ const {
   updateComment,
   likeComment,
   createComment,
+  readList,
+  removeReadList,
+  readingList,
+  removeReadingList,
+  ToReadList,
+  removeToReadList,
+  getRead,
+  getReading,
+  getToRead,
 } = require("../controllers/main-controller");
 // Welcome page
 mainRouter.get("/", middleware, home);
@@ -80,4 +89,17 @@ mainRouter.delete("/comment/:comment_id", middleware, removeComment);
 mainRouter.delete("/comment/:comment_id/dislike", middleware, dislikeComment);
 mainRouter.get("/post/comment/:post_id", postComment);
 mainRouter.get("/comment/:comment_id", comment);
+// user List section
+// read section
+mainRouter.post("/readlist", middleware, readList);
+mainRouter.delete("/readlist", middleware, removeReadList);
+mainRouter.get("/readlist", middleware, getRead);
+// reading section
+mainRouter.post("/readinglist", middleware, readingList);
+mainRouter.delete("/readinglist", middleware, removeReadingList);
+mainRouter.get("/readinglist", middleware, getReading);
+// want to read section
+mainRouter.post("/toreadlist", middleware, ToReadList);
+mainRouter.delete("/toreadlist", middleware, removeToReadList);
+mainRouter.get("/toreadlist", middleware, getToRead);
 module.exports = mainRouter;
