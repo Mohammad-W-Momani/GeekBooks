@@ -6,7 +6,6 @@ const removeReadBook = (req, res) => {
   const query = `DELETE FROM User_List WHERE user_list_id =? AND have_read =? AND user_id=?`;
   connection.query(checkBook, userList, (err, bookExist) => {
     if (err) throw err.sqlMessage;
-    console.log(bookExist);
     if (bookExist.length) {
       connection.query(query, data, (err, result) => {
         if (err) throw err.sqlMessage;

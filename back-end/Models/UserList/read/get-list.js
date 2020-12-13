@@ -4,7 +4,6 @@ const getReadList = (req, res) => {
   const query = `SELECT have_read FROM User_List WHERE  user_id = ?`;
   connection.query(query, user_id, (err, result) => {
     if (err) throw err.sqlMessage;
-    console.log(result);
     if (result.length) {
       res.json(result);
       return;
