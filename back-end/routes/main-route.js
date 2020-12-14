@@ -57,12 +57,12 @@ mainRouter.post("/login", login);
 // Follow section
 mainRouter.post("/:username/follows", middleware, follow);
 mainRouter.delete("/:username/unfollow", middleware, unfollowUser);
-mainRouter.get("/:username/followers", getFollower);
-mainRouter.get("/:username/following", getFollowing);
+mainRouter.get("/:username/followers", middleware, getFollower);
+mainRouter.get("/:username/following", middleware, getFollowing);
 //chat section
 mainRouter.post("/chat/:username", middleware, chatting);
 mainRouter.get("/Chat/:username", middleware, getChat);
-mainRouter.get("/chat", userChat);
+mainRouter.get("/chat", middleware, userChat);
 // Group section
 mainRouter.post("/createGroup", middleware, newGroup);
 mainRouter.post("/groups/:class_name/members", middleware, addMember);
