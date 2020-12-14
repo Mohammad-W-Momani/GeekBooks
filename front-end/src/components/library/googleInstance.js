@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const instance = axios.create({
+const google = axios.create({
   baseURL: "https://www.googleapis.com/books/v1/volumes?q=",
 });
 
-export default instance;
+export default google;
