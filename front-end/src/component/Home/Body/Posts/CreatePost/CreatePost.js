@@ -20,7 +20,7 @@ const CreatePost = () => {
             className="list-inline post-actions p-1 "
             style={{ borderRadius: "15px" }}
           >
-            <div className=" d-flex justify-content-start">
+            <div className=" d-flex justify-content-end">
               <button
                 className={`btn btn-success`}
                 style={{ borderRadius: "15px" }}

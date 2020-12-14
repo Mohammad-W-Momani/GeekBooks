@@ -8,7 +8,7 @@ const Body = () => {
   return (
     <div>
       <div className="row mr-0">
-        <div class="col-md-3 inf-column columns pl-4">
+        <div className="col-md-3 inf-column columns pl-4">
           <div
             className=" d-flex"
             style={{ borderRadius: "20px", backgroundColor: "#e6e6e6" }}

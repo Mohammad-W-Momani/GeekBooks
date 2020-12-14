@@ -1,62 +1,78 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Axios from "axios";
+import jwt_decode from "jwt-decode";
+import OtherProfile from "./Profiles/OtherProfile";
+import MyProfile from "./Profiles/MyProfile";
 import "./Profile.css";
 const Profile = () => {
-  return (
-    <div>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        {" "}
-        <Navbar />
-      </Link>
+  let { username } = useParams();
+  const token = localStorage.getItem("token");
+  const decoded = jwt_decode(token);
+  const token_username = decoded.username;
+  const localHost = "http://localhost:5000"
 
-      <div class="row py-5 px-4">
-        <div class="col-md-5 mx-auto">
-          <div class="bg-white shadow rounded overflow-hidden">
-            <div class="px-4 pt-0 pb-4 cover">
-              <div class="media align-items-end profile-head">
-                <div class="profile mr-3">
-                  <img
-                    src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/10/13/lion-king.jpeg?width=990"
-                    alt=""
-                    width="130"
-                    class="rounded mb-2 img-thumbnail"
-                  />
-                  <a href="#" class="btn btn-outline-dark btn-sm btn-block">
-                    Edit profile
-                  </a>
-                </div>
-                <div class="media-body mb-5 text-white">
-                  <h4 class="mt-0 mb-0">Mohammad Momani</h4>
-                  <p class="small mb-4">Ajloun</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-light p-4 d-flex justify-content-end text-center">
-              <ul class="list-inline mb-0">
-                <li class="list-inline-item">
-                  <h5 class="font-weight-bold mb-0 d-block">745</h5>
-                  <small class="text-muted">Followers</small>
-                </li>
-                <li class="list-inline-item">
-                  <h5 class="font-weight-bold mb-0 d-block">340</h5>
-                  <small class="text-muted">Following</small>
-                </li>
-              </ul>
-            </div>
-            <div class="px-4 py-3">
-              <h5 class="mb-0">About</h5>
-              <div class="py-4 rounded shadow-sm bg-light">
-                <p class="font-italic mb-0">Web Developer</p>
-                <p class="font-italic mb-0">Lives in Ajloun</p>
-                <p class="font-italic mb-0">20yr</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const [user, setUser] = useState([]);
+  const [userName, setUserName] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const getUser = () => {
+    Axios.get(`${localHost}/${username}`, {
+      headers: { Authorization: `Basic ${token}` },
+    })
+      .then((response) => {
+        setUser(response.data);
+        setUserName(response.data[0].username);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
+  const getfollowing = () => {
+    Axios.get(`${localHost}/:${username}/Following`)
+      .then((response) => {
+        setFollowing(response.data);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
+  const getfollowers = () => {
+    Axios.get(`${localHost}/:${username}/Followers`)
+      .then((response) => {
+        setFollowers(response.data);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
+
+  useEffect(() => {
+    getfollowing();
+    getfollowers();
+    getUser();
+  }, []);
+  if (userName === token_username) {
+    return user.map((userInf) => (
+      <MyProfile
+        key={userInf.user_id}
+        {...userInf}
+        following={following}
+        followers={followers}
+      />
+    ));
+  } else if (userName.length === 0) {
+    return <img src="https://blog.thomasnet.com/hs-fs/hubfs/shutterstock_774749455.jpg?width=600&name=shutterstock_774749455.jpg" alt="" width="100%" height="600px"/>;
+  } else {
+    return user.map((userInf) => (
+      <OtherProfile
+        key={userInf.user_id}
+        {...userInf}
+        following={following}
+        followers={followers}
+      />
+    ));
+  }
 };
 
 export default Profile;

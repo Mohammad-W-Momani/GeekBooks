@@ -5,7 +5,9 @@ const SearchInput = (props) => {
     <div>
       <form action="" onSubmit={props.searchBook}>
         <input type="text" onChange={props.handleSearch} />
-        <button type="submit">Search</button>
+        <button className={`btn btn-outline-success my-2 my-sm-0`} type="submit">
+          Search
+        </button>
       </form>
     </div>
   );

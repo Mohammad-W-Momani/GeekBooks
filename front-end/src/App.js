@@ -11,12 +11,12 @@ import "./App.css";
 const App = () => {
   return (
     <Router>
-       <Login />
-      <Register />
-      <Library />
+      <Route path="/library" exact component={Library} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
       <Route path="/groups" exact component={Groups} />
       <Route path="/" exact component={Home} />
-      <Route path="/profile" exact component={Profile} />
+      <Route path={`/:username`} exact component={Profile} />
     </Router>
   );
 };
