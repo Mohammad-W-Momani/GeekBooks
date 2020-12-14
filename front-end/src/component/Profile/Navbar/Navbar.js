@@ -3,17 +3,15 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "./Navbar.css";
 const Navbar = () => {
-
-//   const logout=()=> {
-//     localStorage.clear();
-//     window.location.href = '/localhost:3000';
-// }
+  //   const logout=()=> {
+  //     localStorage.clear();
+  //     window.location.href = '/localhost:3000';
+  // }
 
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
   return (
     <nav className={`navbar navbar-dark bg-dark border-${color} col-md-12`}>
-
       <div className="header d-flex">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIpzM209QcHDyExbY6ZucdhrH-B5Iz5RUzrg&usqp=CAU"
@@ -22,10 +20,9 @@ const Navbar = () => {
           className="d-inline-block align-top"
           alt=""
         />
-        <Link to="/" style={{textDecoration:"none"}}>
-        <h5 className="page-name pt-2">GeekBooks</h5>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h5 className="page-name pt-2">GeekBooks</h5>
         </Link>
-        
       </div>
 
       <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
@@ -64,9 +61,8 @@ const Navbar = () => {
         <Link to="/Books">
           <p className={`${btOutLine} p-2 m-2 `}>Books</p>
         </Link>
-        <Link to="/profile">
-          <p className={`${btOutLine} p-2 m-2 `}> Profile </p>
-        </Link>
+
+        <p className={`${btOutLine} p-2 m-2 `}> Profile </p>
       </div>
 
       <Dropdown className="p-2 text-right">
@@ -75,7 +71,7 @@ const Navbar = () => {
           id="dropdown-basic dropdown "
         ></Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item  >
+          <Dropdown.Item>
             <div className={`${btOutLine} nav-links`}>
               Sign out{" "}
               <svg
@@ -105,7 +101,6 @@ const Navbar = () => {
           <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      
     </nav>
   );
 };

@@ -1,6 +1,12 @@
-import React from "react";
+import React,{useState} from "react";
+import { Modal,Button } from "react-bootstrap";
+
 import Navbar from "../Navbar/Navbar";
 function MyProfile({ username, email, phone, followers, following }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
     <Navbar />
@@ -16,9 +22,25 @@ function MyProfile({ username, email, phone, followers, following }) {
                   width="130"
                   className="rounded mb-2 img-thumbnail"
                 />
-                <a href="#" className="btn btn-outline-dark btn-sm btn-block">
+                <a onClick={handleShow} className="btn btn-outline-dark btn-sm btn-block">
                   Edit profile
                 </a>
+                <Modal show={show} onHide={handleClose} animation={false}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Your informtion
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
               </div>
               <div className="media-body mb-5 text-white">
                 <h4 className="mt-0 mb-0">{username}</h4>
