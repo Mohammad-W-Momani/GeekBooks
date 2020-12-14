@@ -5,7 +5,7 @@ const middleware = require("../middlewares/auth");
 const {
   logIn,
   register,
-  home,
+  home, 
   updatePost,
   createPost,
   allPosts,
