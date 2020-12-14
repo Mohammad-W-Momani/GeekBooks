@@ -1,8 +1,7 @@
-const signIn = require("../Models/User/login");
-const signUp = require("../Models/User/signup");
+const signIn = require("../Models/User/Entry/login");
+const signUp = require("../Models/User/Entry/signup");
 // follow section
 const followUser = require("../Models/followSystem/following");
-const getUserByName = require("../Models/User/get-user");
 const getFollowers = require("../Models/followSystem/get-followers");
 const getUserFollowing = require("../Models/followSystem/get-following");
 const unFollows = require("../Models/followSystem/unfollows");
@@ -45,6 +44,11 @@ const getReadingList = require("../Models/UserList/reading/get-list");
 const wantToRead = require("../Models/UserList/want-to-read/add-book");
 const removeToReadBook = require("../Models/UserList/want-to-read/remove-book");
 const getToReadList = require("../Models/UserList/want-to-read/get-list");
+// User Profile/Edit profile
+const getUserByName = require("../Models/User/UserPage/get-user");
+const changeEmail = require("../Models/User/UserPage/change-email");
+const changePassword = require("../Models/User/UserPage/change-password");
+const changeNumber = require("../Models/User/UserPage/change-phone");
 // sign up
 const register = signUp;
 //Login
@@ -53,7 +57,6 @@ const home = (req, res) => {
   res.json("Welcome To Your Place");
 };
 // follow section
-const getUser = getUserByName;
 const follow = followUser;
 const getFollower = getFollowers;
 const getFollowing = getUserFollowing;
@@ -98,7 +101,12 @@ const getReading = getReadingList;
 // want to read section
 const ToReadList = wantToRead;
 const removeToReadList = removeToReadBook;
-const getToRead = getToReadList
+const getToRead = getToReadList;
+// User Profile/Edit profile
+const getUser = getUserByName;
+const changePhone = changeNumber;
+const editPassword = changePassword;
+const editEmail = changeEmail;
 module.exports = {
   login,
   register,
@@ -141,4 +149,7 @@ module.exports = {
   getRead,
   getReading,
   getToRead,
+  editEmail,
+  editPassword,
+  changePhone,
 };

@@ -44,14 +44,15 @@ const {
   getRead,
   getReading,
   getToRead,
+  editEmail,
+  editPassword,
+  changePhone,
 } = require("../controllers/main-controller");
 // Welcome page
 mainRouter.get("/", middleware, home);
 //Login/sign up users
 mainRouter.post("/register", register);
 mainRouter.post("/login", login);
-// get user
-mainRouter.get("/profile/:username", getUser);
 // Follow section
 mainRouter.post("/:username/Follows", middleware, follow);
 mainRouter.delete("/:username/unfollow", middleware, unfollowUser);
@@ -72,7 +73,6 @@ mainRouter.delete("/group/:class_name/:comment_id", middleware, removeComment);
 mainRouter.get("/profiles/group/:username", middleware, userGroup);
 mainRouter.get("/group/:class_name/members", middleware, getGroupMember);
 mainRouter.get("/group/:class_name", middleware, groupPosts);
-
 // Post section
 mainRouter.post("/post/createpost", middleware, createPost);
 mainRouter.post("/post/:post_id/like", middleware, like);
@@ -102,4 +102,9 @@ mainRouter.get("/readinglist", middleware, getReading);
 mainRouter.post("/toreadlist", middleware, ToReadList);
 mainRouter.delete("/toreadlist", middleware, removeToReadList);
 mainRouter.get("/toreadlist", middleware, getToRead);
+// User Profile/Edit profile
+mainRouter.put("/profile/editemail", middleware, editEmail);
+mainRouter.put("/profile/editpassword", middleware, editPassword);
+mainRouter.put("/profile/editnumber", middleware, changePhone);
+mainRouter.get("/profile/:username", getUser);
 module.exports = mainRouter;
