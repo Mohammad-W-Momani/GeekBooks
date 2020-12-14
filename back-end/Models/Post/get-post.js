@@ -8,9 +8,9 @@ const getPostByID = (req, res) => {
   });
 };
 const getUserPosts = (req, res) => {
-  const data = [req.params.username, null];
-  const query = "SELECT * FROM Post WHERE username =? AND class_name = ?";
-  connection.query(query, data, (err, results) => {
+  const { username } = req.params;
+  const query = `SELECT * FROM Post WHERE username =? AND class_name IS NULL`;
+  connection.query(query, username, (err, results) => {
     if (err) throw err;
     if (results.length) {
       res.json(results);

@@ -47,6 +47,7 @@ const {
   editEmail,
   editPassword,
   changePhone,
+  homePosts,
 } = require("../controllers/main-controller");
 // Welcome page
 mainRouter.get("/", middleware, home);
@@ -54,10 +55,10 @@ mainRouter.get("/", middleware, home);
 mainRouter.post("/register", register);
 mainRouter.post("/login", login);
 // Follow section
-mainRouter.post("/:username/Follows", middleware, follow);
+mainRouter.post("/:username/follows", middleware, follow);
 mainRouter.delete("/:username/unfollow", middleware, unfollowUser);
-mainRouter.get("/:username/Followers", getFollower);
-mainRouter.get("/:username/Following", getFollowing);
+mainRouter.get("/:username/followers", getFollower);
+mainRouter.get("/:username/following", getFollowing);
 //chat section
 mainRouter.post("/chat/:username", middleware, chatting);
 mainRouter.get("/Chat/:username", middleware, getChat);
@@ -80,6 +81,7 @@ mainRouter.put("/post/:post_id", middleware, updatePost);
 mainRouter.delete("/post/:post_id", middleware, removePost);
 mainRouter.delete("/post/:post_id/dislike", middleware, dislike);
 mainRouter.get("/:username/post", usersPost);
+mainRouter.get("/home", middleware, homePosts);
 mainRouter.get("/post/:post_id", post);
 // Comment section
 mainRouter.post("/comment/:post_id/createcomment", middleware, createComment);

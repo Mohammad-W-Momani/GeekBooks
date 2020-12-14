@@ -19,6 +19,7 @@ const getGroupPosts = require("../Models/Class/group-post");
 const removeMember = require("../Models/Class/remove-member");
 // post section
 const addPost = require("../Models/Post/create-post");
+const homePost = require("../Models/Post/home-post");
 const deletePost = require("../Models/Post/delete-post");
 const { getUserPosts, getPostByID } = require("../Models/Post/get-post");
 const updatePosts = require("../Models/Post/update-post");
@@ -74,6 +75,7 @@ const userGroup = userGroups;
 const removeUser = removeMember;
 // post section
 const createPost = addPost;
+const homePosts = homePost;
 const removePost = deletePost;
 const usersPost = getUserPosts;
 const post = getPostByID;
@@ -152,4 +154,5 @@ module.exports = {
   editEmail,
   editPassword,
   changePhone,
+  homePosts,
 };
