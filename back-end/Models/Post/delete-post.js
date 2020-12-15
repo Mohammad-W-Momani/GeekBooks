@@ -4,7 +4,7 @@ const deletePost = (req, res) => {
   const { post_id, class_name } = req.params;
   const checkRole = `SELECT username FROM Post WHERE post_id =? `;
   connection.query(checkRole, post_id, (err, user) => {
-    if (err) throw err.sqlMessage; 
+    if (err) throw err.sqlMessage;
     if (user[0].username === username && class_name === undefined) {
       const query = `DELETE FROM Post WHERE post_id=?`;
       connection.query(query, post_id, (err, result) => {

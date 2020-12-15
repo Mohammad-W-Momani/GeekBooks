@@ -73,7 +73,7 @@ const addMember = addMembers;
 const getGroupMember = getMembers;
 const userGroup = userGroups;
 const removeUser = removeMember;
-// post section
+// post section 
 const createPost = addPost;
 const homePosts = homePost;
 const removePost = deletePost;

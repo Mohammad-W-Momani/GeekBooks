@@ -6,7 +6,7 @@ const addPost = (req, res) => {
   const data = [null, req.body.post, req.token.username, class_name];
   const userData = [req.token.username, class_name];
   const query = `INSERT INTO Post (post_id,post,username,class_name) VALUES (?,?,?,?)`;
-  const checkUser = `SELECT * FROM Members WHERE username= ? AND class_name = ?`;
+  const checkUser = `SELECT * FROM Members WHERE username= ? AND class_name =?`;
   if (class_name !== undefined) {
     connection.query(checkUser, userData, (err, userExist) => {
       if (err) throw err.sqlMessage;

@@ -1,7 +1,7 @@
 const connection = require("../../db");
 const getPostByID = (req, res) => {
   const { post_id } = req.params;
-  const query = `SELECT * FROM Post WHERE post_id=?`;
+  const query = `SELECT * FROM Post WHERE post_id =?`;
   connection.query(query, post_id, (err, results) => {
     if (err) throw err;
     res.json(results);
