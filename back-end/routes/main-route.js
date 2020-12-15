@@ -104,7 +104,7 @@ mainRouter.get("/readinglist", middleware, getReading);
 mainRouter.post("/toreadlist", middleware, ToReadList);
 mainRouter.delete("/toreadlist", middleware, removeToReadList);
 mainRouter.get("/toreadlist", middleware, getToRead);
-// User Profile/Edit profile
+// User/Edit  Profile
 mainRouter.put("/profile/editemail", middleware, editEmail);
 mainRouter.put("/profile/editpassword", middleware, editPassword);
 mainRouter.put("/profile/editnumber", middleware, changePhone);

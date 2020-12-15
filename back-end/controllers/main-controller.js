@@ -75,7 +75,7 @@ const userGroup = userGroups;
 const removeUser = removeMember;
 // post section
 const createPost = addPost;
-const homePosts = homePost; 
+const homePosts = homePost;
 const removePost = deletePost;
 const usersPost = getUserPosts;
 const post = getPostByID;
