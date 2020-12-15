@@ -36,22 +36,28 @@ const {
   likeComment,
   createComment,
 } = require("../controllers/main-controller");
+
 // Welcome page
 mainRouter.get("/", middleware, home);
+
 //Login/sign up users
 mainRouter.post("/register", register);
 mainRouter.post("/login", login);
+
 // get user
 mainRouter.get("/profile/:username", getUser);
+
 // Follow section
 mainRouter.post("/:username/Follows", middleware, follow);
 mainRouter.delete("/:username/unfollow", middleware, unfollowUser);
 mainRouter.get("/:username/Followers", getFollower);
 mainRouter.get("/:username/Following", getFollowing);
+
 //chat section
 mainRouter.post("/chat/:username", middleware, chatting);
 mainRouter.get("/Chat/:username", middleware, getChat);
 mainRouter.get("/chat", userChat);
+
 // Group section
 mainRouter.post("/createGroup", middleware, newGroup);
 mainRouter.post("/groups/:class_name/members", middleware, addMember);
@@ -80,4 +86,5 @@ mainRouter.delete("/comment/:comment_id", middleware, removeComment);
 mainRouter.delete("/comment/:comment_id/dislike", middleware, dislikeComment);
 mainRouter.get("/post/comment/:post_id", postComment);
 mainRouter.get("/comment/:comment_id", comment);
+
 module.exports = mainRouter;

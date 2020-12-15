@@ -1,3 +1,4 @@
+const connection = require("../../db");
 const getUserByName = (req, res) => {
   const userId = req.params.username;
   const query = `SELECT * FROM user WHERE username = ?`;
