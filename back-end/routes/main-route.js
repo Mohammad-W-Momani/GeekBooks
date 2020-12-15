@@ -5,10 +5,10 @@ const middleware = require("../middlewares/auth");
 const {
   logIn,
   register,
-  home, 
+  home,
   updatePost,
   createPost,
-  allPosts,
+  userPost,
   deletePost,
   post,
   createComment,
@@ -16,6 +16,9 @@ const {
   deleteComment,
   follow,
   getUser,
+  editEmail,
+  editPassword,
+  changePhone,
   getFollower,
   getFollowing,
   unfollowUser,
@@ -26,7 +29,7 @@ mainRouter.get("/", middleware, home);
 mainRouter.post("/register", register);
 mainRouter.post("/Login", logIn);
 
-mainRouter.get("/posts", middleware, allPosts);
+mainRouter.get("/:username/post", middleware, userPost);
 mainRouter.get("/posts/:Post_id", middleware, post);
 mainRouter.post("/posts", middleware, createPost);
 mainRouter.put("/posts/:Post_id", middleware, updatePost);
@@ -36,11 +39,14 @@ mainRouter.post("/comments", middleware, createComment);
 mainRouter.put("/comments/:comment_id", middleware, updateComment);
 mainRouter.delete("/comments/:comment_id", middleware, deleteComment);
 
-// Follow other user
-mainRouter.post("/:username/Follows", middleware, follow);
 // get user
 mainRouter.get("/:username", middleware, getUser);
-// get Follower list
+mainRouter.put("/profile/editemail", middleware, editEmail);
+mainRouter.put("/profile/editpassword", middleware, editPassword);
+mainRouter.put("/profile/editnumber", middleware, changePhone);
+
+// Follow section
+mainRouter.post("/:username/Follows", middleware, follow);
 mainRouter.get("/:username/Followers", getFollower);
 mainRouter.get("/:username/Following", getFollowing);
 mainRouter.delete("/:username/unfollow", middleware, unfollowUser);

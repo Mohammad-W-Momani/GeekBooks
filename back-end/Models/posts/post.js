@@ -1,28 +1,32 @@
 const connection = require("../../db");
 
-//Show all posts
-const getAllPosts = (req, res) => {
-  const query = "SELECT * FROM post";
-  connection.query(query, (err, results) => {
+const getPostByID = (req, res) => {
+  const { post_id } = req.params;
+  const query = `SELECT * FROM Post WHERE post_id=?`;
+  connection.query(query, post_id, (err, results) => {
     if (err) throw err;
     res.json(results);
   });
 };
 
-//Show postsByID
-const getPostByID = (req, res) => {
-  const postID = req.params.post_id;
-  const query = `SELECT * FROM post WHERE post_id=?`;
-  connection.query(query, postID, (err, results) => {
+const getUserPosts = (req, res) => {
+  const { username } = req.params;
+  const query = `SELECT * FROM Post WHERE username =? AND class_name IS NULL `;
+  connection.query(query, username, (err, results) => {
     if (err) throw err;
-    res.json(results);
+    if (results.length) {
+      res.json(results);
+      return;
+    }
+    res.json("Add new posts ");
+    return;
   });
 };
 
 //Update posts
 const updatePostsById = (req, res) => {
   const token_user_id = req.token.user_id;
-  const {user_id, post, thumbs_up} = req.body;
+  const { user_id, post, thumbs_up } = req.body;
   const postID = req.params.post_id;
   if (token_user_id === user_id) {
     const query = `UPDATE post SET post=? WHERE post_id=?`;
@@ -38,7 +42,7 @@ const updatePostsById = (req, res) => {
 
 //Add new posts
 const addPost = (req, res) => {
-  const {post, thumbs_up} = req.body;
+  const { post, thumbs_up } = req.body;
   post.user_id = null;
   const query = `INSERT INTO post (post, thumbs_up) VALUES (?, ?)`;
   const data = [post, thumbs_up];
@@ -65,7 +69,7 @@ const deletePostById = (req, res) => {
 };
 
 module.exports = {
-  getAllPosts,
+  getUserPosts,
   getPostByID,
   updatePostsById,
   deletePostById,
