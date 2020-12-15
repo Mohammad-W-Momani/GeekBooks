@@ -45,16 +45,6 @@ CREATE TABLE IF NOT EXISTS User (
     CONSTRAINT fk_User_Role1 FOREIGN KEY (role_id) REFERENCES Role (role_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Author
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Author (
-    author_id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    specialties VARCHAR(255) NOT NULL,
-    UNIQUE INDEX id_UNIQUE (author_id ASC),
-    PRIMARY KEY (author_id)
-);
--- -----------------------------------------------------
 -- Table User_List
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS User_List (
@@ -62,8 +52,7 @@ CREATE TABLE IF NOT EXISTS User_List (
     have_read VARCHAR(255) NULL,
     reading VARCHAR(255) NULL,
     to_read VARCHAR(255) NULL,
-    favorite_quotes VARCHAR(255) NULL,
-    user_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
     created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_list_id, user_id),
@@ -72,37 +61,37 @@ CREATE TABLE IF NOT EXISTS User_List (
     CONSTRAINT fk_User_List_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
--- Table Book
+-- Table Class(Group)
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Book (
-    book_id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    reviews VARCHAR(255) NULL,
+CREATE TABLE IF NOT EXISTS Class (
+    class_id INT NOT NULL AUTO_INCREMENT,
+    class_name VARCHAR(255) UNIQUE NOT NULL,
     description VARCHAR(255) NULL,
-    topic VARCHAR(255) NOT NULL,
-    rating INT NULL,
-    author_id INT NOT NULL,
-    user_list_id INT NOT NULL,
-    PRIMARY KEY (book_id),
-    INDEX fk_Book_Author1_idx (author_id ASC),
-    INDEX fk_Book_User_List1_idx (user_list_id ASC),
-    CONSTRAINT fk_Book_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Book_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
-) DEFAULT CHARACTER SET = ascii;
+    user_id INT NOT NULL,
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (class_id, user_id, class_name),
+    UNIQUE INDEX class_id_UNIQUE (class_id ASC),
+    UNIQUE INDEX class_name_UNIQUE (class_name ASC),
+    INDEX fk_class_User1_idx (user_id ASC),
+    CONSTRAINT fk_class_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 -- -----------------------------------------------------
--- Table Quote
+-- Table Members
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Quote (
-    quote_id INT NOT NULL AUTO_INCREMENT,
-    quote VARCHAR(255) NOT NULL,
-    author_id INT NOT NULL,
-    user_list_id INT NOT NULL,
-    PRIMARY KEY (quote_id),
-    UNIQUE INDEX quote_id_UNIQUE (quote_id ASC),
-    INDEX fk_Quote_Author1_idx (author_id ASC),
-    INDEX fk_Quote_User_List1_idx (user_list_id ASC),
-    CONSTRAINT fk_Quote_Author1 FOREIGN KEY (author_id) REFERENCES Author (author_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Quote_User_List1 FOREIGN KEY (user_list_id) REFERENCES User_List (user_list_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS Members (
+    username VARCHAR(255) NOT NULL,
+    class_name VARCHAR(255) NOT NULL,
+    adder_name VARCHAR(255) NOT NULL,
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (username, class_name, adder_name),
+    INDEX fk_Members_class_namex (class_name ASC),
+    INDEX fk_Members_User1_namex (adder_name ASC),
+    INDEX fk_Members_User2_namex (username ASC),
+    CONSTRAINT fk_Members_User1 FOREIGN KEY (adder_name) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Members_User2 FOREIGN KEY (username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Members_class1 FOREIGN KEY (class_name) REFERENCES Class (class_name) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Post
@@ -110,32 +99,48 @@ CREATE TABLE IF NOT EXISTS Quote (
 CREATE TABLE IF NOT EXISTS Post (
     post_id INT NOT NULL AUTO_INCREMENT,
     post VARCHAR(255) NULL,
-    thumbs_up INT NULL,
-    user_id INT UNIQUE NOT NULL,
-    created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+    username VARCHAR(255) NOT NULL,
+    class_name VARCHAR(255) NULL,
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (post_id),
-    UNIQUE INDEX Post_id_UNIQUE (post_id ASC),
-    INDEX fk_Post_User1_idx (user_id ASC),
-    CONSTRAINT fk_Post_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    INDEX fk_Post_User1_idx (class_name ASC),
+    CONSTRAINT fk_Post_User_username FOREIGN KEY (username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Post_Class_class_name FOREIGN KEY (class_name) REFERENCES Class (class_name) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Comment
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Comment (
     comment VARCHAR(255) NOT NULL,
-    thumbs_up INT NULL,
     comment_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT UNIQUE NOT NULL,
+    username VARCHAR(255) NOT NULL,
     post_id INT NOT NULL,
     created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (comment_id),
     UNIQUE INDEX Comment_id_UNIQUE (comment_id ASC),
-    INDEX fk_Comment_User1_idx (user_id ASC),
+    INDEX fk_Comment_User1_idx (username ASC),
     INDEX fk_Comment_Post1_idx (post_id ASC),
-    CONSTRAINT fk_Comment_User1 FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Comment_User1 FOREIGN KEY (username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Comment_Post1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table Like
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Thumbsup (
+    comment_id INT NULL,
+    username VARCHAR(255) NOT NULL,
+    post_id INT NULL,
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (username),
+    INDEX fk_Thumbsup_Comment_idx (comment_id ASC),
+    INDEX fk_Thumbsup_Post1_idx (post_id ASC),
+    INDEX fk_Thumbsup_User_usernamex (username ASC),
+    CONSTRAINT fk_Thumbsup_Comment1 FOREIGN KEY (comment_id) REFERENCES Comment (comment_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Thumbsup_User FOREIGN KEY (username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Thumbsup_User1 FOREIGN KEY (post_id) REFERENCES Post (post_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- Table Follower_system
@@ -144,9 +149,13 @@ CREATE TABLE IF NOT EXISTS Follower_system (
     follower_username VARCHAR(255) NOT NULL,
     following_username VARCHAR(255) NOT NULL,
     follows_id INT UNIQUE NOT NULL AUTO_INCREMENT,
-    created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (follower_username, following_username, follows_id),
+    created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (
+        follower_username,
+        following_username,
+        follows_id
+    ),
     INDEX fk_Follower_system_User_idx (follows_id ASC),
     UNIQUE INDEX Follows_id_UNIQUE (follows_id ASC),
     CONSTRAINT fk_Follower_system_User FOREIGN KEY (follower_username) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -156,16 +165,14 @@ CREATE TABLE IF NOT EXISTS Follower_system (
 -- Live Chat
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Live_Chat (
-    first_user VARCHAR(255) NOT NULL,
-    second_user VARCHAR(255) NOT NULL,
-    chat_id INT UNIQUE NOT NULL AUTO_INCREMENT,
-    created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (first_user, second_user, chat_id),
-    INDEX fk_Live_Chat_User_idx (chat_id ASC),
-    UNIQUE INDEX chat_id_UNIQUE (chat_id ASC),
-    CONSTRAINT fk_Live_Chat_User FOREIGN KEY (first_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Live_Chat_User1 FOREIGN KEY (second_user) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
+    sender VARCHAR(255) NOT NULL,
+    receiver VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    chat_id VARCHAR(255) NOT NULL,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_Live_Chat_User FOREIGN KEY (sender) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_Live_Chat_User1 FOREIGN KEY (receiver) REFERENCES User (username) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- -----------------------------------------------------
 -- INSERT DATA Role
