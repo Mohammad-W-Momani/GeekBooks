@@ -13,7 +13,7 @@ const CreatePost = () => {
         <form>
           <textarea
             className="form-control shadow-none"
-            style={{ borderRadius: "15px" }}
+            style={{ borderRadius: "15px", resize: "none" }}
             placeholder="What's in your mind?"
           ></textarea>
           <div

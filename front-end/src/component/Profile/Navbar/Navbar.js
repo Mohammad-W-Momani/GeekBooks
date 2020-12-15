@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "./Navbar.css";
 const Navbar = () => {
-  //   const logout=()=> {
-  //     localStorage.clear();
-  //     window.location.href = '/localhost:3000';
-  // }
+    const logout=()=> {
+      localStorage.clear();
+      window.location.href = '/login';
+  }
 
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
@@ -71,7 +71,7 @@ const Navbar = () => {
           id="dropdown-basic dropdown "
         ></Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item>
+          <Dropdown.Item onClick={logout}>
             <div className={`${btOutLine} nav-links`}>
               Sign out{" "}
               <svg

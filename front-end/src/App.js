@@ -9,7 +9,8 @@ import Register from "./components/Register";
 import "./App.css";
 
 const App = () => {
-  return (
+  const token = localStorage.getItem("token");
+  return token ? (
     <Router>
       <Route path="/library" exact component={Library} />
       <Route path="/login" exact component={Login} />
@@ -17,6 +18,12 @@ const App = () => {
       <Route path="/groups" exact component={Groups} />
       <Route path="/" exact component={Home} />
       <Route path={`/:username`} exact component={Profile} />
+    </Router>
+  ) : (
+    <Router>
+      
+      <Route path="/login" exact component={Login} />
+      <Route path="/register" exact component={Register} />
     </Router>
   );
 };

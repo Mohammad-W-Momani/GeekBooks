@@ -43,6 +43,7 @@ const Login = () => {
         .then((result) => {
           if (!result.data.error) {
             localStorage.setItem("token", result.data);
+            window.location.href = '/';
           }
         })
         .catch((err) => {

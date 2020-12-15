@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import jwt_decode from "jwt-decode";
-import OtherProfile from "./Profiles/OtherProfile";
-import MyProfile from "./Profiles/MyProfile";
+import OtherProfile from "./Profiles/OtherProfile/OtherProfile";
+import MyProfile from "./Profiles/MyProfile/MyProfile";
 import "./Profile.css";
 const Profile = () => {
   let { username } = useParams();
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
   const token_username = decoded.username;
-  const localHost = "http://localhost:5000"
 
   const [user, setUser] = useState([]);
   const [userName, setUserName] = useState([]);
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const getUser = () => {
-    Axios.get(`${localHost}/${username}`, {
+    Axios.get(`/${username}`, {
       headers: { Authorization: `Basic ${token}` },
     })
       .then((response) => {
@@ -29,7 +28,7 @@ const Profile = () => {
       });
   };
   const getfollowing = () => {
-    Axios.get(`${localHost}/:${username}/Following`)
+    Axios.get(`/${username}/Following`)
       .then((response) => {
         setFollowing(response.data);
       })
@@ -38,7 +37,7 @@ const Profile = () => {
       });
   };
   const getfollowers = () => {
-    Axios.get(`${localHost}/:${username}/Followers`)
+    Axios.get(`/${username}/Followers`)
       .then((response) => {
         setFollowers(response.data);
       })
@@ -48,10 +47,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getfollowing();
-    getfollowers();
     getUser();
-  }, []);
+  }, [getfollowing(), getfollowers()]);
   if (userName === token_username) {
     return user.map((userInf) => (
       <MyProfile
@@ -62,7 +59,14 @@ const Profile = () => {
       />
     ));
   } else if (userName.length === 0) {
-    return <img src="https://blog.thomasnet.com/hs-fs/hubfs/shutterstock_774749455.jpg?width=600&name=shutterstock_774749455.jpg" alt="" width="100%" height="600px"/>;
+    return (
+      <img
+        src="https://blog.thomasnet.com/hs-fs/hubfs/shutterstock_774749455.jpg?width=600&name=shutterstock_774749455.jpg"
+        alt=""
+        width="100%"
+        height="600px"
+      />
+    );
   } else {
     return user.map((userInf) => (
       <OtherProfile
@@ -70,6 +74,7 @@ const Profile = () => {
         {...userInf}
         following={following}
         followers={followers}
+        usernameParams={username}
       />
     ));
   }
