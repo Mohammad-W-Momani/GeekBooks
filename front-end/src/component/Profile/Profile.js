@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Axios from "axios";
 import jwt_decode from "jwt-decode";
+import Axios from "axios";
 import OtherProfile from "./Profiles/OtherProfile/OtherProfile";
 import MyProfile from "./Profiles/MyProfile/MyProfile";
 import "./Profile.css";

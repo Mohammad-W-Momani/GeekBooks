@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "./Navbar.css";
-const Navbar = () => {
+const Navbar = () => { 
     const logout=()=> {
       localStorage.clear();
       window.location.href = '/login';

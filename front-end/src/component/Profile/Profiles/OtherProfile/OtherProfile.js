@@ -1,5 +1,4 @@
 import React from "react";
-import jwt_decode from "jwt-decode";
 import Navbar from "../../Navbar/Navbar";
 import FollowButton from "./FollowButton";
 
@@ -11,9 +10,6 @@ function OtherProfile({
   following,
   usernameParams,
 }) {
-  const token = localStorage.getItem("token");
-  const decoded = jwt_decode(token);
-  const token_username = decoded.username;
   return (
     <div>
       <Navbar />

@@ -3,7 +3,7 @@ import Navbar from "../../Navbar/Navbar";
 import EditProfile from "./EditProfile"; 
 function MyProfile({ username, email, phone, followers, following }) {
   return (
-    <div>
+    <div> 
       <Navbar />
       <div className="row py-5 px-4">
         <div className="col-md-5 mx-auto">
