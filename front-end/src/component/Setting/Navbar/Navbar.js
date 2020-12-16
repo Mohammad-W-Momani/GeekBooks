@@ -11,7 +11,7 @@ const Navbar = () => {
     localStorage.clear();
     window.location.href = "/login";
   };
-
+ 
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
   return (

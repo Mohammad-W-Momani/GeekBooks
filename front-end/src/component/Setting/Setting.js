@@ -26,7 +26,7 @@ function Setting() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      }); 
   };
   const editPhone = () => {
     Axios.put(
