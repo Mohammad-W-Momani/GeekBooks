@@ -26,7 +26,6 @@ const App = () => {
         <Route exact path="/library/book-post/:id">
           <BookPost />
         </Route>
-        {/* <Route exact path="/Library/:id" component={BookPost} /> */}
       </div>
     </Router>
   );
