@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Axios from "axios";
 import jwt_decode from "jwt-decode";
 import OtherProfile from "./Profiles/OtherProfile/OtherProfile";
@@ -56,16 +56,24 @@ const Profile = () => {
         {...userInf}
         following={following}
         followers={followers}
+        usernameParams={username}
       />
     ));
   } else if (userName.length === 0) {
     return (
-      <img
-        src="https://blog.thomasnet.com/hs-fs/hubfs/shutterstock_774749455.jpg?width=600&name=shutterstock_774749455.jpg"
-        alt=""
-        width="100%"
-        height="600px"
-      />
+      <div>
+        <h1 style={{ textAlign: "center",backgroundColor:"white", margin:'0'}} >
+          <Link to="/" style={{ textDecoration: "none" }} className="text-danger">
+            Go to Home{" "}
+          </Link>
+        </h1>
+        <img
+          src="https://blog.thomasnet.com/hs-fs/hubfs/shutterstock_774749455.jpg?width=600&name=shutterstock_774749455.jpg"
+          alt=""
+          width="100%"
+          height="580px"
+        />
+      </div>
     );
   } else {
     return user.map((userInf) => (

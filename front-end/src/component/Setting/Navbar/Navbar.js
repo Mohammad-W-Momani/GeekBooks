@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import Library from "../../library/Library";
 import jwt_decode from "jwt-decode";
 import "./Navbar.css";
 const Navbar = () => {
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
   const username = decoded.username;
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
   return (
@@ -20,16 +24,21 @@ const Navbar = () => {
           className="d-inline-block align-top"
           alt=""
         />
-        <h5 className="page-name pt-2">GeekBooks</h5>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h5 className="page-name pt-2">GeekBooks</h5>
+        </Link>
       </div>
 
       <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
-        <Library
+        <input
           className="form-control mr-sm-2 shadow-none pr-5"
           type="search"
           placeholder="Search"
           aria-label="Search"
         />
+        <button className={`${btOutLine} my-2 my-sm-0`} type="submit">
+          Search
+        </button>
       </form>
 
       <div className="links pr-5 ">
@@ -56,6 +65,7 @@ const Navbar = () => {
         <Link to="/Books">
           <p className={`${btOutLine} p-2 m-2 `}>Books</p>
         </Link>
+
         <Link to={`/${username}`}>
           <p className={`${btOutLine} p-2 m-2 `}> Profile </p>
         </Link>
@@ -67,7 +77,7 @@ const Navbar = () => {
           id="dropdown-basic dropdown "
         ></Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="login">
+          <Dropdown.Item onClick={logout}>
             <div className={`${btOutLine} nav-links`}>
               Sign out{" "}
               <svg

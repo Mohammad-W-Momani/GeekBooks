@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../../Navbar/Navbar"; 
 import EditProfile from "./EditProfile"; 
 function MyProfile({ username, email, phone, followers, following }) {
-  
   return (
     <div>
       <Navbar />

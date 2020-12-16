@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
-import jwt_decode from "jwt-decode";
 
 function FollowButton({ usernameParams }) {
   const [followUp, setFollowUp] = useState();
   const token = localStorage.getItem("token");
-  const decoded = jwt_decode(token);
-  const token_username = decoded.username;
 
-  const follow = (e) => {
-    e.preventDefault();
+  const follow = () => {
     Axios.post(
       `/${usernameParams}/Follows`,
       {},
@@ -24,6 +20,7 @@ function FollowButton({ usernameParams }) {
         console.log(err);
       });
   };
+
   return (
     <div
       className="bg-light d-flex justify-content-end pt-3 pr-3"
@@ -34,7 +31,7 @@ function FollowButton({ usernameParams }) {
         style={{ height: "50px", borderRadius: "200px" }}
         onClick={follow}
       >
-        Follow
+        follow
       </button>
     </div>
   );
