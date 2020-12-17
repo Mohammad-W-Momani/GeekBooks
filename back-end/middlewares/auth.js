@@ -5,8 +5,9 @@ module.exports = async (req, res, next) => {
   }
   const token = req.headers.authorization.split(" ").pop();
   jwt.verify(token, process.env.SECRET, (err, parsedToken) => {
-    if (err) res.send(err);
+    if (err) res.send(err.message);
     if (parsedToken) {
+      req.token = parsedToken;
       next();
       return;
     }

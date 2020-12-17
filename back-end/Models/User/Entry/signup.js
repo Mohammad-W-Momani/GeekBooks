@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const connection = require("../../db");
+const connection = require("../../../db");
 const passwordChecking = (password) => {
   let passStrength = 0;
   const [upperLetter, lowerLetter, symbol, number] = [
@@ -11,7 +11,7 @@ const passwordChecking = (password) => {
   const [
     upperLetterChecker,
     lowerLetterChecker,
-    symbolChecker,
+    symbolChecker,  
     numberChecker,
   ] = [
     password.match(upperLetter),
@@ -61,6 +61,7 @@ const signUp = async (req, res) => {
     res.json(
       "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
     );
+    return
   }
   bcrypt.hash(user.password, Number(process.env.SALT), (err, hash) => {
     if (err) throw err;
@@ -77,8 +78,20 @@ const signUp = async (req, res) => {
       user.role_id,
     ];
     connection.query(query, data, (err, results) => {
-      if (err) throw err.sqlMessage;
+      if (err) {
+        if (err.sqlMessage.indexOf("User.email") !== -1) {
+          res.json("email is already used");
+          return
+        } else if (err.sqlMessage.indexOf("User.phone") !== -1) {
+          res.json("phone number is already used");
+          return
+        } else {
+          res.json("username is already used");
+          return
+        }
+      }
       res.json("User Has Been Created Successfully ");
+      return
     });
   });
 };

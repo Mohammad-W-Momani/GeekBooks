@@ -13,14 +13,14 @@ const CreatePost = () => {
         <form>
           <textarea
             className="form-control shadow-none"
-            style={{ borderRadius: "15px" }}
+            style={{ borderRadius: "15px", resize: "none" }}
             placeholder="What's in your mind?"
           ></textarea>
           <div
             className="list-inline post-actions p-1 "
             style={{ borderRadius: "15px" }}
           >
-            <div className=" d-flex justify-content-start">
+            <div className=" d-flex justify-content-end">
               <button
                 className={`btn btn-success`}
                 style={{ borderRadius: "15px" }}

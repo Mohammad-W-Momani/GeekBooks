@@ -1,0 +1,13 @@
+nav > div > img {
+    border-radius: 10px;
+}
+
+.page-name {
+    text-align: center;
+    font-family: 'Niconne', cursive;
+    -webkit-text-fill-color: #343a40; 
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color:#28a745;
+}
+
+ 
