@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import validate from "./handleErrorRegister";
-
+import validate from "../handleErrorRegister";
+import './Register'
 const Register = (props) => {
   const [values, setValues] = useState({
     username: "",
@@ -36,7 +36,7 @@ const Register = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
+  <form onSubmit={handleSubmit} className="form">
       <h1>Register User</h1>
       <section>
         <label>Username</label>
