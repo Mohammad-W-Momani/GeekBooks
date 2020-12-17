@@ -59,20 +59,18 @@ const Login = () => {
         className="d-flex justify-content-center"
         style={{ paddingTop: "130px" }}
       >
-        <div className="card d-flex ">
+        <div
+          className="card d-flex "
+          style={{
+            height: "370px",
+            marginTop: "auto",
+            marginBottom: "125px",
+            width: "400px",
+            backgroundColor: "rgba(0,0,0,0.5)",
+          }}
+        >
           <div className="card-header">
             <h3>Sign In</h3>
-            <div className="d-flex justify-content-end social_icon">
-              <span>
-                <i className="fab fa-facebook-square"></i>
-              </span>
-              <span>
-                <i className="fab fa-google-plus-square"></i>
-              </span>
-              <span>
-                <i className="fab fa-twitter-square"></i>
-              </span>
-            </div>
           </div>
           <div className="card-body">
             <form>
@@ -83,7 +81,8 @@ const Login = () => {
                   </span>
                 </div>
                 <input
-                  type="text"
+                  type="email"
+                  name="email"
                   className="form-control"
                   placeholder="Username, Email, Phone"
                   value={values.email}
@@ -98,6 +97,7 @@ const Login = () => {
                 </div>
                 <input
                   type="password"
+                  name="password"
                   className="form-control"
                   placeholder="password"
                   value={values.password}
@@ -105,11 +105,12 @@ const Login = () => {
                 />
               </div>
               <div className="form-group">
+                {errors.validation && <p> {errors.validation} </p>}
                 <input
                   type="submit"
                   value="Login"
                   className="btn btn-dark float-right login_btn text-light"
-                  style={{ background: " rgba(44, 83, 255, 0.315)" }}
+                  style={{ background: "rgba(44, 255, 62, 0.315)" }}
                   onSubmit={handleSubmit}
                 />
               </div>
@@ -117,10 +118,10 @@ const Login = () => {
           </div>
           <div className="card-footer">
             <div className="d-flex justify-content-center links">
-              Don't have an account?<a href="register">Sign Up</a>
-            </div>
-            <div className="d-flex justify-content-center">
-              <a href="Password">Forgot your password?</a>
+              New Geek?
+              <a href="register" className="text-success">
+                Sign Up
+              </a>
             </div>
           </div>
         </div>
