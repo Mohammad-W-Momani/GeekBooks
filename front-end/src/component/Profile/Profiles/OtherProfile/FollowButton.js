@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 
-function FollowButton({ usernameParams }) {
+function FollowButton({ usernameParams, followers }) {
   const [followUp, setFollowUp] = useState();
   const token = localStorage.getItem("token");
 
@@ -28,6 +28,7 @@ function FollowButton({ usernameParams }) {
     >
       <button
         type="button"
+        className="btn btn-success"
         style={{ height: "50px", borderRadius: "200px" }}
         onClick={follow}
       >

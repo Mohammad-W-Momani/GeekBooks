@@ -8,7 +8,7 @@ const Home = () => {
       <Navbar />
       <Body />
     </div>
-  );
+  ); 
 };
 
 export default Home;

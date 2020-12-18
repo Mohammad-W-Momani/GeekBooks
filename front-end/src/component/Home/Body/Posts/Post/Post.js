@@ -43,7 +43,7 @@ const Post = () => {
             <span className="pr-2">2 comments</span>{" "}
           </div>
           <hr />
-          <Comment/>
+          <Comment/> 
           <Comment/>
         </div>
       </div>

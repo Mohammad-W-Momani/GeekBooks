@@ -55,7 +55,7 @@ function OtherProfile({
               <div className="py-4 rounded shadow-sm bg-light">
                 <p className="font-italic mb-0">Web Developer</p>
                 <p className="font-italic mb-0">{phone}</p>
-                <p className="font-italic mb-0">{email}</p>
+              {true &&  <p className="font-italic mb-0">{email}</p>}
               </div>
             </div>
           </div>

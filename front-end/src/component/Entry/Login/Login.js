@@ -73,7 +73,7 @@ const Login = () => {
             <h3>Sign In</h3>
           </div>
           <div className="card-body">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="input-group form-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text">
@@ -111,7 +111,7 @@ const Login = () => {
                   value="Login"
                   className="btn btn-dark float-right login_btn text-light"
                   style={{ background: "rgba(44, 255, 62, 0.315)" }}
-                  onSubmit={handleSubmit}
+                  
                 />
               </div>
             </form>

@@ -1,16 +1,19 @@
 import React from "react";
-import Navbar from "../../Navbar/Navbar"; 
-import EditProfile from "./EditProfile"; 
+import { Link } from "react-router-dom";
+import Navbar from "../../Navbar/Navbar";
+import EditProfile from "./EditProfile";
 function MyProfile({ username, email, phone, followers, following }) {
   return (
-    <div> 
+    <div>
       <Navbar />
       <div className="row py-5 px-4">
         <div className="col-md-5 mx-auto">
           <div className="bg-white shadow rounded overflow-hidden">
             <div className="px-4 pt-0 pb-4 cover">
               <div className="media align-items-end profile-head">
-                <EditProfile/>
+                <Link to="/setting">
+                  <EditProfile />
+                </Link>
                 <div className="media-body mb-5 text-white">
                   <h4 className="mt-0 mb-0">{username}</h4>
                   <p className="small mb-4">Amman</p>

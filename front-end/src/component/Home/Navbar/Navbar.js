@@ -10,6 +10,10 @@ const Navbar = () => {
   const username = decoded.username;
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
+  const logout=()=> {
+    localStorage.clear();
+    window.location.href = '/login';
+}
   return (
     <nav className={`navbar navbar-dark bg-dark border-${color} col-md-12`}>
       <div className="header d-flex">
@@ -61,13 +65,13 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <Dropdown className="p-2 text-right">
+      <Dropdown className="p-2 text-right" >
         <Dropdown.Toggle
           variant={`${color}`}
           id="dropdown-basic dropdown "
         ></Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="login">
+          <Dropdown.Item onClick={logout}>
             <div className={`${btOutLine} nav-links`}>
               Sign out{" "}
               <svg

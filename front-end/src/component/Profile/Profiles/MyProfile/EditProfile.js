@@ -10,7 +10,7 @@ function EditProfile() {
       />
       <a className="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
     </div>
-  );
+  ); 
 }
  
 export default EditProfile;

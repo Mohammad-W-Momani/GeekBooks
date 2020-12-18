@@ -25,7 +25,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .well-social-post a,
-.well-social-post a:hover,
+.well-social-post a:hover, 
 .well-social-post a:active,
 .well-social-post a:focus {
     text-decoration: none;
@@ -82,4 +82,5 @@ textarea::-webkit-scrollbar-thumb {
     background-color: #f8f8f6;
     border-top-color: #e9eaed;
 }                                                            
+
 

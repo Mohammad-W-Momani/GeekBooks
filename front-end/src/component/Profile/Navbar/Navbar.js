@@ -22,7 +22,7 @@ const Navbar = () => {
         />
         <Link to="/" style={{ textDecoration: "none" }}>
           <h5 className="page-name pt-2">GeekBooks</h5>
-        </Link>
+        </Link> 
       </div>
 
       <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">

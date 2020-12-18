@@ -60,7 +60,7 @@ const Register = (props) => {
                   Register
                 </div>
                 <div className="card-body">
-                  <form name="my-form" onsubmit="return validform()">
+                  <form name="my-form" onSubmit={handleSubmit}>
                     <section></section>
                     <div className="input-group form-group">
                       <div className="input-group-prepend">
@@ -157,7 +157,6 @@ const Register = (props) => {
                         type="submit"
                         className="btn btn_register"
                         style={{ background: "rgba(44, 255, 62, 0.315)" }}
-                        onSubmit={handleSubmit}
                       >
                         Register
                       </button>

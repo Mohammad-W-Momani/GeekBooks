@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar/Navbar";
 import Axios from "axios";
-import "./Setting.css";
 
 function Setting() {
   const token = localStorage.getItem("token");
@@ -26,7 +25,7 @@ function Setting() {
       })
       .catch((err) => {
         console.log(err);
-      }); 
+      });
   };
   const editPhone = () => {
     Axios.put(

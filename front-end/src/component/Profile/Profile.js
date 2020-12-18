@@ -16,19 +16,20 @@ const Profile = () => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const getUser = () => {
-    Axios.get(`/${username}`, {
+    Axios.get(`${username}`, {
       headers: { Authorization: `Basic ${token}` },
     })
-      .then((response) => {
-        setUser(response.data);
-        setUserName(response.data[0].username);
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
+    .then((response) => {
+      console.log(response);
+      setUser(response.data);
+      setUserName(response.data[0].username);
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+    });
   };
   const getfollowing = () => {
-    Axios.get(`/${username}/Following`)
+    Axios.get(`${username}/Following`)
       .then((response) => {
         setFollowing(response.data);
       })
@@ -37,7 +38,7 @@ const Profile = () => {
       });
   };
   const getfollowers = () => {
-    Axios.get(`/${username}/Followers`)
+    Axios.get(`${username}/Followers`)
       .then((response) => {
         setFollowers(response.data);
       })

@@ -27,7 +27,7 @@ const Quotes = () => {
           <div className="author">
             <p>{author}</p>
           </div>
-        </div>
+        </div> 
       </div>
     </div>
   );

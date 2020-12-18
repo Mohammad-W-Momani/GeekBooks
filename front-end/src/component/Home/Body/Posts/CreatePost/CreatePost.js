@@ -25,7 +25,7 @@ const CreatePost = () => {
                 className={`btn btn-success`}
                 style={{ borderRadius: "15px" }}
               >
-                Post
+                Post 
               </button>
             </div>
           </div>

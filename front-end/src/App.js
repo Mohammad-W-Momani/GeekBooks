@@ -12,7 +12,7 @@ import "./App.css";
 const App = () => {
   const token = localStorage.getItem("token");
   return token ? (
-    <Router>
+    <Router> 
       <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/library" exact component={Library} />
