@@ -36,5 +36,5 @@ npm run dev
 npm start
 ```
 
-## DatabaseSchema
-![DatabaseSchema](image/C:%20Users%20JCA%20Pictures%20Screenshot.png)
+## Roadmap
+View the project roadmap [Geekbooks](https://trello.com/b/fg3Uy2Pb/geekbooks)
