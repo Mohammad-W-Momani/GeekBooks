@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 const UserBookShelf = (props) => {
   const [bookShelf, setBookShelf] = useState("");
 
   const token = localStorage.getItem("token");
-  const decoded = jwt_decode(token);
+  // const decoded = jwt_decode(token);
 
   useEffect(() => {
     axios
@@ -27,7 +27,7 @@ const UserBookShelf = (props) => {
   const handelChange = (e) => {
     console.log(e.target.value);
     setBookShelf(e.target.value);
-    axios.post(`/booklist/${porps.bookId}`, bookShelf).then((res) => {
+    axios.post(`/booklist/${props.bookId}`, bookShelf).then((res) => {
       console.log(res);
     });
   };
