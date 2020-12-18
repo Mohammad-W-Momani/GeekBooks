@@ -23,9 +23,6 @@ const liveChat = (req, res) => {
             if (err) throw err.sqlMessage;
             res.json(results);
           });
-        } else {
-          res.json("No Conversation Found");
-          return;
         }
       });
     }
