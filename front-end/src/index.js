@@ -6,5 +6,5 @@ import 'bootstrap/dist/css/bootstrap.css';
 axios.defaults.baseURL = "http://localhost:5000/";
 ReactDOM.render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('root') 
 );
