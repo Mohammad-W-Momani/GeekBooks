@@ -48,6 +48,8 @@ const {
   editPassword,
   changePhone,
   homePosts,
+  postLike,
+  commentLike,
 } = require("../controllers/main-controller");
 // Welcome page
 mainRouter.get("/", middleware, home);
@@ -83,6 +85,7 @@ mainRouter.delete("/post/:post_id/dislike", middleware, dislike);
 mainRouter.get("/:username/post", usersPost);
 mainRouter.get("/home", middleware, homePosts);
 mainRouter.get("/post/:post_id", post);
+mainRouter.get("/post/like/:post_id", postLike);
 // Comment section
 mainRouter.post("/comment/:post_id/createcomment", middleware, createComment);
 mainRouter.post("/comment/:comment_id/like", middleware, likeComment);
@@ -91,6 +94,7 @@ mainRouter.delete("/comment/:comment_id", middleware, removeComment);
 mainRouter.delete("/comment/:comment_id/dislike", middleware, dislikeComment);
 mainRouter.get("/post/comment/:post_id", postComment);
 mainRouter.get("/comment/:comment_id", comment);
+mainRouter.get("/post/comment/like/:comment_id", comment);
 // user List section
 // read section
 mainRouter.post("/readlist", middleware, readList);
