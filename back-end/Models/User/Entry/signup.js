@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const connection = require("../../db");
+const connection = require("../../../db");
 const passwordChecking = (password) => {
   let passStrength = 0;
   const [upperLetter, lowerLetter, symbol, number] = [

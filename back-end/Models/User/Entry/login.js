@@ -1,18 +1,18 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const connection = require("../../db");
+const connection = require("../../../db");
 const signIn = (req, res) => {
   const user = req.body;
   let query, data;
   const { username, email, phone } = req.body;
   if (email) {
-    query = `SELECT User.email,User.user_id, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where email = ?`;
+    query = `SELECT User.email,User.user_id,User.username, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where email = ?`;
     data = email;
   } else if (username) {
     query = `SELECT User.username,User.email,User.user_id, User.password, Role.type FROM User Join Role on User.role_id =Role.role_id where username = ?`;
     data = username;
   } else {
-    query = `SELECT  User.email, User.password,User.phone,User.user_id, Role.type FROM User Join Role on User.role_id =Role.role_id where phone = ?`;
+    query = `SELECT  User.email, User.password,User.phone,User.user_id,User.username Role.type FROM User Join Role on User.role_id =Role.role_id where phone = ?`;
     data = phone;
   }
   connection.query(query, data, (err, result) => {
