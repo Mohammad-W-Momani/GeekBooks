@@ -1,12 +1,12 @@
 
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./component/Home/Home";
-import Profile from "./component/Profile/Profile";
-import Setting from "./component/Setting/Setting";
-import Library from "./component/library/Library";
-import Login from "./component/Entry/Login/Login";
-import Register from "./component/Entry/Register/Register";
+import Home from "./components/Home/Home";
+import Profile from "./components/Profile/Profile";
+import Setting from "./components/Setting/Setting";
+import Library from "./components/library/Library";
+import Login from "./components/Entry/Login/Login";
+import Register from "./components/Entry/Register/Register";
 
 const App = () => {
   const token = localStorage.getItem("token");
