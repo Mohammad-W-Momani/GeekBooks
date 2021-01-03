@@ -25,6 +25,7 @@ const { getUserPosts, getPostByID } = require("../Models/Post/get-post");
 const updatePosts = require("../Models/Post/update-post");
 const likes = require("../Models/Post/like");
 const dislikes = require("../Models/Post/dislike");
+const postLikes = require("../Models/Post/get-like");
 // comment section
 const addComment = require("../Models/Comments/create-comment");
 const deleteComment = require("../Models/Comments/delete-comment");
@@ -32,6 +33,7 @@ const updateComments = require("../Models/Comments/update-comment");
 const { getComment, PostComments } = require("../Models/Comments/get-comment");
 const likeComments = require("../Models/Comments/like");
 const dislikeComments = require("../Models/Comments/dislike");
+const commentLikes = require("../Models/Comments/get-like");
 // user List section
 // read section
 const readBook = require("../Models/UserList/read/add-book");
@@ -73,7 +75,7 @@ const addMember = addMembers;
 const getGroupMember = getMembers;
 const userGroup = userGroups;
 const removeUser = removeMember;
-// post section 
+// post section
 const createPost = addPost;
 const homePosts = homePost;
 const removePost = deletePost;
@@ -83,6 +85,7 @@ const groupPosts = getGroupPosts;
 const like = likes;
 const updatePost = updatePosts;
 const dislike = dislikes;
+const postLike = postLikes;
 // comment section
 const comment = getComment;
 const postComment = PostComments;
@@ -91,6 +94,7 @@ const removeComment = deleteComment;
 const updateComment = updateComments;
 const likeComment = likeComments;
 const createComment = addComment;
+const commentLike = commentLikes;
 // user List section
 // read section
 const readList = readBook;
@@ -155,4 +159,6 @@ module.exports = {
   editPassword,
   changePhone,
   homePosts,
+  postLike,
+  commentLike,
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar/Navbar";
-import Axios from "axios";
+import axios from "axios";
 
 function Setting() {
   const token = localStorage.getItem("token");
@@ -13,7 +13,7 @@ function Setting() {
   const [oldPassword, setOldPassword] = useState("");
 
   const editEmail = () => {
-    Axios.put(
+    axios.put(
       `profile/editemail`,
       { newEmail: newEmail, oldEmail: oldEmail },
       {
@@ -28,7 +28,7 @@ function Setting() {
       });
   };
   const editPhone = () => {
-    Axios.put(
+    axios.put(
       `profile/editnumber`,
       { newPhone: newPhone, oldPhone: oldPhone },
       {
@@ -43,7 +43,7 @@ function Setting() {
       });
   };
   const editPassword = () => {
-    Axios.put(
+    axios.put(
       `profile/editpassword`,
       { newPassword: newPassword, oldPassword: oldPassword },
       {

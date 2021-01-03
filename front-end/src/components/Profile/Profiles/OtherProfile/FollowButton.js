@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 
 const FollowButton = ({ usernameParams, followers }) => {
   const [followUp, setFollowUp] = useState();
   const token = localStorage.getItem("token");
 
   const follow = () => {
-    Axios.post(
+    axios.post(
       `/${usernameParams}/Follows`,
       {},
       {
