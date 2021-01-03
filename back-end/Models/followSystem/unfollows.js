@@ -1,4 +1,3 @@
-
 const connection = require("../../db");
 const unfollows = (req, res) => {
   const data = [req.token.username, req.params.username];

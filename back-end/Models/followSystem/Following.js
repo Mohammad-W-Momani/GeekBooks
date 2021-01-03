@@ -16,7 +16,7 @@ const followUser = (req, res) => {
           if (err) throw err.sqlMessage;
           res.json("You have been followed by " + req.token.username);
         });
-      } 
+      }
     });
   }
 };

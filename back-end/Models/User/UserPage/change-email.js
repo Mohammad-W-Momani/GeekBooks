@@ -1,7 +1,6 @@
 const connection = require("../../../db");
 const changeEmail = (req, res) => {
   const data = [req.body.newEmail, req.body.oldEmail];
-  console.log(data); 
   const checkingData = [data[1], req.token.username];
   const query = `UPDATE User SET email = ? WHERE email = ?`;
   const checkingEmail = `SELECT email FROM User WHERE email= ? AND username =?`;
