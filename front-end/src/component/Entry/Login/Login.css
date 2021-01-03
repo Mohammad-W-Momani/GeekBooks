@@ -1,42 +1,41 @@
-@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url("https://fonts.googleapis.com/css?family=Numans");
 
-.containers{
-background-size: cover;
-background-color: rgb(164, 255, 136);
-background-repeat: no-repeat;
-font-family: 'Numans', sans-serif;
-}
- 
-.containers{
-align-content: center;
+.containers {
+  background-size: cover;
+  background-color: rgb(164, 255, 136);
+  background-repeat: no-repeat;
+  font-family: "Numans", sans-serif;
 }
 
-.card-header h3{
-color: white;
+.containers {
+  align-content: center;
 }
 
-.input-group-prepend span{
-width: 50px;
-background-color: rgba(44, 255, 62, 0.315);
-color: black;
-border:0 !important;
+.card-header h3 {
+  color: white;
 }
 
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
+.input-group-prepend span {
+  width: 50px;
+  background-color: rgba(44, 255, 62, 0.315);
+  color: black;
+  border: 0 !important;
 }
 
- .login_btn{
-width: 100px;
-border-radius: 20px;
+input:focus {
+  outline: 0 0 0 0 !important;
+  box-shadow: 0 0 0 0 !important;
 }
 
-.links{
-color: white;
+.login_btn {
+  width: 100px;
+  border-radius: 20px;
 }
 
-.links a{
-margin-left: 4px;
+.links {
+  color: white;
+}
+
+.links a {
+  margin-left: 4px;
 }

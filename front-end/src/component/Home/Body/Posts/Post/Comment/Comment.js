@@ -1,7 +1,6 @@
 import React from "react";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import "./Comment.css";
 
 const Comment = () => {
   return (
@@ -47,3 +46,4 @@ const Comment = () => {
 };
  
 export default Comment;
+

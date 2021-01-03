@@ -24,7 +24,7 @@
  #### Run the schema from schemas => schemas.sql
  
  ### The second step
-```bash
+```bash 
 npm i
 ```
 **In the Backend**

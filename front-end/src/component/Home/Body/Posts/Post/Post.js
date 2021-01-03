@@ -1,7 +1,6 @@
 import React from "react";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Comment from "./Comment/Comment"
-import "./Post.css";
 
 const Post = () => {
   return (
@@ -52,3 +51,4 @@ const Post = () => {
 };
 
 export default Post;
+

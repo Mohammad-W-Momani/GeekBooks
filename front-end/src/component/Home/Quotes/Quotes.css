@@ -1,35 +1,35 @@
-.quote-box{
-    display:block;
-    background-color:#ffffff;
-    box-shadow: 2px 2px 2px 2px #E0E0E0;
-    width: 330px;
-    height: 170px;
-    border: #28a745 solid 2px;
-    border-radius: 20px;
-    text-align: center;
+.quote-box {
+  display: block;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 2px 2px #e0e0e0;
+  width: 330px;
+  height: 170px;
+  border: #28a745 solid 2px;
+  border-radius: 20px;
+  text-align: center;
 }
 
-.quote{
-    color: black;
-    padding: 4px;
+.quote {
+  color: black;
+  padding: 4px;
 }
 
-.new-quote{
-    background-color: rgba(0, 0, 0, 0.623);
-    color: #28a745;;
-    cursor: pointer;
-    background-color: transparent; 
-    vertical-align: middle;
-    border: none;
+.new-quote {
+  background-color: rgba(0, 0, 0, 0.623);
+  color: #28a745;
+  cursor: pointer;
+  background-color: transparent;
+  vertical-align: middle;
+  border: none;
 }
 
-.new-quote:hover{
-    background-color: blanchedalmond;
-    color: black;
-    padding: 0;
-    border: none;
-    background: none;
+.new-quote:hover {
+  background-color: blanchedalmond;
+  color: black;
+  padding: 0;
+  border: none;
+  background: none;
 }
 .new-quote:focus {
-     outline: none;
-} 
+  outline: none;
+}

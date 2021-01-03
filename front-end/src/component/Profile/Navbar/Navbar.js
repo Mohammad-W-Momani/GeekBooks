@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "./Navbar.css";
-const Navbar = () => { 
-    const logout=()=> {
-      localStorage.clear();
-      window.location.href = '/login';
-  }
+const Navbar = () => {
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
 
   const color = "success";
   const btOutLine = `btn btn-outline-success`;
@@ -22,7 +22,7 @@ const Navbar = () => {
         />
         <Link to="/" style={{ textDecoration: "none" }}>
           <h5 className="page-name pt-2">GeekBooks</h5>
-        </Link> 
+        </Link>
       </div>
 
       <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
@@ -106,3 +106,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

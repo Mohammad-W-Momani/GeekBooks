@@ -40,7 +40,7 @@ const Register = (props) => {
       <main className="my-form">
         <div className="cotainer ">
           <div
-            className="row justify-content-center pt-5"
+            className="row justify-content-center pt-5 ml-5"
             style={{ paddingLeft: "220px", marginRight: "15px" }}
           >
             <div className="col-md-8">
@@ -184,3 +184,4 @@ const Register = (props) => {
 };
 
 export default Register;
+

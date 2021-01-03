@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 
-function FollowButton({ usernameParams, followers }) {
+const FollowButton = ({ usernameParams, followers }) => {
   const [followUp, setFollowUp] = useState();
   const token = localStorage.getItem("token");
 
@@ -36,6 +36,7 @@ function FollowButton({ usernameParams, followers }) {
       </button>
     </div>
   );
-}
+};
 
 export default FollowButton;
+

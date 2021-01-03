@@ -19,14 +19,14 @@ const Profile = () => {
     Axios.get(`${username}`, {
       headers: { Authorization: `Basic ${token}` },
     })
-    .then((response) => {
-      console.log(response);
-      setUser(response.data);
-      setUserName(response.data[0].username);
-    })
-    .catch((err) => {
-      console.log("err: ", err);
-    });
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+        setUserName(response.data[0].username);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
   };
   const getfollowing = () => {
     Axios.get(`${username}/Following`)
@@ -63,8 +63,14 @@ const Profile = () => {
   } else if (userName.length === 0) {
     return (
       <div>
-        <h1 style={{ textAlign: "center",backgroundColor:"white", margin:'0'}} >
-          <Link to="/" style={{ textDecoration: "none" }} className="text-danger">
+        <h1
+          style={{ textAlign: "center", backgroundColor: "white", margin: "0" }}
+        >
+          <Link
+            to="/"
+            style={{ textDecoration: "none" }}
+            className="text-danger"
+          >
             Go to Home{" "}
           </Link>
         </h1>
@@ -90,3 +96,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

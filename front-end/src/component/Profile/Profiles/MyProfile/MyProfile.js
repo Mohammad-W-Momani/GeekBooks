@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Navbar/Navbar";
 import EditProfile from "./EditProfile";
-function MyProfile({ username, email, phone, followers, following }) {
+const MyProfile = ({ username, email, phone, followers, following }) => {
   return (
     <div>
       <Navbar />
@@ -11,12 +11,14 @@ function MyProfile({ username, email, phone, followers, following }) {
           <div className="bg-white shadow rounded overflow-hidden">
             <div className="px-4 pt-0 pb-4 cover">
               <div className="media align-items-end profile-head">
-                <Link to="/setting">
+                <Link
+                  to="/setting"
+                  className="text-decoration-none text-secondary"
+                >
                   <EditProfile />
                 </Link>
                 <div className="media-body mb-5 text-white">
-                  <h4 className="mt-0 mb-0">{username}</h4>
-                  <p className="small mb-4">Amman</p>
+                  <h4 className="mt-0 mb-5">{username}</h4>
                 </div>
               </div>
             </div>
@@ -39,7 +41,6 @@ function MyProfile({ username, email, phone, followers, following }) {
             <div className="px-4 py-3">
               <h5 className="mb-0">About</h5>
               <div className="py-4 rounded shadow-sm bg-light">
-                <p className="font-italic mb-0">Web Developer</p>
                 <p className="font-italic mb-0">{phone}</p>
                 <p className="font-italic mb-0">{email}</p>
               </div>
@@ -49,6 +50,7 @@ function MyProfile({ username, email, phone, followers, following }) {
       </div>
     </div>
   );
-}
+};
 
 export default MyProfile;
+

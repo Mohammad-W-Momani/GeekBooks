@@ -2,14 +2,14 @@ import React from "react";
 import Navbar from "../../Navbar/Navbar";
 import FollowButton from "./FollowButton";
 
-function OtherProfile({
+const OtherProfile = ({
   username,
   email,
   phone,
   followers,
   following,
   usernameParams,
-}) {
+}) => {
   return (
     <div>
       <Navbar />
@@ -41,8 +41,7 @@ function OtherProfile({
                   </div>
                 </div>
                 <div className="media-body mb-5 ">
-                  <h4 className="mt-0 mb-0 text-white">{username}</h4>
-                  <p className="small mb-4 text-black">Amman</p>
+                  <h4 className="mt-0 mb-0 text-white mb-5">{username}</h4>
                 </div>
               </div>
             </div>
@@ -53,9 +52,8 @@ function OtherProfile({
             <div className="px-4 py-3">
               <h5 className="mb-0">About</h5>
               <div className="py-4 rounded shadow-sm bg-light">
-                <p className="font-italic mb-0">Web Developer</p>
                 <p className="font-italic mb-0">{phone}</p>
-              {true &&  <p className="font-italic mb-0">{email}</p>}
+                <p className="font-italic mb-0">{email}</p>
               </div>
             </div>
           </div>
@@ -63,6 +61,7 @@ function OtherProfile({
       </div>
     </div>
   );
-}
+};
 
 export default OtherProfile;
+

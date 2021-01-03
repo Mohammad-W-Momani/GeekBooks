@@ -1,5 +1,5 @@
 import React from "react";
-function EditProfile() {
+const EditProfile = () => {
   return (
     <div className="profile mr-3">
       <img
@@ -10,7 +10,8 @@ function EditProfile() {
       />
       <a className="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
     </div>
-  ); 
-}
- 
+  );
+};
+
 export default EditProfile;
+

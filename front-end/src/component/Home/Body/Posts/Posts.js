@@ -1,7 +1,6 @@
 import React from "react";
 import CreatePost from "./CreatePost/CreatePost";
 import Post from "./Post/Post";
-import "./Posts.css";
 
 const Posts = () => {
   return (
@@ -20,4 +19,4 @@ const Posts = () => {
 };
 
 export default Posts;
- 
+
