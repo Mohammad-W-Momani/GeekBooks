@@ -26,12 +26,8 @@ cd ~back-end/schemas
 mysql -u root <"schemas.sql" -p
  ```
  ### The second step
-go into back-end directory, then run this command 
+>Go into back-end and front-end directories, then instal packge-json by running this command
 
-```bash 
-npm i
-```
-go into front-end directory, then run this command 
 ```bash 
 npm i
 ```
