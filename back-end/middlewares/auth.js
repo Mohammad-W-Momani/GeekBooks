@@ -4,7 +4,7 @@ module.exports = async (req, res, next) => {
     res.send("login first");
   }
   const token = req.headers.authorization.split(" ").pop();
-  jwt.verify(JSON.parse(token), process.env.SECRET, (err, parsedToken) => {
+  jwt.verify(token, process.env.SECRET, (err, parsedToken) => {
     if (err) res.send(err.message);
     if (parsedToken) {
       req.token = parsedToken;
