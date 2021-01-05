@@ -6,7 +6,7 @@ const BookList = (props) => {
     return <BookCard key={key} book={book} />;
   });
 
-  return <div>{booksArr}</div>;
+  return <div className="book-array">{booksArr}</div>;
 };
 
 export default BookList;
