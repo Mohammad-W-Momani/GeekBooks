@@ -6,79 +6,85 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 const PostLike = (props) => {
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
+  const { username } = decoded;
 
-  // The state of the post from the props 
-  const {postAttr} = props
+  // The state of the post from the props
+  const { postAttr } = props;
 
   // State for like and dislike
   const [userDidLike, setUserDidLike] = useState(false);
 
-  // State hook for the post likes 
+  // State hook for the post likes
   const [likes, setLikes] = useState(0);
 
-  //Stata hook as an array for saving the users who liked the post 
-  const [persons, setPersons] = useState([])
+  //Stata hook as an array for saving the users who liked the post
+  const [persons, setPersons] = useState([]);
+  
 
   const getPostLikes = () => {
-    axios 
-      .get(`http://localhost:5000/post/like/${postAttr.post_id}`,  {
+    axios
+      .get(`http://localhost:5000/post/like/${postAttr.post_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
         console.log(response);
         setLikes(response.data.length);
-        setPersons([...response.data])
+        setPersons([...response.data]);
       })
       .catch((err) => {
         throw err;
-      })
-  }
+      });
+  }; 
 
   const like = () => {
     axios
-      .post(`http://localhost:5000/post/${postAttr.post_id}/like`,{}, {
-        headers: { Authorization: `Basic ${token}` },
-      })
-      .then((response) => {
-        console.log(response)
-        if (response.statusText === "OK") {
-          setUserDidLike(true);
+      .post(
+        `http://localhost:5000/post/${postAttr.post_id}/like`,
+        {},
+        {
+          headers: { Authorization: `Basic ${token}` },
         }
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-  const disLike = () => {
-    axios
-      .delete(`http://localhost:5000/post/${postAttr.post_id}/dislike`, {
-        headers: { Authorization: `Basic ${token}` },
-      })
+      )
       .then((response) => {
         console.log(response);
-        if (response.status === 200) {
-          setUserDidLike(false);
-        }
       })
       .catch((err) => {
         throw err;
       });
   };
+  const checkLiked = () => {
+    if(!persons.length){
+      setUserDidLike(false)
+      return;
+    }
+    for(let i = 0; i = persons.length-1; i++){
+      if(persons[i].username === username){
+        setUserDidLike(true)
+        return;
+      }
+      setUserDidLike(false)
+    }
+
+  }
   useEffect(() => {
-    getPostLikes()
-  },[])
+    getPostLikes();
+    checkLiked()
+  }, []);
   return (
     <div>
       <div className="d-flex ">
         {" "}
         <div className="pl-2">
-          <a style={{ cursor: "pointer" }}>
-            <FavoriteIcon
-              className="text-danger "
-              onClick={userDidLike ? disLike : like}
-            />{" "}
-          </a>
-          {likes}
+          {userDidLike ? (
+            <a href="#" onClick={like}>dislike</a>
+            
+          ) : (
+            <a style={{ cursor: "pointer" }}>
+              <FavoriteIcon className="text-danger " onClick={like} />{" "}
+            </a>
+          )}
+
+         {" "} {likes}
         </div>
       </div>{" "}
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import Axios from "axios";
+import axios from "axios";
 import OtherProfile from "./Profiles/OtherProfile/OtherProfile";
 import MyProfile from "./Profiles/MyProfile/MyProfile";
 import "./Profile.css";
@@ -16,9 +16,10 @@ const Profile = () => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const getUser = () => {
-    Axios.get(`${username}`, {
-      headers: { Authorization: `Basic ${token}` },
-    })
+    axios
+      .get(`profile/${username}`, {
+        headers: { Authorization: `Basic ${token}` },
+      })
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -28,8 +29,11 @@ const Profile = () => {
         console.log("err: ", err);
       });
   };
-  const getfollowing = () => {
-    Axios.get(`${username}/Following`)
+  const getFollowing = () => {
+    axios
+      .get(`${username}/following`, {
+        headers: { Authorization: `Basic ${token}` },
+      })
       .then((response) => {
         setFollowing(response.data);
       })
@@ -37,8 +41,11 @@ const Profile = () => {
         console.log("err: ", err);
       });
   };
-  const getfollowers = () => {
-    Axios.get(`${username}/Followers`)
+  const getFollowers = () => {
+    axios
+      .get(`${username}/followers`, {
+        headers: { Authorization: `Basic ${token}` },
+      })
       .then((response) => {
         setFollowers(response.data);
       })
@@ -46,10 +53,9 @@ const Profile = () => {
         console.log("err: ", err);
       });
   };
-
   useEffect(() => {
     getUser();
-  }, [getfollowing(), getfollowers()]);
+  }, []);
   if (userName === token_username) {
     return user.map((userInf) => (
       <MyProfile
@@ -96,4 +102,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

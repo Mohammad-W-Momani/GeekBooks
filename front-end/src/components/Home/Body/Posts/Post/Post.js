@@ -4,7 +4,6 @@ import jwt_decode from "jwt-decode";
 import { Dropdown } from "react-bootstrap";
 import Comment from "./Comment/Comment";
 import PostLike from "./PostLike";
-import DeletePost from "./DeletePost";
 import UpdatePost from "./UpdatePost";
 import CreateComment from "./Comment/CreateComment";
 import "./Post.css";
@@ -27,7 +26,7 @@ const Post = (props) => {
   const [renderComments, setRenderComments] = useState(false);
 
   //State hook for displaying the editAndDelete dropdown menu
-  const [editDropDown, setEditDropDown] = useState(false)
+  const [editDropDown, setEditDropDown] = useState(false);
 
   // Getting the comments on the post by the post_id and set the state hook to the array of comments
   const getPostComments = () => {
@@ -41,6 +40,19 @@ const Post = (props) => {
           return;
         }
         setCommentsArray([...response.data]);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+  const deletePost = () => {
+    axios
+      .delete(`http://localhost:5000/post/${postAttr.post_id}`, {
+        headers: { Authorization: `Basic ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        setGetPosts(true);
       })
       .catch((err) => {
         throw err;
@@ -78,64 +90,31 @@ const Post = (props) => {
             {" "}
             <h6 className="mr-2">{postAttr.created_time.slice(11, 16)}</h6>
             {"  "}
-            {/* <svg
-              style={{ cursor: "pointer" }}
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-pencil-square"
-              viewBox="0 0 16 16"
-              onClick={() => {
-                if (!editPostMode) {
-                  setEditPostMode(true);
-                  return;
-                }
-                setEditPostMode(false);
-              }}
-            >
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-              <path
-                fill-rule="evenodd"
-                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-              />
-            </svg>  */}
-            {/* Delete the post component */}
-            {/* <DeletePost
-              postAttr={postAttr}
-              getUserPosts={getUserPosts}
-              getPosts={getPosts}
-              setGetPosts={setGetPosts}
-            /> */}
-            <div className="dropdown">
-              <a  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-three-dots-vertical"
-                  viewBox="0 0 16 16"
-                  color="green"
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic"
+              ></Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  href="#"
+                  onClick={() => {
+                    if (!editPostMode) {
+                      setEditPostMode(true);
+                      return;
+                    }
+                    setEditPostMode(false);
+                  }}
                 >
-                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                </svg>
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Edit
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
+                  Edit
+                </Dropdown.Item>
+                <Dropdown.Item href="#" onClick={deletePost}>
+                  Delete
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
-        </div>{" "} 
+        </div>{" "}
         <div className="p-2">
           {editPostMode ? (
             <UpdatePost
@@ -150,6 +129,7 @@ const Post = (props) => {
           <div className="d-flex justify-content-between align-items-center">
             {/* The Like component */}
             <PostLike postAttr={postAttr} />
+            {/* The comments component */}
             <span
               className="pr-2"
               style={{ cursor: "pointer" }}
