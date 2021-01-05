@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Dropdown } from "react-bootstrap";
 import Comment from "./Comment/Comment";
 import PostLike from "./PostLike";
 import DeletePost from "./DeletePost";
 import UpdatePost from "./UpdatePost";
-import CreateComment from './Comment/CreateComment';
+import CreateComment from "./Comment/CreateComment";
 import "./Post.css";
 
 const Post = (props) => {
@@ -24,6 +25,9 @@ const Post = (props) => {
 
   // State hook for rendering the comments onClick if the state is true (toggle)
   const [renderComments, setRenderComments] = useState(false);
+
+  //State hook for displaying the editAndDelete dropdown menu
+  const [editDropDown, setEditDropDown] = useState(false)
 
   // Getting the comments on the post by the post_id and set the state hook to the array of comments
   const getPostComments = () => {
@@ -74,7 +78,7 @@ const Post = (props) => {
             {" "}
             <h6 className="mr-2">{postAttr.created_time.slice(11, 16)}</h6>
             {"  "}
-            <svg
+            {/* <svg
               style={{ cursor: "pointer" }}
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -95,16 +99,43 @@ const Post = (props) => {
                 fill-rule="evenodd"
                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
               />
-            </svg>
+            </svg>  */}
             {/* Delete the post component */}
-            <DeletePost
+            {/* <DeletePost
               postAttr={postAttr}
               getUserPosts={getUserPosts}
               getPosts={getPosts}
               setGetPosts={setGetPosts}
-            />
+            /> */}
+            <div className="dropdown">
+              <a  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical"
+                  viewBox="0 0 16 16"
+                  color="green"
+                >
+                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Edit
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>{" "}
+        </div>{" "} 
         <div className="p-2">
           {editPostMode ? (
             <UpdatePost
@@ -134,7 +165,7 @@ const Post = (props) => {
           <hr />
           {/* Rendering the comments of the post */}
           {renderComments ? renderPostComments : ""}
-          <CreateComment post_id={postAttr.post_id}/>
+          <CreateComment post_id={postAttr.post_id} />
         </div>
       </div>
     </div>

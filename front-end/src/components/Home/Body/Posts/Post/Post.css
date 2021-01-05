@@ -1,0 +1,15 @@
+.editAndDeleteContainer{
+    position: relative;
+    right: 40px;
+    border: 1px solid green;
+}
+#dropdownMenuLink{
+    position: relative;
+    bottom: 5px;
+}
+.mr-2{
+    position: relative;
+    bottom: 2px;
+}
+.dropdown-menu{
+}
