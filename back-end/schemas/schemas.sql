@@ -134,7 +134,6 @@ CREATE TABLE IF NOT EXISTS Thumbsup (
     post_id INT NULL,
     created_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     updated_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (username),
     INDEX fk_Thumbsup_Comment_idx (comment_id ASC),
     INDEX fk_Thumbsup_Post1_idx (post_id ASC),
     INDEX fk_Thumbsup_User_usernamex (username ASC),

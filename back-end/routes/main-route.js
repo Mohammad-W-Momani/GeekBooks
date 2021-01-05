@@ -27,10 +27,8 @@ const {
   post,
   like,
   updatePost,
-  dislike,
   comment,
   postComment,
-  dislikeComment,
   removeComment,
   updateComment,
   likeComment,
@@ -81,7 +79,6 @@ mainRouter.post("/post/createpost", middleware, createPost);
 mainRouter.post("/post/:post_id/like", middleware, like);
 mainRouter.put("/post/:post_id", middleware, updatePost);
 mainRouter.delete("/post/:post_id", middleware, removePost);
-mainRouter.delete("/post/:post_id/dislike", middleware, dislike);
 mainRouter.get("/:username/post", usersPost);
 mainRouter.get("/home", middleware, homePosts);
 mainRouter.get("/post/:post_id", post);
@@ -91,10 +88,9 @@ mainRouter.post("/comment/:post_id/createcomment", middleware, createComment);
 mainRouter.post("/comment/:comment_id/like", middleware, likeComment);
 mainRouter.put("/comment/:comment_id", middleware, updateComment);
 mainRouter.delete("/comment/:comment_id", middleware, removeComment);
-mainRouter.delete("/comment/:comment_id/dislike", middleware, dislikeComment);
 mainRouter.get("/post/comment/:post_id", postComment);
 mainRouter.get("/comment/:comment_id", comment);
-mainRouter.get("/post/comment/like/:comment_id", comment);
+mainRouter.get("/post/comment/like/:comment_id", commentLike);
 // user List section
 // read section
 mainRouter.post("/readlist", middleware, readList);
