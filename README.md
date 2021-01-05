@@ -1,29 +1,37 @@
 # GeekBooks
->A web application for people interested in books that display most of the books and reviews about them and creates a community for those interested in books.
+>A team project that provides a platform that helps books readers to
+connect, communicate, and exchange their experiences.
 
 ## Team
- * **Scrum:** Abdelrahman Rabi
- * **Development Team Members:** Abdulrhman Laswi, Mohammad Momani, Aiham Al-Jarrah
+ * **Development Team Members:** Abdulrhman Laswi, Mohammad Momani, Aiham Al-Jarrah, Abdelrahman Rabi
 
- ## Usage
+ ## Features 
 
- >How you can use the app 
- * Search for books.
- * You can find a community interested in books.
- * You can review the books, share your opinions about them, and discuss them with others who are interested in the topics you read.
- * Publish your book if you are an author and receive reviews on it.
+- Easy to use
+- Real-life chat
+- Following system
+- User reading list
+- Other features similar to Twitter and Goodreads
 
- ## Requirement
- * Node.js with express framework
- * Mysql
- * ReactJS
- * Socket io
+ ## Technologies used
+- MySQL, NodeJs, and Express on the backend
+- Bootstrap and React Hooks on the frontend
+- Socket IO, Google API 
 
  ## Start with the app
  ### The first step
- #### Run the schema from schemas => schemas.sql
- 
+ #### Run these commands to insert Schema into your MySQL 
+```bash
+cd ~back-end/schemas
+mysql -u root <"schemas.sql" -p
+ ```
  ### The second step
+go into back-end directory, then run this command 
+
+```bash 
+npm i
+```
+go into front-end directory, then run this command 
 ```bash 
 npm i
 ```
