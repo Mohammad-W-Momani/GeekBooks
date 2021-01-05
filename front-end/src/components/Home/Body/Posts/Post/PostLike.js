@@ -16,6 +16,9 @@ const PostLike = (props) => {
   // State hook for the post likes 
   const [likes, setLikes] = useState(0);
 
+  //Stata hook as an array for saving the users who liked the post 
+  const [persons, setPersons] = useState([])
+
   const getPostLikes = () => {
     axios 
       .get(`http://localhost:5000/post/like/${postAttr.post_id}`,  {
@@ -24,6 +27,7 @@ const PostLike = (props) => {
       .then((response) => {
         console.log(response);
         setLikes(response.data.length);
+        setPersons([...response.data])
       })
       .catch((err) => {
         throw err;
@@ -37,7 +41,7 @@ const PostLike = (props) => {
       })
       .then((response) => {
         console.log(response)
-        if (response.data === "like") {
+        if (response.statusText === "OK") {
           setUserDidLike(true);
         }
       })
