@@ -6,6 +6,8 @@ import Setting from "./components/Setting/Setting";
 import Library from "./components/library/Library";
 import Login from "./components/Entry/Login/Login";
 import Register from "./components/Entry/Register/Register";
+import Library from "./components/library/Library";
+import BookPost from "./components/library/BookPost";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -18,6 +20,9 @@ const App = () => {
         <Route path="/register" exact component={Register} />
         <Route path="/setting" exact component={Setting} />
         <Route path={`/:username`} exact component={Profile} />
+        <Route path="/library" exact component={Library} />
+
+        <Route path={`/library/book-post/:id`} exact component={BookPost} />
       </Switch>
     </Router>
   ) : (

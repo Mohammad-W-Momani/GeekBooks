@@ -55,12 +55,19 @@ const passwordChecking = (password) => {
 };
 const signUp = async (req, res) => {
   const user = req.body;
-  if (user.password.length < 8) res.json("Password must be greater than 8");
-  if (user.phone.length < 10) res.json("Invalid Phone Number");
+  if (user.password.length < 8) {
+    res.json("Password must be greater than 8");
+    return;
+  }
+  if (user.phone.length < 10) {
+    res.json("Invalid Phone Number");
+    return;
+  }
   if (!passwordChecking(user.password)) {
     res.json(
       "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
     );
+    return;
   }
   bcrypt.hash(user.password, Number(process.env.SALT), (err, hash) => {
     if (err) throw err;
@@ -80,13 +87,17 @@ const signUp = async (req, res) => {
       if (err) {
         if (err.sqlMessage.indexOf("User.email") !== -1) {
           res.json("email is already used");
+          return;
         } else if (err.sqlMessage.indexOf("User.phone") !== -1) {
           res.json("phone number is already used");
+          return;
         } else {
           res.json("username is already used");
+          return;
         }
       }
       res.json("User Has Been Created Successfully ");
+      return;
     });
   });
 };

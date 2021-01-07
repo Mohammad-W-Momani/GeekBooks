@@ -17,7 +17,7 @@ const likeComments = (req, res) => {
         if (err) throw err.sqlMessage;
         res.json("Like");
         return;
-      });
+      })
     }
     
   });
