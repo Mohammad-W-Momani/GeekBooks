@@ -13,9 +13,9 @@ const getComment = (req, res) => {
   });
 };
 const PostComments = (req, res) => {
-  const data = [req.params.username, req.params.post_id];
-  const query = "SELECT * FROM Comment WHERE username =? AND  post_id = ?";
-  connection.query(query, data, (err, results) => {
+  const { post_id } = req.params;
+  const query = "SELECT * FROM Comment WHERE  post_id = ?";
+  connection.query(query, post_id, (err, results) => {
     if (err) throw err;
     if (results.length) {
       res.json(results);

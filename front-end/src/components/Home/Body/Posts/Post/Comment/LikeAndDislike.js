@@ -15,7 +15,7 @@ const CommentLike = (props) => {
 
   const addLike = () => {
     axios
-      .post(`http://localhost:5000/comment/${comment.comment_id}/like`, {
+      .post(`comment/${comment.comment_id}/like`,{}, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
@@ -28,7 +28,7 @@ const CommentLike = (props) => {
   };
   const dislike = () => {
     axios
-      .delete(`http://localhost:5000/comment/${comment.comment_id}/dislike`, {
+      .delete(`comment/${comment.comment_id}/dislike`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
@@ -41,7 +41,7 @@ const CommentLike = (props) => {
   };
   const getCommentLikes = () => {
     axios
-      .get(`http://localhost:5000/comment/${comment.comment_id}/commentlikes`, {
+      .get(`/post/comment/like/${comment.comment_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {

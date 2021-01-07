@@ -7,18 +7,7 @@ const DeleteComment = (props) => {
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
   const userData = decoded.username;
-  const deleteComment = () => {
-    axios
-      .delete(`http://localhost:5000/comment/${postAttr.post_id}`, {
-        headers: { Authorization: `Basic ${token}` },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
+  
   return (
     <div>
       <svg

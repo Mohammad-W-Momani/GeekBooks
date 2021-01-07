@@ -4,10 +4,10 @@ import axios from "axios";
 const FollowButton = ({ usernameParams, followers }) => {
   const [followUp, setFollowUp] = useState();
   const token = localStorage.getItem("token");
-
+  
   const follow = () => {
     axios.post(
-      `/${usernameParams}/Follows`,
+      `/${usernameParams}/follows`,
       {},
       {
         headers: { Authorization: `Basic ${token}` },
@@ -15,6 +15,7 @@ const FollowButton = ({ usernameParams, followers }) => {
     )
       .then((response) => {
         setFollowUp(response);
+        
       })
       .catch((err) => {
         console.log(err);

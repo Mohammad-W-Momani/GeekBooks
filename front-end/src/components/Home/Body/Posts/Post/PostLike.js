@@ -23,13 +23,14 @@ const PostLike = (props) => {
 
   const getPostLikes = () => {
     axios
-      .get(`http://localhost:5000/post/like/${postAttr.post_id}`, {
+      .get(`post/like/${postAttr.post_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        console.log(response);
         setLikes(response.data.length);
-        setPersons([...response.data]);
+        setPersons([...response.data])
+        // console.log(postAttr.post_id)
+        // console.log(response.data[0].username)
       })
       .catch((err) => {
         throw err;
@@ -39,7 +40,7 @@ const PostLike = (props) => {
   const like = () => {
     axios
       .post(
-        `http://localhost:5000/post/${postAttr.post_id}/like`,
+        `post/${postAttr.post_id}/like`,
         {},
         {
           headers: { Authorization: `Basic ${token}` },
@@ -47,36 +48,25 @@ const PostLike = (props) => {
       )
       .then((response) => {
         console.log(response);
+        setUserDidLike(true)
       })
       .catch((err) => {
         throw err;
       });
   };
-  const checkLiked = () => {
-    if(!persons.length){
-      setUserDidLike(false)
-      return;
-    }
-    for(let i = 0; i = persons.length-1; i++){
-      if(persons[i].username === username){
-        setUserDidLike(true)
-        return;
-      }
-      setUserDidLike(false)
-    }
-
-  }
+  
   useEffect(() => {
     getPostLikes();
-    checkLiked()
-  }, []);
+  }, [userDidLike]);
   return (
     <div>
       <div className="d-flex ">
         {" "}
         <div className="pl-2">
           {userDidLike ? (
-            <a href="#" onClick={like}>dislike</a>
+            <a style={{ cursor: "pointer" }}>
+            <FavoriteIcon className="text-success " onClick={like} />{" "}
+          </a>
             
           ) : (
             <a style={{ cursor: "pointer" }}>

@@ -6,6 +6,7 @@ const postLikes = (req, res) => {
     if (err) throw err.sqlMessage;
     if (result) {
       res.json(result);
+      return;
     }
   });
 };

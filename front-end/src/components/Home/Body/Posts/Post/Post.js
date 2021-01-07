@@ -36,7 +36,7 @@ const Post = (props) => {
       })
       .then((response) => {
         if (response.data === "Add new Comments ") {
-          console.log("Add new comments");
+          console.log(response.data);
           return;
         }
         setCommentsArray([...response.data]);
