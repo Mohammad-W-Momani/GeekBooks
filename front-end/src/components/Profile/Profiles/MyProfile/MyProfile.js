@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Navbar/Navbar";
 import EditProfile from "./EditProfile";
 const MyProfile = ({ username, email, phone, followers, following }) => {
+  console.log(following, followers)
   return (
     <div>
       <Navbar />

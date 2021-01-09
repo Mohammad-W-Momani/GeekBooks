@@ -1,8 +1,31 @@
-import React from "react";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import AddBoxIcon from "@material-ui/icons/AddBox";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Dropdown } from "react-bootstrap";
+import CreateComment from "./CreateComment";
+import "./Comment.css";
+import LikeAndDislike from "./LikeAndDislike";
+import UpdateComment from "./UpdateComment";
 
-const Comment = () => {
+const Comment = (props) => {
+  //Post attributes from the post component
+  const { postAttr, comment } = props;
+
+  // A state hook for updateComment mode
+  const [editComment, setEditComment] = useState(false);
+
+  const token = localStorage.getItem("token");
+  const deleteComment = () => {
+    axios
+      .delete(`comment/${postAttr.post_id}`, {
+        headers: { Authorization: `Basic ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
   return (
     <div className="comments pb-3">
       <div>
@@ -15,35 +38,56 @@ const Comment = () => {
             className="rounded-circle"
             alt=""
           />
-          <div className="d-flex flex-column ml-2">
+          <div className="d-flex flex-column ml-2" id="commentBox">
             {" "}
-            <span className="name">Abd</span>{" "}
-            <small className="comment-text pr-2 pt-2 pb-2">
-              I like this alot! thanks alot
-            </small>
+            <span className="name">{comment.username}</span>{" "}
+            <Dropdown className="dropdownComment">
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic"
+              ></Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  href="#"
+                  onClick={() => {
+                    if (!editComment) {
+                      setEditComment(true);
+                      return;
+                    }
+                    setEditComment(false);
+                  }}
+                >
+                  Edit
+                </Dropdown.Item>
+                <Dropdown.Item href="#" onClick={deleteComment}>
+                  Delete
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            {editComment ? (
+              <UpdateComment
+                postAttr={postAttr}
+                commentElement={comment}
+                editComment={editComment}
+                setEditComment={setEditComment}
+              />
+            ) : (
+              <p className="comment-text pr-2 pt-2 pb-2">
+                {comment.comment}
+              </p>
+            )}
             <div className="d-flex flex-row align-items-center status">
               {" "}
-              <small>
-                <FavoriteIcon className="text-danger" />
-              </small>{" "}
-              <small className="pl-3">18 mins</small>{" "}
+              <LikeAndDislike comment={comment} />
+              <small className="pl-3">{comment.created_time}</small>{" "}
             </div>
           </div>
         </div>
-        <div className="comment-input d-flex">
-          {" "}
-          <input type="text" className="form-control" />
-          <div className="fonts">
-            <AddBoxIcon
-              className="text-success"
-              style={{ width: "40px", height: "40px" }}
-            />{" "}
-          </div>
-        </div>
+        {/* Input field for creating comments */}
+        <CreateComment post_id={postAttr.post_id} />
       </div>
     </div>
   );
 };
- 
-export default Comment;
 
+export default Comment;

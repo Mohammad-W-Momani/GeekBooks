@@ -21,7 +21,7 @@ const Profile = () => {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setUser(response.data);
         setUserName(response.data[0].username);
       })
@@ -53,10 +53,11 @@ const Profile = () => {
         console.log("err: ", err);
       });
   };
-  console.log(following, followers);
   useEffect(() => {
     getUser();
-  }, [getFollowing(), getFollowers()]);
+    getFollowing();
+    getFollowers();
+  }, []);
   if (userName === token_username) {
     return user.map((userInf) => (
       <MyProfile

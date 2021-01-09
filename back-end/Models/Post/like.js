@@ -7,7 +7,7 @@ const likes = (req, res) => {
   connection.query(checkUser, data, (err, result) => {
     if (err) throw err.sqlMessage;
     if (result.length) {
-      connection.query(query, dislikeQuery, (err, results) => {
+      connection.query(dislikeQuery, data, (err, results) => {
         if (err) throw err.sqlMessage;
         res.json("dislike");
         return;
