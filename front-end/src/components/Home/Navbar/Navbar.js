@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import Library from "../../library/Library";
 import jwt_decode from "jwt-decode";
 import "./Navbar.css";
 const Navbar = () => {
@@ -28,7 +27,7 @@ const Navbar = () => {
       </div>
 
       <form className="form-inline d-flex justify-content-center col-md-6 ml-5 pl-5">
-        <Library
+        <input
           className="form-control mr-sm-2 shadow-none pr-5"
           type="search"
           placeholder="Search"
