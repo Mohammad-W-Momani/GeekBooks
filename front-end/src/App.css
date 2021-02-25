@@ -1,8 +1,8 @@
 .book-array {
-  border: 2px solid red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 7rem auto;
-  gap: 2rem;
+    border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7rem auto;
+    gap: 2rem;
 }
