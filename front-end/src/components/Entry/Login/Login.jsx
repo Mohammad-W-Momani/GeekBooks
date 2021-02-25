@@ -30,7 +30,7 @@ const Login = () => {
         <div className="container__form container--sign-in">
           <form>
             <h1>Sign in</h1>
-            <br />
+            <br/>
             <span>or use your account</span>
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
