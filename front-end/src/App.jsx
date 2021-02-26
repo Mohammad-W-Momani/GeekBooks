@@ -4,7 +4,6 @@ import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import Setting from "./components/Setting/Setting";
 import Login from "./components/Entry/Login";
-import Register from "./components/Entry/Register";
 import Library from "./components/library/Library";
 import BookPost from "./components/library/BookPost";
 
@@ -15,7 +14,6 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" exact component={Login} />
-        <Route path="/register" exact component={Register} />
         <Route path="/setting" exact component={Setting} />
         <Route path={`/:username`} exact component={Profile} />
         <Route path="/library" exact component={Library} />
@@ -26,7 +24,6 @@ const App = () => {
   ) : (
     <Router>
       <Route path="/" exact component={Login} />
-      <Route path="/register" exact component={Register} />
     </Router>
   );
 };

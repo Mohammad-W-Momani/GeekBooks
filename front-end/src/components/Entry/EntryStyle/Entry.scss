@@ -64,6 +64,15 @@
                 margin: 4px 0;
                 width: 100%;
             }
+            &>div {
+                display: flex;
+                align-self: flex-start;
+                transition: all .5s;
+                &>label {
+                    margin-bottom: 0;
+                    font-size: 10px;
+                }
+            }
             & span {
                 font-size: 12px;
             }
@@ -80,6 +89,20 @@
         width: 50%;
         z-index: 2;
     }
+}
+
+.username-label {
+    opacity: 0;
+    transform: translateY(2rem);
+}
+
+.username-label1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+input:focus::placeholder {
+    color: transparent;
 }
 
 .overlay {

@@ -89,6 +89,21 @@
   width: 100%;
 }
 
+.container__form > form > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.container__form > form > div > label {
+  margin-bottom: 0;
+  font-size: 10px;
+}
+
 .container__form > form span {
   font-size: 12px;
 }
@@ -104,6 +119,34 @@
   left: 0;
   width: 50%;
   z-index: 2;
+}
+
+.username-label {
+  opacity: 0;
+  -webkit-transform: translateY(2rem);
+          transform: translateY(2rem);
+}
+
+.username-label1 {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+input:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 .overlay {
@@ -244,4 +287,4 @@
     z-index: 5;
   }
 }
-/*# sourceMappingURL=Login.css.map */
+/*# sourceMappingURL=Entry.css.map */
