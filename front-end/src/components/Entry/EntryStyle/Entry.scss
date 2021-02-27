@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+small {
+    font-size: 10px;
+    color: red;
+    display: flex;
+    align-self: flex-start;
+    margin-bottom: 0;
+}
+
 .labelShow {
     opacity: 1;
     transform: translateY(0);
@@ -47,12 +55,6 @@
         font-weight: bold;
         margin: 0;
     }
-    & a {
-        color: #333;
-        font-size: 14px;
-        text-decoration: none;
-        margin: 15px 0;
-    }
     &__form {
         position: absolute;
         top: 0;
@@ -67,7 +69,7 @@
             padding: 0 50px;
             height: 100%;
             text-align: center;
-            &>#input_container>input {
+            &>div>input {
                 background-color: #eee;
                 border: none;
                 padding: 4px 8px;

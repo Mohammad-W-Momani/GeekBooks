@@ -13,10 +13,10 @@ app.use(mainRouter);
 
 const PORT = 5000 || process.env.PORT;
 const server = app.listen(PORT, () =>
-  console.log(`listening at http://localhost:${PORT}`)
+    console.log(`listening at http://localhost:${PORT}`)
 );
 const io = socketio(server);
 io.on("connection", (socket) => {
-  const username = socket.handshake.query.username;
-  socket.join(username);
-  });
+    const username = socket.handshake.query.username;
+    socket.join(username);
+});

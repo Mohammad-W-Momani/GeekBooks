@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import {  yupResolver } from "@hookform/resolvers/yup";
+import {signSchema} from './Validate/Validating'
+
 import axios from "axios";
+
+
+
 const Register = ({ Unavailable, View }) => {
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(signSchema),
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
 
@@ -10,23 +21,17 @@ const Register = ({ Unavailable, View }) => {
   const [onFocusPass, setOnFocusPass] = useState(false);
   const [onFocusConfPass, setOnFocusConfPass] = useState(false);
 
-  const [username, setUsername] = useState({});
-  const [email, setEmail] = useState({});
-  const [phone, setPhone] = useState({});
-  const [password, setPassword] = useState({});
-  const [confirmPassword, setConfirmPassword] = useState({});
-
-  const signUp = (e) => {
-    e.preventDefault();
+  const [dataErr, setDataErr] = useState();
+  const { border } = {
+    border: "1px solid red",
+  };
+  const signUp = (data) => {
     axios
       .post("/register", {
-        username,
-        email,
-        password,
-        phone,
+        ...data,
       })
-      .then((result) => {
-        console.log(result);
+      .then(({ res }) => {
+        setDataErr(res);
       })
       .catch((err) => {
         console.log("ERR : ", err);
@@ -35,7 +40,7 @@ const Register = ({ Unavailable, View }) => {
 
   return (
     <div className="container__form container--sign-up">
-      <form>
+      <form onSubmit={handleSubmit(signUp)}>
         <h1>Create Account</h1>
         <br />
         <div className={onFocusName ? "labelShow" : "labelHiding"}>
@@ -44,9 +49,9 @@ const Register = ({ Unavailable, View }) => {
         <input
           type="text"
           placeholder="Username"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
+          name="username"
+          ref={register}
+          style={{ border: errors.username ? border : "" }}
           onFocus={() => {
             setOnFocusName(true);
           }}
@@ -54,15 +59,22 @@ const Register = ({ Unavailable, View }) => {
             setOnFocusName(false);
           }}
         />
+
+        <small>
+          {errors.username?.message}
+          {dataErr === "username is already used"
+            ? "Username is already used"
+            : ""}
+        </small>
         <div className={onFocusEmail ? "labelShow" : "labelHiding"}>
           <label htmlFor="email">Email</label>
         </div>
         <input
           type="email"
           placeholder="Email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          name="email"
+          ref={register}
+          style={{ border: errors.email ? border : "" }}
           onFocus={() => {
             setOnFocusEmail(true);
           }}
@@ -70,15 +82,19 @@ const Register = ({ Unavailable, View }) => {
             setOnFocusEmail(false);
           }}
         />
+        <small>
+          {errors.email?.message}
+          {dataErr === "email is already used" ? "Email is already used" : ""}
+        </small>
         <div className={onFocusPhone ? "labelShow" : "labelHiding"}>
           <label htmlFor="phone">Phone</label>
         </div>
         <input
           type="tel"
           placeholder="Phone"
-          onChange={(e) => {
-            setPhone(e.target.value);
-          }}
+          name="phone"
+          ref={register}
+          style={{ border: errors.phone ? border : "" }}
           onFocus={() => {
             setOnFocusPhone(true);
           }}
@@ -86,17 +102,23 @@ const Register = ({ Unavailable, View }) => {
             setOnFocusPhone(false);
           }}
         />
+        <small>
+          {errors.phone?.message}
+          {dataErr === "phone number is already used"
+            ? "Phone is already used"
+            : ""}
+        </small>
         <div className={onFocusPass ? "labelShow" : "labelHiding"}>
           <label htmlFor="password">Password</label>
         </div>
         <div id="input_container">
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
             id="input"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            placeholder="Password"
+            name="password"
+            ref={register}
+            style={{ border: errors.password ? border : "" }}
             onFocus={() => {
               setOnFocusPass(true);
             }}
@@ -112,6 +134,13 @@ const Register = ({ Unavailable, View }) => {
             }}
           />
         </div>
+        <small>
+          {errors.password?.message}
+          {dataErr ===
+          "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
+            ? "Your password must contain a number, upper & lower letter, NO whitespace, No symbol"
+            : ""}
+        </small>
 
         <div className={onFocusConfPass ? "labelShow" : "labelHiding"}>
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -119,11 +148,11 @@ const Register = ({ Unavailable, View }) => {
         <div id="input_container">
           <input
             type={showConfPassword ? "text" : "password"}
-            placeholder="Confirm Password"
             id="input"
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            ref={register}
+            style={{ border: errors.confirmPassword ? border : "" }}
             onFocus={() => {
               setOnFocusConfPass(true);
             }}
@@ -139,10 +168,11 @@ const Register = ({ Unavailable, View }) => {
             }}
           />
         </div>
+        <small>{errors.confirmPassword && "Password Should Match!"}</small>
 
         <button
           className="btn--primary"
-          onClick={signUp}
+          type="submit"
           style={{ marginTop: "1rem" }}
         >
           Sign Up

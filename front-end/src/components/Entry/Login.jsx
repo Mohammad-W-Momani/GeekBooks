@@ -1,50 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginschema } from "./Validate/Validating";
 import axios from "axios";
+
 import Register from "./Register";
 import Unavailable from "./EntryStyle/Img/Eye_Show_Unavailable.png";
 import View from "./EntryStyle/Img/Eye_Show_View.png";
 import "./EntryStyle/Entry.scss";
 
 const Login = () => {
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(loginschema),
+  });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [signInOrUp, setSignInUp] = useState(false);
+
   const [onFocusName, setOnFocusName] = useState(false);
   const [onFocusPass, setOnFocusPass] = useState(false);
 
-  const [username, setUsername] = useState({});
-  const [password, setPassword] = useState({});
+  const [dataErr, setDataErr] = useState();
 
   const transitions = () => {
     setSignInUp(!signInOrUp);
   };
 
-  const signIn = (e) => {
-    e.preventDefault();
-    console.log("1");
+  const signIn = (data) => {
     axios
       .post("/login", {
-        username,
-        password,
+        ...data,
       })
-      .then((result) => {
-        console.log(result);
-        if (!result.data.error) {
-          localStorage.setItem("token", result.data);
-          window.location.href = "/";
-        }
+      .then(({ res }) => {
+        setDataErr(res);
+        // if (!result.data.error) {
+        //   localStorage.setItem("token", result.data);
+        //   window.location.href = "/";
+        // }
       })
       .catch((err) => {
         console.log("ERR : ", err);
       });
   };
 
-  useEffect(() => {}, []);
   return (
     <div className={`container ${signInOrUp ? "right-panel-active" : ""}`}>
-      <Register Unavailable={Unavailable} View={View}/>
+      <Register Unavailable={Unavailable} View={View} />
       <div className="container__form container--sign-in">
-        <form>
+        <form onSubmit={handleSubmit(signIn)}>
           <h1>Sign in</h1>
           <br />
           <span>Use your account</span>
@@ -54,9 +58,8 @@ const Login = () => {
           <input
             type="text"
             placeholder="Username, Email, Phone"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
+            name={"email" || "username" || "phone"}
+            ref={register}
             onFocus={() => {
               setOnFocusName(true);
             }}
@@ -65,6 +68,8 @@ const Login = () => {
             }}
             className="username-input"
           />
+          {console.log(dataErr)}
+          <small>{errors.email?.message}</small>
           <div className={onFocusPass ? "labelShow" : "labelHiding"}>
             <label htmlFor="password">Password</label>
           </div>
@@ -73,9 +78,8 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               id="input"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              name="password"
+              ref={register}
               onFocus={() => {
                 setOnFocusPass(true);
               }}
@@ -84,14 +88,16 @@ const Login = () => {
               }}
             />
             <img
-              src={showPassword?Unavailable:View}
+              src={showPassword ? Unavailable : View}
               id="input_img"
-              onClick={(e) => {setShowPassword(!showPassword)}}
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
             />
           </div>
-
+          <small>{errors.password?.message}</small>
           <br />
-          <button className="btn--primary" onClick={signIn}>
+          <button className="btn--primary" type="submit">
             Sign In
           </button>
         </form>
