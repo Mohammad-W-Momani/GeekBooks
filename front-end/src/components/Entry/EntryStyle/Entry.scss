@@ -72,15 +72,13 @@ small {
             &>div>input {
                 background-color: #eee;
                 border: none;
-                padding: 4px 8px;
-                margin: 2px 0;
+                padding: 2px 8px;
                 width: 100%;
             }
             &>input {
                 background-color: #eee;
                 border: none;
-                padding: 4px 8px;
-                margin: 2px 0;
+                padding: 2px 8px;
                 width: 100%;
             }
             &>div {
@@ -214,7 +212,7 @@ input:focus::placeholder {
 
 #input_img {
     position: absolute;
-    bottom: 5.5px;
+    bottom: 2.5px;
     right: 5px;
     width: 24px;
     height: 24px;
