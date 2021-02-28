@@ -19,7 +19,6 @@ const Posts = () => {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        console.log(response);
         if (response.data === "Add new posts ") {
           console.log("Add Posts");
           return;

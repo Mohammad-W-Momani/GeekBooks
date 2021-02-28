@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useHistory  } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginschema } from "./Validate/Validating";
 import axios from "axios";
 
-import Register from "./Register";
+import Register from "./SignUp";
 import Unavailable from "./EntryStyle/Img/Eye_Show_Unavailable.png";
 import View from "./EntryStyle/Img/Eye_Show_View.png";
 import "./EntryStyle/Entry.scss";
@@ -16,15 +17,18 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [signInOrUp, setSignInUp] = useState(false);
+  const [signInOrUp, setSignInOrUp] = useState(false);
 
   const [onFocusName, setOnFocusName] = useState(false);
   const [onFocusPass, setOnFocusPass] = useState(false);
 
-  const [dataErr, setDataErr] = useState();
+  const history = useHistory();
+
+  const [dataErr, setDataErr] = useState({});
+
 
   const transitions = () => {
-    setSignInUp(!signInOrUp);
+    setSignInOrUp(!signInOrUp);
   };
 
   const signIn = (data) => {
@@ -32,17 +36,17 @@ const Login = () => {
       .post("/login", {
         ...data,
       })
-      .then(({ res }) => {
-        setDataErr(res);
-        // if (!result.data.error) {
-        //   localStorage.setItem("token", result.data);
-        //   window.location.href = "/";
-        // }
+      .then(( {data} ) => {
+        setDataErr(data);
+        if (!data.error) {
+          localStorage.setItem("token",data);
+          history.push("/")
+        }
       })
       .catch((err) => {
         console.log("ERR : ", err);
       });
-  };
+    };
 
   return (
     <div className={`container ${signInOrUp ? "right-panel-active" : ""}`}>
@@ -57,8 +61,8 @@ const Login = () => {
           </div>
           <input
             type="text"
-            placeholder="Username, Email, Phone"
-            name={"email" || "username" || "phone"}
+            placeholder="Email"
+            name="email"
             ref={register}
             onFocus={() => {
               setOnFocusName(true);
@@ -68,16 +72,16 @@ const Login = () => {
             }}
             className="username-input"
           />
-          {console.log(dataErr)}
+
           <small>{errors.email?.message}</small>
           <div className={onFocusPass ? "labelShow" : "labelHiding"}>
             <label htmlFor="password">Password</label>
           </div>
-          <div id="input_container">
+          <div className="input_container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              id="input"
+              className="input"
               name="password"
               ref={register}
               onFocus={() => {
@@ -89,13 +93,13 @@ const Login = () => {
             />
             <img
               src={showPassword ? Unavailable : View}
-              id="input_img"
+              className="input_img"
               onClick={() => {
                 setShowPassword(!showPassword);
               }}
             />
           </div>
-          <small>{errors.password?.message}</small>
+          <small>{errors.password?.message}{dataErr.error?"invalid password or email":""}</small>
           <br />
           <button className="btn--primary" type="submit">
             Sign In

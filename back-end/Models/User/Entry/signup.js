@@ -53,6 +53,7 @@ const passwordChecking = (password) => {
         return false;
     }
 };
+
 const signUp = async(req, res) => {
     const user = req.body;
     if (user.password.length < 8) {
@@ -63,6 +64,13 @@ const signUp = async(req, res) => {
         res.json("Invalid Phone Number");
         return;
     }
+    if (!passwordChecking(user.password)) {
+        res.json(
+            "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
+        );
+        return;
+    }
+
 
     bcrypt.hash(user.password, Number(process.env.SALT), (err, hash) => {
         if (err) throw err;
@@ -90,14 +98,9 @@ const signUp = async(req, res) => {
                     res.json("username is already used");
                     return;
                 }
+
             }
-            if (!passwordChecking(user.password)) {
-                res.json(
-                    "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
-                );
-                return;
-            }
-            res.json("User Has Been Created Successfully ");
+            res.json("User Has Been Created Successfully");
             return;
         });
     });

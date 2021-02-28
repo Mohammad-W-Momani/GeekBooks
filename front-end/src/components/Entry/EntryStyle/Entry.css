@@ -29,7 +29,7 @@ small {
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
-  padding: 12px 45px;
+  padding: 4% 18%;
   letter-spacing: 1px;
   text-transform: uppercase;
   -webkit-transition: -webkit-transform 80ms ease-in;
@@ -298,13 +298,13 @@ input:focus::placeholder {
   }
 }
 
-#input_container {
+.input_container {
   position: relative;
   direction: ltr;
   width: 100%;
 }
 
-#input_img {
+.input_img {
   position: absolute;
   bottom: 2.5px;
   right: 5px;

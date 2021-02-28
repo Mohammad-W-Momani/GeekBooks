@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {  yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {signSchema} from './Validate/Validating'
 
 import axios from "axios";
@@ -30,8 +30,9 @@ const Register = ({ Unavailable, View }) => {
       .post("/register", {
         ...data,
       })
-      .then(({ res }) => {
-        setDataErr(res);
+      .then(( {data} ) => {
+        console.log(data);
+        setDataErr(data);
       })
       .catch((err) => {
         console.log("ERR : ", err);
@@ -111,10 +112,10 @@ const Register = ({ Unavailable, View }) => {
         <div className={onFocusPass ? "labelShow" : "labelHiding"}>
           <label htmlFor="password">Password</label>
         </div>
-        <div id="input_container">
+        <div className="input_container">
           <input
             type={showPassword ? "text" : "password"}
-            id="input"
+            className="input"
             placeholder="Password"
             name="password"
             ref={register}
@@ -128,7 +129,7 @@ const Register = ({ Unavailable, View }) => {
           />
           <img
             src={showPassword ? Unavailable : View}
-            id="input_img"
+            className="input_img"
             onClick={() => {
               setShowPassword(!showPassword);
             }}
@@ -145,10 +146,10 @@ const Register = ({ Unavailable, View }) => {
         <div className={onFocusConfPass ? "labelShow" : "labelHiding"}>
           <label htmlFor="confirmPassword">Confirm Password</label>
         </div>
-        <div id="input_container">
+        <div className="input_container">
           <input
             type={showConfPassword ? "text" : "password"}
-            id="input"
+            className="input"
             placeholder="Confirm Password"
             name="confirmPassword"
             ref={register}
@@ -162,7 +163,7 @@ const Register = ({ Unavailable, View }) => {
           />
           <img
             src={showConfPassword ? Unavailable : View}
-            id="input_img"
+            className="input_img"
             onClick={() => {
               setShowConfPassword(!showConfPassword);
             }}

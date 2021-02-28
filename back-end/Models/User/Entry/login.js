@@ -31,9 +31,19 @@ const signIn = (req, res) => {
                             expiresIn: process.env.TOKEN_EXPIRATION,
                         };
                         res.json(jwt.sign(payloads, process.env.SECRET, options));
-                    } else res.json("password is incorrect");
+                    } else res.json({
+                        "error": {
+                            "status": 401,
+                            "message": "password is incorrect"
+                        }
+                    });
                 });
-            } else res.json("Invalid login");
+            } else res.json({
+                "error": {
+                    "status": 401,
+                    "message": "Invalid login"
+                }
+            });
         }
     });
 };
