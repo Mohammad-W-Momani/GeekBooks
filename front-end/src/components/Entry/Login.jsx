@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory  } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginschema } from "./Validate/Validating";
+import { loginschema } from "./Validate/Validation";
 import axios from "axios";
 
 import Register from "./SignUp";
@@ -41,6 +41,7 @@ const Login = () => {
         if (!data.error) {
           localStorage.setItem("token",data);
           history.push("/")
+          history.go(0);
         }
       })
       .catch((err) => {

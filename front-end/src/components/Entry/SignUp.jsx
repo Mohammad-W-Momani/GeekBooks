@@ -1,36 +1,38 @@
 import React, { useState } from "react";
+import {  positions, useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {signSchema} from './Validate/Validating'
+import { signSchema } from "./Validate/Validation";
 
 import axios from "axios";
 
-
-
 const Register = ({ Unavailable, View }) => {
+  const alert = useAlert();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(signSchema),
   });
-
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
-
+  
   const [onFocusName, setOnFocusName] = useState(false);
   const [onFocusEmail, setOnFocusEmail] = useState(false);
   const [onFocusPhone, setOnFocusPhone] = useState(false);
   const [onFocusPass, setOnFocusPass] = useState(false);
   const [onFocusConfPass, setOnFocusConfPass] = useState(false);
-
+  
   const [dataErr, setDataErr] = useState();
+
   const { border } = {
     border: "1px solid red",
   };
+  const options = { timeout: 5000, position: positions.BOTTOM_RIGHT };
   const signUp = (data) => {
     axios
       .post("/register", {
         ...data,
       })
-      .then(( {data} ) => {
+      .then(({ data }) => {
         console.log(data);
         setDataErr(data);
       })
@@ -41,6 +43,8 @@ const Register = ({ Unavailable, View }) => {
 
   return (
     <div className="container__form container--sign-up">
+      {dataErr == "User Has Been Created Successfully" &&
+        alert.success("Created Successfully", options).close}
       <form onSubmit={handleSubmit(signUp)}>
         <h1>Create Account</h1>
         <br />
@@ -71,7 +75,7 @@ const Register = ({ Unavailable, View }) => {
           <label htmlFor="email">Email</label>
         </div>
         <input
-          type="email"
+          type="text"
           placeholder="Email"
           name="email"
           ref={register}
@@ -169,7 +173,7 @@ const Register = ({ Unavailable, View }) => {
             }}
           />
         </div>
-        <small>{errors.confirmPassword && "Password Should Match!"}</small>
+        <small>{errors.confirmPassword && "Password does not Match!"}</small>
 
         <button
           className="btn--primary"
