@@ -12,7 +12,7 @@ export const loginschema = yup.object().shape({
 });
 
 export const signSchema = yup.object().shape({
-  username: yup.string().required("Username is a required"),
+  username: yup.string().required("Username is a required").min(2),
   email: yup.string().required("Email is a required ").email("Email must be a valid Email"),
   phone: yup
     .string()

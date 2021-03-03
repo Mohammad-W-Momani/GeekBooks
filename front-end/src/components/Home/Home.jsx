@@ -4,10 +4,10 @@ import Body from "./Body/Body";
 import "./Home.css";
 const Home = () => {
   return (
-    <div className="home">
+    <>
       <Navbar />
       <Body />
-    </div>
+    </>
   ); 
 };
 

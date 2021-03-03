@@ -4,8 +4,8 @@ import axios from "axios";
 const GetBestSeller = (props) => {
   const [books, setBooks] = useState([]);
 
-  const fetchData = async () => {
-    const API_key = "VOrS7sOXri57c2gy01Qd5ss9C6r8x9AA";
+  // const fetchData = async () => {
+  //   const API_key = "VOrS7sOXri57c2gy01Qd5ss9C6r8x9AA";
 
     // await axios
     //   .get(
@@ -26,20 +26,20 @@ const GetBestSeller = (props) => {
         //       // console.log(response);
         //     });
         // });
-      });
-  };
-  const fetchDataGoogle = () => {
-    // console.log(books);
-    // axios
-    //   .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-    //   .then((result) => {
-    //     console.log(result);
-    //   });
-  };
+  //     });
+  // };
+  // const fetchDataGoogle = () => {
+  //   console.log(books);
+  //   axios
+  //     .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+  //     .then((result) => {
+  //       console.log(result);
+  //     });
+  // };
 
   useEffect(() => {
-    fetchData();
-    fetchDataGoogle();
+    // fetchData();
+    // fetchDataGoogle();
   }, []);
 
   return <div></div>;
