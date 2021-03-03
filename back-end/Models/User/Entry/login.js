@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connection = require("../../../db");
-const Login = (req, res) => {
+const login = (req, res) => {
     const user = req.body;
     let query, data;
     const { username, email, phone } = req.body;
@@ -47,4 +47,4 @@ const Login = (req, res) => {
         }
     });
 };
-module.exports = Login;
+module.exports = login;

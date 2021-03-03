@@ -1,4 +1,4 @@
-const Login = require("../Models/User/Entry/Login");
+const Login = require("../Models/User/Entry/login");
 const signUp = require("../Models/User/Entry/signup");
 // follow section
 const followUser = require("../Models/followSystem/following");
