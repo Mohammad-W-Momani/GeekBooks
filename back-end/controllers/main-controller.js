@@ -1,4 +1,4 @@
-const signIn = require("../Models/User/Entry/login");
+const Login = require("../Models/User/Entry/Login");
 const signUp = require("../Models/User/Entry/signup");
 // follow section
 const followUser = require("../Models/followSystem/following");
@@ -54,9 +54,9 @@ const changeNumber = require("../Models/User/UserPage/change-phone");
 // sign up
 const register = signUp;
 //Login
-const login = signIn;
+const login = Login;
 const home = (req, res) => {
-  res.json("Welcome To Your Place");
+    res.json("Welcome To Your Place");
 };
 // follow section
 const follow = followUser;
@@ -112,49 +112,49 @@ const changePhone = changeNumber;
 const editPassword = changePassword;
 const editEmail = changeEmail;
 module.exports = {
-  login,
-  register,
-  home,
-  follow,
-  getUser,
-  getFollower,
-  getFollowing,
-  unfollowUser,
-  chatting,
-  getChat,
-  userChat,
-  newGroup,
-  removeGroup,
-  addMember,
-  getGroupMember,
-  userGroup,
-  removeUser,
-  createPost,
-  removePost,
-  usersPost,
-  post,
-  groupPosts,
-  like,
-  updatePost,
-  comment,
-  postComment,
-  removeComment,
-  updateComment,
-  likeComment,
-  createComment,
-  readList,
-  removeReadList,
-  readingList,
-  removeReadingList,
-  ToReadList,
-  removeToReadList,
-  getRead,
-  getReading,
-  getToRead,
-  editEmail,
-  editPassword,
-  changePhone,
-  homePosts,
-  postLike,
-  commentLike,
+    login,
+    register,
+    home,
+    follow,
+    getUser,
+    getFollower,
+    getFollowing,
+    unfollowUser,
+    chatting,
+    getChat,
+    userChat,
+    newGroup,
+    removeGroup,
+    addMember,
+    getGroupMember,
+    userGroup,
+    removeUser,
+    createPost,
+    removePost,
+    usersPost,
+    post,
+    groupPosts,
+    like,
+    updatePost,
+    comment,
+    postComment,
+    removeComment,
+    updateComment,
+    likeComment,
+    createComment,
+    readList,
+    removeReadList,
+    readingList,
+    removeReadingList,
+    ToReadList,
+    removeToReadList,
+    getRead,
+    getReading,
+    getToRead,
+    editEmail,
+    editPassword,
+    changePhone,
+    homePosts,
+    postLike,
+    commentLike,
 };
