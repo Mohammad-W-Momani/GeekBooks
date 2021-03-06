@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const passRegExp = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z0-9]*$/;
 
 export const loginschema = yup.object().shape({
@@ -18,8 +17,7 @@ export const signSchema = yup.object().shape({
     .string()
     .required("Phone is a required")
     .min(10)
-    .max(13)
-    .matches(phoneRegExp, "Phone number is not valid"),
+    .max(13),
   password: yup
     .string()
     .required("Password is a required")

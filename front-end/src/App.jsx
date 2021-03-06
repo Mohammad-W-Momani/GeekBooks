@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {  Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
@@ -25,9 +24,7 @@ const App = () => {
     </Router>
   ) : (
     <Router>
-      <Provider template={AlertTemplate} >
         <Route path="/" exact component={Login} />
-      </Provider>
     </Router>
   );
 };

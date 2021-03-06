@@ -1,69 +1,70 @@
-import React, { useState } from "react";
-import {  positions, useAlert } from "react-alert";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signSchema } from "./Validate/Validation";
-
 import axios from "axios";
+import { input, inputPass } from "./Elements/Input";
 
-const Register = ({ Unavailable, View }) => {
-  const alert = useAlert();
-  const { register, handleSubmit, errors } = useForm({
+const Register = ({ setSignInOrUp }) => {
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(signSchema),
   });
-  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
-  
+
   const [onFocusName, setOnFocusName] = useState(false);
   const [onFocusEmail, setOnFocusEmail] = useState(false);
   const [onFocusPhone, setOnFocusPhone] = useState(false);
   const [onFocusPass, setOnFocusPass] = useState(false);
   const [onFocusConfPass, setOnFocusConfPass] = useState(false);
-  
-  const [dataErr, setDataErr] = useState();
 
-  const { border } = {
-    border: "1px solid red",
-  };
-  const options = { timeout: 5000, position: positions.BOTTOM_RIGHT };
+  const [dataErr, setDataErr] = useState();
+  const [alert, setalert] = useState(false);
+
   const signUp = (data) => {
     axios
       .post("/register", {
         ...data,
       })
       .then(({ data }) => {
-        console.log(data);
         setDataErr(data);
+        {
+          data === "User Has Been Created Successfully" && reset();
+        }
       })
       .catch((err) => {
         console.log("ERR : ", err);
       });
   };
 
+  const interval = setInterval(() => {
+    if (dataErr === "User Has Been Created Successfully") {
+      setalert(false);
+      setSignInOrUp(false);
+      clearInterval(interval);
+    }
+  }, 5000);
   return (
     <div className="container__form container--sign-up">
-      {dataErr == "User Has Been Created Successfully" &&
-        alert.success("Created Successfully", options).close}
+      {dataErr === "User Has Been Created Successfully" && (
+        <div className="created-success" hidden={alert ? true : false}>
+          Created Successfully
+        </div>
+      )}
+
       <form onSubmit={handleSubmit(signUp)}>
         <h1>Create Account</h1>
         <br />
-        <div className={onFocusName ? "labelShow" : "labelHiding"}>
-          <label htmlFor="username">Username</label>
-        </div>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          ref={register}
-          style={{ border: errors.username ? border : "" }}
-          onFocus={() => {
-            setOnFocusName(true);
-          }}
-          onBlur={() => {
-            setOnFocusName(false);
-          }}
-        />
+
+        {input(
+          "text",
+          "Username",
+          "username",
+          register,
+          onFocusName,
+          setOnFocusName,
+          errors.username
+        )}
 
         <small>
           {errors.username?.message}
@@ -71,108 +72,64 @@ const Register = ({ Unavailable, View }) => {
             ? "Username is already used"
             : ""}
         </small>
-        <div className={onFocusEmail ? "labelShow" : "labelHiding"}>
-          <label htmlFor="email">Email</label>
-        </div>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          ref={register}
-          style={{ border: errors.email ? border : "" }}
-          onFocus={() => {
-            setOnFocusEmail(true);
-          }}
-          onBlur={() => {
-            setOnFocusEmail(false);
-          }}
-        />
+        {input(
+          "text",
+          "Email",
+          "email",
+          register,
+          onFocusEmail,
+          setOnFocusEmail,
+          errors.email
+        )}
+
         <small>
           {errors.email?.message}
           {dataErr === "email is already used" ? "Email is already used" : ""}
         </small>
-        <div className={onFocusPhone ? "labelShow" : "labelHiding"}>
-          <label htmlFor="phone">Phone</label>
-        </div>
-        <input
-          type="tel"
-          placeholder="Phone"
-          name="phone"
-          ref={register}
-          style={{ border: errors.phone ? border : "" }}
-          onFocus={() => {
-            setOnFocusPhone(true);
-          }}
-          onBlur={() => {
-            setOnFocusPhone(false);
-          }}
-        />
+        {input(
+          "tel",
+          "Phone",
+          "phone",
+          register,
+          onFocusPhone,
+          setOnFocusPhone,
+          errors.phone
+        )}
         <small>
           {errors.phone?.message}
           {dataErr === "phone number is already used"
             ? "Phone is already used"
             : ""}
         </small>
-        <div className={onFocusPass ? "labelShow" : "labelHiding"}>
-          <label htmlFor="password">Password</label>
-        </div>
-        <div className="input_container">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="input"
-            placeholder="Password"
-            name="password"
-            ref={register}
-            style={{ border: errors.password ? border : "" }}
-            onFocus={() => {
-              setOnFocusPass(true);
-            }}
-            onBlur={() => {
-              setOnFocusPass(false);
-            }}
-          />
-          <img
-            src={showPassword ? Unavailable : View}
-            className="input_img"
-            onClick={() => {
-              setShowPassword(!showPassword);
-            }}
-          />
-        </div>
+
+        {inputPass(
+          showPassword,
+          setShowPassword,
+          "Password",
+          "password",
+          register,
+          onFocusPass,
+          setOnFocusPass,
+          errors.password
+        )}
+
         <small>
           {errors.password?.message}
           {dataErr ===
           "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
-            ? "Your password must contain a number, upper & lower letter, NO whitespace, No symbol"
+            ? dataErr
             : ""}
         </small>
-
-        <div className={onFocusConfPass ? "labelShow" : "labelHiding"}>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-        </div>
-        <div className="input_container">
-          <input
-            type={showConfPassword ? "text" : "password"}
-            className="input"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            ref={register}
-            style={{ border: errors.confirmPassword ? border : "" }}
-            onFocus={() => {
-              setOnFocusConfPass(true);
-            }}
-            onBlur={() => {
-              setOnFocusConfPass(false);
-            }}
-          />
-          <img
-            src={showConfPassword ? Unavailable : View}
-            className="input_img"
-            onClick={() => {
-              setShowConfPassword(!showConfPassword);
-            }}
-          />
-        </div>
+        {inputPass(
+          showConfPassword,
+          setShowConfPassword,
+          "Confirm Password",
+          "confirmPassword",
+          register,
+          onFocusConfPass,
+          setOnFocusConfPass,
+          errors.confirmPassword
+        )}
         <small>{errors.confirmPassword && "Password does not Match!"}</small>
 
         <button
