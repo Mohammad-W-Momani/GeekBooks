@@ -12,7 +12,7 @@ const UpdateComment = (props) => {
   const updateComment = () => {
     axios
       .put(
-        `http://localhost:5000/comment/${commentElement.comment_id}`,
+        `/comment/${commentElement.comment_id}`,
         {comment : commentState},
         {
           headers: { Authorization: `Basic ${token}` },

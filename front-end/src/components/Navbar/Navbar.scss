@@ -1,0 +1,208 @@
+$color-primary-gray: #343a40;
+$color-primary-green: #28a745;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $color-primary-gray;
+    z-index: 2;
+}
+
+.nav__content {
+    display: grid;
+    grid: 100% / 1fr 2.3fr 1.5fr;
+    text-align: center;
+     ::selection {
+        background-color: #27ae60;
+        color: rgb(12, 8, 8);
+    }
+    &__log {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        justify-items: center;
+        padding: 5.5% 7%;
+        &--navLogo {
+            border-radius: 10px;
+            margin-right: 6%;
+            transition: all .5s;
+            &:hover {
+                transform: rotateY(180deg) scale(1.2);
+            }
+        }
+        &--navName {
+            -webkit-text-fill-color: $color-primary-gray;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: $color-primary-green;
+            letter-spacing: 1.2px;
+            transition: all .5s;
+            font-size: 120%;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+    &__search {
+        padding: 2% 8% 2% 12%;
+        &__form {
+            font-size: 20%;
+            &> :focus {
+                outline: none;
+            }
+            &--btn {
+                font-size: 1.2rem;
+                background: none;
+                border: none;
+                padding-left: 2%;
+                -webkit-text-fill-color: $color-primary-gray;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: $color-primary-green;
+                transition: all 0.2s;
+                cursor: pointer;
+                &:focus {
+                    transform: translateY(-0.2rem) scale(1.2);
+                }
+            }
+            &--search {
+                font-size: 1rem;
+                background: none;
+                border: 1px solid rgb(3, 3, 3);
+                border-radius: 20px;
+                padding: 1% 1.8%;
+                color: rgb(255, 255, 255);
+                width: 55%;
+                &::placeholder {
+                    -webkit-text-fill-color: #6181a0;
+                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-color: #228b3a;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    &__links {
+        padding: 3% 0 0 1%;
+        display: flex;
+        justify-content: flex-end;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        -webkit-text-fill-color: $color-primary-gray;
+        -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: $color-primary-green;
+        &__list {
+            list-style: none;
+            display: grid;
+            grid: 100% / 1fr 1fr 1fr 1fr 2fr;
+            justify-content: space-evenly;
+            align-items: center;
+            justify-items: center;
+            &>li {
+                padding: 0 15%;
+                transition: all 0.2s;
+                border: 1px solid transparent;
+                &:not(:last-child):hover {
+                    transform: translateY(-0.2rem) scale(1.2);
+                    cursor: pointer;
+                }
+            }
+            &--1 {
+                animation-name: moveInRight;
+                animation-duration: 1s;
+                animation-timing-function: ease-out;
+            }
+            &--2 {
+                animation-name: moveInRight;
+                animation-duration: 1.5s;
+                animation-timing-function: ease-out;
+            }
+            &--3 {
+                animation-name: moveInRight;
+                animation-duration: 1.8s;
+                animation-timing-function: ease-out;
+            }
+            &--4 {
+                animation-name: moveInRight;
+                animation-duration: 2s;
+                animation-timing-function: ease-out;
+            }
+            &--5 {
+                animation-name: moveInTop;
+                animation-duration: 1.8s;
+                animation-timing-function: ease-out;
+            }
+        }
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+    &:hover .dropdown__content {
+        display: block;
+        opacity: 1;
+    }
+    &--icon {
+        border: none;
+        cursor: pointer;
+        font-size: 150%;
+        margin: -10%;
+        &>i {
+            -webkit-text-fill-color: $color-primary-gray;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: $color-primary-green;
+        }
+    }
+    &__content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 34px;
+        right: 10%;
+        width: 100px;
+        opacity: 0;
+        &>a {
+            color: #55af49;
+            text-decoration: none;
+            display: block;
+            background-color: #3d4247;
+            border-radius: 2px;
+            padding: 5%;
+            margin-bottom: 3%;
+            font-size: 15px;
+            transition: all 0.3s;
+            &:hover {
+                background-color: #f1f1f1;
+                transform: scaleY(1.2);
+            }
+        }
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    80% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-10rem);
+    }
+    80% {
+        transform: translateY(0.5rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

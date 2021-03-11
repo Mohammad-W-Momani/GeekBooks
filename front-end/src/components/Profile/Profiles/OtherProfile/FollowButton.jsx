@@ -30,7 +30,7 @@ const FollowButton = ({ usernameParams, followers }) => {
       <button
         type="button"
         className="btn btn-success"
-        style={{ height: "50px", borderRadius: "200px" }}
+        style={{ height: "50px", borderRadius: "200px", zIndex:"5" }}
         onClick={follow}
       >
         follow

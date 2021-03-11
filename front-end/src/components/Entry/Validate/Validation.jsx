@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passRegExp = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[a-zA-Z0-9]*$/;
+const passRegExp = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)^[^\s]*$/;
 
 export const loginschema = yup.object().shape({
   email: yup
@@ -23,7 +23,7 @@ export const signSchema = yup.object().shape({
     .required("Password is a required")
     .matches(
       passRegExp,
-      "Your password must contain a number, upper & lower letter, NO whitespace, No symbol "
+      "Your password must contain a number, upper & lower letter, No whitespace"
     )
     .min(8),
   confirmPassword: yup

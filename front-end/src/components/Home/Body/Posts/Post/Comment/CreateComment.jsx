@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-const CreateComment = (props) => {
+const CreateComment = ({post_id}) => {
   // The setCommentsArray function from the post component that addes the comment to the comments array
-  const {post_id} = props;
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
   const userData = decoded.username;
@@ -19,14 +18,14 @@ const CreateComment = (props) => {
     }
     axios
       .post(
-        `http://localhost:5000/comment/${post_id}/createcomment`,
+        `/comment/${post_id}/createcomment`,
         commentInfo,
         {
           headers: { Authorization: `Basic ${token}` },
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((err) => {
         throw err;

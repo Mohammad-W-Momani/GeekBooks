@@ -27,8 +27,6 @@ const Login = () => {
 
   const [dataErr, setDataErr] = useState({});
 
-
-
   const signIn = (data) => {
     axios
       .post("/login", {
@@ -49,7 +47,7 @@ const Login = () => {
 
   return (
     <div className={`container ${signInOrUp ? "right-panel-active" : ""}`}>
-      <Register  setSignInOrUp={setSignInOrUp} />
+      <Register setSignInOrUp={setSignInOrUp} />
       <div className="container__form container--sign-in">
         <form onSubmit={handleSubmit(signIn)}>
           <h1>Sign in</h1>
@@ -79,7 +77,13 @@ const Login = () => {
             {dataErr.error ? "invalid password or email" : ""}
           </small>
           <br />
-          <button className="btn--primary" type="submit">
+          <button
+            className={
+              JSON.stringify(errors) === "{}" ? "btn--primary" : "btn--disabled"
+            }
+            disabled={JSON.stringify(errors) === "{}" ? false : true}
+            type="submit"
+          >
             Sign In
           </button>
         </form>

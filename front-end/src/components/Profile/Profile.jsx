@@ -21,7 +21,6 @@ const Profile = () => {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        // console.log(response);
         setUser(response.data);
         setUserName(response.data[0].username);
       })

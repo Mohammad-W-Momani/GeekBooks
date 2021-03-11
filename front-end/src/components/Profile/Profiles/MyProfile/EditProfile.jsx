@@ -8,7 +8,7 @@ const EditProfile = () => {
         width="130"
         className="rounded mb-2 img-thumbnail"
       />
-      <a className="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+      <a href="/setting" className="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
     </div>
   );
 };

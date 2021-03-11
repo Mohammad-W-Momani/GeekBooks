@@ -16,6 +16,7 @@ const login = (req, res) => {
         data = phone;
     }
     connection.query(query, data, (err, result) => {
+
         if (err) throw err.sqlMessage;
         else {
             if (result.length) {

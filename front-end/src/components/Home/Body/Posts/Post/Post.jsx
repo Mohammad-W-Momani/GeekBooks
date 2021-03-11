@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./Post.css";
 import jwt_decode from "jwt-decode";
 import { Dropdown } from "react-bootstrap";
 import Comment from "./Comment/Comment";
@@ -7,17 +8,18 @@ import PostLike from "./PostLike";
 import UpdatePost from "./UpdatePost";
 import CreateComment from "./Comment/CreateComment";
 import "./Post.css";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
-const Post = (props) => {
+const Post = ({ getUserPosts, getPosts, setGetPosts, postElement }) => {
   const token = localStorage.getItem("token");
-  const decoded = jwt_decode(token);
 
   // postAttr is the props that is set from the Posts component and contains every post as an element
-  const { getUserPosts, getPosts, setGetPosts } = props;
-  const postAttr = props.postElement;
+  const postAttr = postElement;
 
   // State hook for editing the post
   const [editPostMode, setEditPostMode] = useState(false);
+
+  const [dropdown, setDropdown] = useState(false);
 
   // state hook which is an array that have comments of the post
   const [commentsArray, setCommentsArray] = useState([]);
@@ -31,7 +33,7 @@ const Post = (props) => {
   // Getting the comments on the post by the post_id and set the state hook to the array of comments
   const getPostComments = () => {
     axios
-      .get(`http://localhost:5000/post/comment/${postAttr.post_id}`, {
+      .get(`/post/comment/${postAttr.post_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
@@ -47,7 +49,7 @@ const Post = (props) => {
   };
   const deletePost = () => {
     axios
-      .delete(`http://localhost:5000/post/${postAttr.post_id}`, {
+      .delete(`/post/${postAttr.post_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
@@ -67,13 +69,11 @@ const Post = (props) => {
   const renderPostComments = commentsArray.map((elem, i) => {
     return <Comment comment={elem} postAttr={postAttr} key={i + 1} />;
   });
-
   return (
     <div className="col-md-offset-3 col-md-12 col-xs-12">
       <div className="card" style={{ borderRadius: "20px" }}>
         <div className="d-flex justify-content-between p-2 px-3">
           <div className="d-flex flex-row align-items-center">
-            {" "}
             <img
               src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/10/13/lion-king.jpeg?width=990"
               width="50"
@@ -90,29 +90,20 @@ const Post = (props) => {
             {" "}
             <h6 className="mr-2">{postAttr.created_time.slice(11, 16)}</h6>
             {"  "}
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="success"
-                id="dropdown-basic"
-              ></Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  href="#"
-                  onClick={() => {
-                    if (!editPostMode) {
-                      setEditPostMode(true);
-                      return;
-                    }
-                    setEditPostMode(false);
-                  }}
-                >
-                  Edit
-                </Dropdown.Item>
-                <Dropdown.Item href="#" onClick={deletePost}>
-                  Delete
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            
+            <div className="post-dropdown">
+              <button onClick={() => setDropdown(!dropdown)} className="post-dropbtn">
+              <i className="fa fa-chevron-down" style={{fontSize:"1.2rem"}}></i>
+              </button>
+              <div
+                id="myDropdown"
+                className={`post-dropdown-content ${dropdown ? "post-show":""}`}
+              >
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+              </div>
+            </div>
           </div>
         </div>{" "}
         <div className="p-2">
@@ -123,28 +114,42 @@ const Post = (props) => {
               setGetPosts={setGetPosts}
             />
           ) : (
-            <p className="text-justify">{postAttr.post}</p>
+            <textarea
+              readOnly
+              className="form-control shadow-none"
+              rows="4"
+              value={postAttr.post}
+              style={{
+                border: "1px solid gray",
+                borderRadius: "15px",
+                resize: "none",
+              }}
+            >
+            </textarea>
           )}
           <hr />
           <div className="d-flex justify-content-between align-items-center">
-            {/* The Like component */}
+            {/* The Like component  */}
             <PostLike postAttr={postAttr} />
             {/* The comments component */}
-            <span
-              className="pr-2"
-              style={{ cursor: "pointer" }}
+            <div
+              className="pr-2 d-flex"
+              style={{ fontSize: "1.3rem" }}
               onClick={() => {
-                renderComments
-                  ? setRenderComments(false)
-                  : setRenderComments(true);
+                setRenderComments(!renderComments);
               }}
             >
-              {renderPostComments.length} comments
-            </span>{" "}
+              <small style={{ marginRight: "22%" }}>
+                {renderPostComments.length}{" "}
+              </small>
+              <i
+                className="far fa-comment-alt pt-1"
+                style={{ cursor: "pointer" }}
+              ></i>
+            </div>{" "}
           </div>
           <hr />
-          {/* Rendering the comments of the post */}
-          {renderComments ? renderPostComments : ""}
+          {renderComments ? renderPostComments : null}
           <CreateComment post_id={postAttr.post_id} />
         </div>
       </div>

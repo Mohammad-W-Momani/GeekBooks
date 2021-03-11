@@ -1,0 +1,15 @@
+.quote-box {
+    display: block;
+    position: fixed;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 2px 2px #e0e0e0;
+    border: #28a745 solid 2px;
+    border-radius: 20px;
+    text-align: center;
+    margin-right: 5%;
+}
+
+.quote {
+    color: black;
+    padding: 4px;
+}

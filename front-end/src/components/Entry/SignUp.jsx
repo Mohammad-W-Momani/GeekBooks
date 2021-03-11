@@ -37,12 +37,12 @@ const Register = ({ setSignInOrUp }) => {
       });
   };
 
-  const interval = setInterval(() => {
+  const interval = setTimeout(() => {
     if (dataErr === "User Has Been Created Successfully") {
-      setalert(false);
+      setalert(true);
       setSignInOrUp(false);
-      clearInterval(interval);
     }
+    clearInterval(interval);
   }, 5000);
   return (
     <div className="container__form container--sign-up">
@@ -65,7 +65,6 @@ const Register = ({ setSignInOrUp }) => {
           setOnFocusName,
           errors.username
         )}
-
         <small>
           {errors.username?.message}
           {dataErr === "username is already used"
@@ -131,9 +130,11 @@ const Register = ({ setSignInOrUp }) => {
           errors.confirmPassword
         )}
         <small>{errors.confirmPassword && "Password does not Match!"}</small>
-
         <button
-          className="btn--primary"
+          className={
+            JSON.stringify(errors) === "{}" ? "btn--primary" : "btn--disabled"
+          }
+          disabled={JSON.stringify(errors) === "{}" ? false : true}
           type="submit"
           style={{ marginTop: "1rem" }}
         >

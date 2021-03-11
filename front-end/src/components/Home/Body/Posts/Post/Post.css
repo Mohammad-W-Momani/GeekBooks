@@ -1,13 +1,48 @@
-.editAndDeleteContainer{
-    position: relative;
-    right: 40px;
-    border: 1px solid green;
+.post-dropbtn {
+    background-color: #3498db00;
+    color: rgb(0, 0, 0);
+    padding: 6px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
 }
-#dropdownMenuLink{
-    position: relative;
-    bottom: 5px;
+
+.post-dropbtn:hover,
+.post-dropbtn:focus {
+    color: #3ca049;
+    outline: none;
 }
-.mr-2{
+
+.post-dropbtn:hover {
+    transform: scale(1.2);
+}
+
+.post-dropdown {
     position: relative;
-    bottom: 2px;
+    display: inline-block;
+}
+
+.post-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 40px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.post-dropdown-content a {
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+}
+
+.post-dropdown a:hover {
+    background-color: #ddd;
+}
+
+.post-show {
+    display: block;
 }

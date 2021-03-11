@@ -16,7 +16,7 @@ const Quotes = () => {
     let randomQuote = data[randomNum];
     setQuote(randomQuote.text);
     setAuthor(randomQuote.author);
-    setTimeout(getQuote.bind(), 60000);
+    setTimeout(getQuote.bind(), 30000);
   };
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../../../Navbar/Navbar";
 import FollowButton from "./FollowButton";
 
 const OtherProfile = ({
@@ -13,7 +13,7 @@ const OtherProfile = ({
   return (
     <div>
       <Navbar />
-      <div className="row py-5 px-4">
+      <div className="row py-5 px-4" style={{marginTop:"5%"}}>
         <div className="col-md-5 mx-auto">
           <div className="bg-white shadow rounded overflow-hidden">
             <div className="px-4 pt-0 pb-4 cover">

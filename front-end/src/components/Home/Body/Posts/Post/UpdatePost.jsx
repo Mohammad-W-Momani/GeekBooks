@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-const UpdatePost = (props) => {
+const UpdatePost = ({ postAttr, setEditPostMode, setGetPosts }) => {
   const token = localStorage.getItem("token");
-  const decoded = jwt_decode(token);
-  const { postAttr, setEditPostMode, setGetPosts } = props;
-
-  // State hook for updating the post
   const [post, setPost] = useState(postAttr.post);
 
   const updatePost = () => {
     axios
       .put(
-        `http://localhost:5000/post/${postAttr.post_id}`,
+        `/post/${postAttr.post_id}`,
         { post },
         {
           headers: { Authorization: `Basic ${token}` },
@@ -41,8 +37,12 @@ const UpdatePost = (props) => {
           }}
         >
           <textarea
+            maxLength="255"
+            minLength="8"
             className="form-control shadow-none"
-            style={{ borderRadius: "15px" }}
+            style={{ borderRadius: "15px", resize: "none" }}
+            rows="4"
+            cols="30"
             value={post}
             onChange={(e) => {
               setPost(e.target.value);

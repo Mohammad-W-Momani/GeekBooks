@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import jwt_decode from "jwt-decode";
-const CommentLike = (props) => {
-  const { comment } = props;
+const CommentLike = ({comment}) => {
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
 
@@ -32,7 +31,6 @@ const CommentLike = (props) => {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        console.log(response);
         setLikedComment(false);
       })
       .catch((err) => {
@@ -44,9 +42,8 @@ const CommentLike = (props) => {
       .get(`/post/comment/like/${comment.comment_id}`, {
         headers: { Authorization: `Basic ${token}` },
       })
-      .then((response) => {
-        console.log(response);
-        setCommentLikes(response.data.length);
+      .then(({data}) => {
+        setCommentLikes(data.length);
       })
       .catch((err) => {
         throw err;

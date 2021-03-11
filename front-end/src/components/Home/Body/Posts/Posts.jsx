@@ -15,7 +15,7 @@ const Posts = () => {
 
   const getUserPosts = () => {
     axios
-      .get(`http://localhost:5000/${username}/post`, {
+      .get(`/${username}/post`, {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
@@ -33,27 +33,30 @@ const Posts = () => {
     getUserPosts();
   }, [getPosts]);
 
-  const arrayOfPosts = postsArray.map((elem, i) => {
-    return (
-      <Post
-        postElement={elem}
-        key={i + 1}
-        getUserPosts={getUserPosts}
-        getPosts={getPosts}
-        setGetPosts={setGetPosts}
-      />
-    );
-  });
+  const postsStyle = {
+    backgroundColor: "none",
+    boxShadow: "none",
+    borderRadius: 0,
+    marginRight:"5%"
+  };
   return (
-    <div className="container bootstrap snippets bootdey ">
-      <div className="row d-flex align-items-center justify-content-center">
-        {/* postsArray={postsArray} setPostsArray={setPostsArray} getUserPosts={getUserPosts} */}
+    <div style={postsStyle}>
+      <div>
         <CreatePost getPosts={getPosts} setGetPosts={setGetPosts} />
-        <div
-          className="row d-flex align-items-center justify-content-center "
-          style={{ borderRadius: "20px", width: "90%" }}
-        >
-          {arrayOfPosts.reverse()}
+        <div>
+          {postsArray
+            .map((elem, i) => {
+              return (
+                <Post
+                  postElement={elem}
+                  key={i + 1}
+                  getUserPosts={getUserPosts}
+                  getPosts={getPosts}
+                  setGetPosts={setGetPosts}
+                />
+              );
+            })
+            .reverse()}
         </div>
       </div>
     </div>

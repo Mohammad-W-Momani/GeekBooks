@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import axios from "axios";
 
 function Setting() {
@@ -13,13 +13,14 @@ function Setting() {
   const [oldPassword, setOldPassword] = useState("");
 
   const editEmail = () => {
-    axios.put(
-      `profile/editemail`,
-      { newEmail: newEmail, oldEmail: oldEmail },
-      {
-        headers: { Authorization: `Basic ${token}` },
-      }
-    )
+    axios
+      .put(
+        `profile/editemail`,
+        { newEmail: newEmail, oldEmail: oldEmail },
+        {
+          headers: { Authorization: `Basic ${token}` },
+        }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -28,13 +29,14 @@ function Setting() {
       });
   };
   const editPhone = () => {
-    axios.put(
-      `profile/editnumber`,
-      { newPhone: newPhone, oldPhone: oldPhone },
-      {
-        headers: { Authorization: `Basic ${token}` },
-      }
-    )
+    axios
+      .put(
+        `profile/editnumber`,
+        { newPhone: newPhone, oldPhone: oldPhone },
+        {
+          headers: { Authorization: `Basic ${token}` },
+        }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -43,13 +45,14 @@ function Setting() {
       });
   };
   const editPassword = () => {
-    axios.put(
-      `profile/editpassword`,
-      { newPassword: newPassword, oldPassword: oldPassword },
-      {
-        headers: { Authorization: `Basic ${token}` },
-      }
-    )
+    axios
+      .put(
+        `profile/editpassword`,
+        { newPassword: newPassword, oldPassword: oldPassword },
+        {
+          headers: { Authorization: `Basic ${token}` },
+        }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -61,11 +64,11 @@ function Setting() {
   return (
     <div>
       <Navbar />
-      <div className="d-flex justify-content-center align-items-center mt-5 pt-2">
-        <section
-          className="mb-5 text-center pl-5 pt-5"
-          style={{ width: "30%" }}
-        >
+      <div
+        className="d-flex justify-content-center align-items-center pt-2"
+        style={{ margin: "8% 4%" }}
+      >
+        <section className="mb-5 text-center pl-5 pt-5">
           <p>Old password</p>
           <form>
             <div className="md-form md-outline">
@@ -99,10 +102,7 @@ function Setting() {
             </button>
           </form>
         </section>
-        <section
-          className="mb-5 text-center pl-4 pt-5"
-          style={{ width: "30%" }}
-        >
+        <section className="mb-5 text-center pl-4 pt-5">
           <p>Old Email</p>
 
           <form>
@@ -137,10 +137,7 @@ function Setting() {
             </button>
           </form>
         </section>
-        <section
-          className="mb-5 text-center pl-4 pt-5"
-          style={{ width: "30%" }}
-        >
+        <section className="mb-5 text-center pl-4 pt-5">
           <p>Old phone</p>
 
           <form>
@@ -181,4 +178,3 @@ function Setting() {
 }
 
 export default Setting;
-

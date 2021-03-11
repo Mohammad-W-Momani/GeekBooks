@@ -1,14 +1,8 @@
 .row {
-  margin-right: 15px;
-}
-
-.columns {
-  margin-top: 20px;
+    margin-right: 15px;
 }
 
 .user-name {
-  text-align: center;
-  font-family: "Niconne", cursive;
+    text-align: center;
+    font-family: "Niconne", cursive;
 }
-
-
